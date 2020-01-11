@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import useFormValidation from "./useFormValidation";
 import validateAdminLogin from "./validateAdminLogin";
 import "./CreateAdminLogin.css";
@@ -15,8 +15,8 @@ export default () => {
     handleBlur,
     handleSubmit,
     values,
-    errors,
-    isSubitting
+    errors
+    // isSubitting
   } = useFormValidation(INITIAL_STATE, validateAdminLogin, authenticateUser);
 
   // const [login, setLogin] = useState(true);

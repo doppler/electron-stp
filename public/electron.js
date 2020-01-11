@@ -5,6 +5,8 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require("path");
 const isDev = require("electron-is-dev");
 
+process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = true;
+
 let mainWindow;
 
 function createWindow() {
