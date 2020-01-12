@@ -1,6 +1,6 @@
 import { FormValues, FormErrors } from "./types";
 
-const validateAdminLogin = (values: FormValues, isSubmitting: Boolean) => {
+const validateAdminLogin = (values: FormValues, isLogin: Boolean) => {
   let errors: FormErrors = {};
   if (
     values.email &&
@@ -23,7 +23,11 @@ const validateAdminLogin = (values: FormValues, isSubmitting: Boolean) => {
       "Password must contain at least one of each: Uppercase, lowercase, digit";
   }
 
-  if (values.password && values.passwordConfirm !== values.password) {
+  if (
+    isLogin &&
+    values.password &&
+    values.passwordConfirm !== values.password
+  ) {
     errors.passwordConfirm = "Password confirmation does not match password";
   }
 

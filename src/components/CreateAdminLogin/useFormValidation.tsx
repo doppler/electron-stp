@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FormValues, FormErrors } from "./types";
 
-// type FormValues = {
-//   email: string;
-//   password: string;
-//   passwordConfirm?: string;
-// };
-
-// type FormErrors = {
-//   email?: string,
-//   password?: string,
-//   passwordConfirm?: string
-// }
-
 const useFormValidation = (
   initialState: FormValues,
   validate: Function,
@@ -50,6 +38,7 @@ const useFormValidation = (
   };
 
   const handleSubmit = (event: React.FormEvent) => {
+    console.log("handleSubmit");
     event.preventDefault();
     const validationErrors = validate(values);
     setErrors(validationErrors);
