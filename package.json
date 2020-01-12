@@ -15,7 +15,7 @@
     "@types/react-dom": "^16.9.0",
     "electron-is-dev": "^1.1.0",
     "pouchdb": "^7.1.1",
-    "pouchdb-auth": "https://github.com/doppler/pouchdb-auth",
+    "pouchdb-auth": "https://github.com/doppler/pouchdb-auth/",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0",

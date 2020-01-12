@@ -9280,9 +9280,9 @@ postcss@^7, postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.16, po
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-"pouchdb-auth@https://github.com/doppler/pouchdb-auth":
+"pouchdb-auth@https://github.com/doppler/pouchdb-auth/":
   version "3.0.1"
-  resolved "https://github.com/doppler/pouchdb-auth#7a5c7e40d3a297211f331a7c0d74912121f4a1be"
+  resolved "https://github.com/doppler/pouchdb-auth/#a17576315c347276cf43dd4da9f37c3a282c5bc2"
   dependencies:
     base64url "^1.0.5"
     couchdb-calculate-session-id "^1.1.0"
