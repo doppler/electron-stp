@@ -1,20 +1,27 @@
 import "./CreateAdminLogin.css";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import useFormValidation from "./useFormValidation";
 import validateAdminLogin from "./validateAdminLogin";
-import dbContext from "../dbContext";
 import useAuth from "../Auth/useAuth";
 
 const INITIAL_STATE = {
-  email: "doppler@gmail.com",
+  email: "",
   password: "",
   passwordConfirm: ""
 };
 
 export default () => {
-  const db = useContext(dbContext);
+  const { userDocCount, logIn, signUp } = useAuth();
 
-  const { logIn, signUp } = useAuth();
+  // if there are no user docs, we'll show a passwordConfirm field and create the first user.
+  // otherwise, we'll attempt a log in.
+  const [isLogin, setLogin] = useState(false);
+  useEffect(() => {
+    (async () => {
+      let docCount = await userDocCount();
+      setLogin(docCount > 0);
+    })();
+  }, [userDocCount]);
 
   const {
     handleChange,
@@ -25,23 +32,6 @@ export default () => {
     // isSubitting
   } = useFormValidation(INITIAL_STATE, validateAdminLogin, authenticateUser);
 
-  // if no db docs exist, it's not a login.
-  // otherwise, it is.
-  // the _users db contains 1 doc (_design/_auth) by default
-  const [isLogin, setLogin] = useState(true);
-
-  useEffect(() => {
-    const info = async () => {
-      try {
-        const result = await db.info();
-        if (result.doc_count === 1) setLogin(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    info();
-  }, [db]);
-
   async function authenticateUser() {
     const { email, password } = values;
     isLogin ? logIn(email, password) : signUp(email, password);
@@ -49,7 +39,7 @@ export default () => {
 
   return (
     <div className="CreateAdminLogin">
-      <p>isLogin: {isLogin.toString()}</p>
+      {isLogin ? <p>Instructor login</p> : <p>Add instructor account</p>}
       <input
         name="email"
         value={values.email}

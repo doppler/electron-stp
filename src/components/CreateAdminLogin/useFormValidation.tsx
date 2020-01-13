@@ -38,7 +38,6 @@ const useFormValidation = (
   };
 
   const handleSubmit = (event: React.FormEvent) => {
-    console.log("handleSubmit");
     event.preventDefault();
     const validationErrors = validate(values);
     setErrors(validationErrors);
