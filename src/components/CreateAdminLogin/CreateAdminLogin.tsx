@@ -5,9 +5,9 @@ import validateAdminLogin from "./validateAdminLogin";
 import useAuth from "../Auth/useAuth";
 
 const INITIAL_STATE = {
-  email: "",
-  password: "",
-  passwordConfirm: ""
+  email: process.env.REACT_APP_TEST_EMAIL || "",
+  password: process.env.REACT_APP_TEST_PASSWORD || "",
+  passwordConfirm: process.env.REACT_APP_TEST_PASSWORD || ""
 };
 
 export default () => {
