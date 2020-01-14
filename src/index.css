@@ -1,12 +1,14 @@
 :root {
-  --app-bg-color: #00293c;
-  --app-text-color: #f1f3ce;
+  --app-bg-color: hsl(180, 10%, 15%);
+  --app-text-color: hsl(60, 100%, 90%);
 
-  --button-bg-color: #1e656d;
-  --button-border-color: #2c95a0;
+  --div-border-color: hsl(60, 50%, 40%);
 
-  --warning-bg-color: hsl(10, 100%, 48%);
-  --warning-border-color: hsl(10, 100%, 75%);
+  --button-bg-color: hsl(180, 10%, 20%);
+  --button-border-color: hsl(180, 50%, 30%);
+
+  --warning-bg-color: hsl(30, 100%, 48%);
+  --warning-border-color: hsl(30, 100%, 75%);
 }
 
 html,

@@ -1,7 +1,7 @@
 .Home .Header {
   height: 2em;
   width: 100%;
-  border-bottom: 1px solid var(--button-border-color);
+  border-bottom: 1px solid var(--div-border-color);
   display: flex;
   align-items: center;
 }
