@@ -1,3 +1,4 @@
+import "./Home.css";
 import React from "react";
 import useAuth from "../Auth/useAuth";
 import { useHistory } from "react-router-dom";
@@ -12,8 +13,19 @@ const Home = () => {
 
   return (
     <div className="Home">
-      <button onClick={handleLogoutClick}>Log Out</button>
-      <code>{JSON.stringify(user, null, 2)}</code>
+      <div className="Header">
+        <div className="left">
+          <span>Hello</span>
+        </div>
+        <div className="right">
+          <span>{user.name}</span>
+          <span>{JSON.stringify(user.roles)}</span>
+          <button onClick={handleLogoutClick}>Log Out</button>
+        </div>
+      </div>
+      <div className="Content">
+        <code>{JSON.stringify(user, null, 2)}</code>
+      </div>
     </div>
   );
 };

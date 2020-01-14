@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 };
 
 export default () => {
-  const { userDocCount, logIn, signUp, user } = useAuth();
+  const { userDocCount, logIn, signUp } = useAuth();
 
   // if there are no user docs, we'll show a passwordConfirm field and create the first user.
   // otherwise, we'll attempt a log in.
@@ -27,7 +27,6 @@ export default () => {
     handleSubmit,
     values,
     errors
-    // isSubitting
   } = useFormValidation(INITIAL_STATE, validateAdminLogin, authenticateUser);
 
   async function authenticateUser() {
@@ -78,8 +77,6 @@ export default () => {
       <button onClick={handleSubmit}>
         {!isLogin ? "Create " : ""}Admin Login
       </button>
-
-      <code>{JSON.stringify(user, null, 2)}</code>
     </div>
   );
 };

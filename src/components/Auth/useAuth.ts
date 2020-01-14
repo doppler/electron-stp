@@ -70,7 +70,7 @@ const useAuth = () => {
   const logOut = async () => {
     try {
       // @ts-ignore
-      const result = await usersDB.logOut(); // eslint-disable-line
+      const result = await usersDB.logOut(); // eslint-disable-line @typescript-eslint/no-unused-vars
       window.sessionStorage.removeItem("stp:user");
     } catch (error) {
       console.error(error);
