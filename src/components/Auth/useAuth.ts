@@ -36,12 +36,31 @@ const useAuth = () => {
     };
   }, []);
 
+  const signUp = async (email: string, password: string) => {
+    const roles = [];
+    if (addAdminRole) {
+      roles.push("admin");
+    }
+    try {
+      // @ts-ignore
+      const result = await usersDB.signUp(email, password, { roles });
+      window.sessionStorage.setItem(
+        "stp:user",
+        JSON.stringify({ name: email, roles })
+      );
+      console.log(result);
+      history.push("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const logIn = async (email: string, password: string) => {
     try {
       // @ts-ignore
       const result = await usersDB.logIn(email, password);
+      delete result.ok;
       window.sessionStorage.setItem("stp:user", JSON.stringify(result));
-      console.log(result);
       history.push("/");
     } catch (error) {
       console.error(error);
@@ -51,38 +70,14 @@ const useAuth = () => {
   const logOut = async () => {
     try {
       // @ts-ignore
-      const result = await usersDB.logOut();
+      const result = await usersDB.logOut(); // eslint-disable-line
       window.sessionStorage.removeItem("stp:user");
-      console.log(result);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const signUp = async (email: string, password: string) => {
-    const roles = ["instructor"];
-    if (addAdminRole) roles.push("admin");
-    try {
-      // @ts-ignore
-      const result = await usersDB.signUp(email, password, { roles });
-      window.sessionStorage.setItem("stp:user", JSON.stringify(result));
-      console.log(result);
-      history.push("/");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const session = async () => {
-    try {
-      // @ts-ignore
-      const result = await usersDB.session();
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  return { userDocCount, signUp, logIn, logOut, session, user };
+  return { userDocCount, signUp, logIn, logOut, user };
 };
 
 export default useAuth;

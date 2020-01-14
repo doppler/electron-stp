@@ -1,28 +1,31 @@
 :root {
-  --app-bg-color: #00293C;
-  --app-text-color: #F1F3CE;
+  --app-bg-color: #00293c;
+  --app-text-color: #f1f3ce;
 
-  --button-bg-color: #1E656D;
-  --button-border-color: #2C95A0;
+  --button-bg-color: #1e656d;
+  --button-border-color: #2c95a0;
 
   --warning-bg-color: hsl(10, 100%, 48%);
   --warning-border-color: hsl(10, 100%, 75%);
 }
 
-html, body {
+html,
+body {
   height: 100%;
+  background-color: var(--app-bg-color);
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+  white-space: pre;
 }
