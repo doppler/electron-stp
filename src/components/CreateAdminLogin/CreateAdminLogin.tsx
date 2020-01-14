@@ -11,16 +11,14 @@ const INITIAL_STATE = {
 };
 
 export default () => {
-  const { userDocCount, logIn, signUp } = useAuth();
+  const { userDocCount, logIn, signUp, user } = useAuth();
 
   // if there are no user docs, we'll show a passwordConfirm field and create the first user.
   // otherwise, we'll attempt a log in.
   const [isLogin, setLogin] = useState(false);
+
   useEffect(() => {
-    (async () => {
-      let docCount = await userDocCount();
-      setLogin(docCount > 0);
-    })();
+    setLogin(userDocCount > 0);
   }, [userDocCount]);
 
   const {
@@ -80,6 +78,8 @@ export default () => {
       <button onClick={handleSubmit}>
         {!isLogin ? "Create " : ""}Admin Login
       </button>
+
+      <code>{JSON.stringify(user, null, 2)}</code>
     </div>
   );
 };
