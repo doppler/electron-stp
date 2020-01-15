@@ -8,17 +8,19 @@
 .Header > div {
   flex-grow: 1;
 }
-.Header .left * {
+.Header > div {
+  display: flex;
+  flex-direction: row;
+}
+.Header .left {
+  justify-content: flex-start;
+}
+.Header .left > * {
   margin-left: 1em;
 }
 .Header .right {
-  display: flex;
-  flex-direction: row;
   justify-content: flex-end;
 }
-.Header .right * {
+.Header .right > * {
   margin-right: 1em;
-}
-.Content {
-  margin: 1em;
 }

@@ -1,6 +1,7 @@
 :root {
   --app-bg-color: hsl(180, 10%, 15%);
   --app-text-color: hsl(60, 100%, 90%);
+  --app-active-color: hsl(60, 100%, 50%);
 
   --div-border-color: hsl(60, 50%, 40%);
 
