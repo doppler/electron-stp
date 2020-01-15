@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { FormValues, FormErrors } from "./types";
+import { LoginFormValues } from "./types";
+import { FormValidationReturns } from "./types.d";
 
 const useFormValidation = (
-  initialState: FormValues,
+  initialState: any,
   validate: Function,
   authenticate: Function
-) => {
-  const [values, setValues]: [FormValues, Function] = useState(initialState);
-  const [errors, setErrors]: [FormErrors, Function] = useState({});
-  const [isSubitting, setSubmitting] = useState(false);
+): FormValidationReturns => {
+  const [values, setValues] = useState(initialState);
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    if (isSubitting) {
+    if (isSubmitting) {
       const noErrors = Object.keys(errors).length === 0;
       if (noErrors) {
         authenticate();
@@ -20,11 +21,11 @@ const useFormValidation = (
         setSubmitting(false);
       }
     }
-  }, [errors, isSubitting, authenticate]);
+  }, [errors, isSubmitting, authenticate]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.persist();
-    setValues((prevValues: FormValues) => {
+    setValues((prevValues: LoginFormValues) => {
       return {
         ...prevValues,
         [event.target.name]: event.target.value
@@ -50,7 +51,7 @@ const useFormValidation = (
     handleSubmit,
     values,
     errors,
-    isSubitting
+    isSubmitting
   };
 };
 

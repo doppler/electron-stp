@@ -1,10 +1,15 @@
 import "./CreateAdminLogin.css";
 import React, { useState, useEffect } from "react";
-import useFormValidation from "./useFormValidation";
+import useFormValidation from "../useFormValidation";
 import validateAdminLogin from "./validateAdminLogin";
 import useAuth from "../Auth/useAuth";
+import {
+  FormValidationReturns,
+  LoginFormValues,
+  LoginFormErrors
+} from "../types";
 
-const INITIAL_STATE = {
+const INITIAL_STATE: LoginFormValues = {
   email: process.env.REACT_APP_TEST_EMAIL || "",
   password: process.env.REACT_APP_TEST_PASSWORD || "",
   passwordConfirm: process.env.REACT_APP_TEST_PASSWORD || ""
@@ -21,16 +26,25 @@ export default () => {
     setLogin(userDocCount > 0);
   }, [userDocCount]);
 
+  interface CreateLoginFormValidationReturns extends FormValidationReturns {
+    values: LoginFormValues;
+    errors: LoginFormErrors;
+  }
+
   const {
+    values,
+    errors,
     handleChange,
     handleBlur,
-    handleSubmit,
-    values,
-    errors
-  } = useFormValidation(INITIAL_STATE, validateAdminLogin, authenticateUser);
+    handleSubmit
+  }: CreateLoginFormValidationReturns = useFormValidation(
+    INITIAL_STATE,
+    validateAdminLogin,
+    authenticateUser
+  );
 
   async function authenticateUser() {
-    const { email, password } = values;
+    const { email, password }: LoginFormValues = values;
     isLogin ? logIn(email, password) : signUp(email, password);
   }
 
