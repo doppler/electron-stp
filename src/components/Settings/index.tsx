@@ -1,5 +1,7 @@
+import "./Settings.css";
 import React from "react";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
+import Locations from "./Locations";
 
 const SettingsRouter = () => {
   const match = useRouteMatch();
@@ -7,7 +9,8 @@ const SettingsRouter = () => {
     <Switch>
       <Route exact path={`${match.url}`}>
         <div className="Settings">
-          <h2>Settings</h2>
+          <h1>Settings</h1>
+          <Locations />
         </div>
       </Route>
     </Switch>

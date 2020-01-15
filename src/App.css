@@ -34,7 +34,21 @@ button {
   color: var(--app-text-color);
 }
 
+button:hover {
+  cursor: pointer;
+  background-color: var(--button-hover-color);
+}
 button.warning {
   background-color: var(--warning-bg-color);
   border: 1px solid var(--warning-border-color);
+}
+
+button.icon {
+  background-color: transparent;
+  color: var(--button-icon-color);
+  border: 0;
+  padding: 0;
+}
+button.icon:hover {
+  color: var(--button-icon-hover-color);
 }

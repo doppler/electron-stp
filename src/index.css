@@ -6,7 +6,11 @@
   --div-border-color: hsl(60, 50%, 40%);
 
   --button-bg-color: hsl(180, 50%, 20%);
+  --button-hover-color: hsl(180, 100%, 20%);
   --button-border-color: hsl(180, 50%, 30%);
+
+  --button-icon-color: hsl(180, 50%, 50%);
+  --button-icon-hover-color: hsl(180, 100%, 50%);
 
   --warning-bg-color: hsl(30, 100%, 48%);
   --warning-border-color: hsl(30, 100%, 75%);
