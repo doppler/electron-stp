@@ -1,24 +1,24 @@
-.Home .Header {
+.Header {
   height: 2em;
   width: 100%;
   border-bottom: 1px solid var(--div-border-color);
   display: flex;
   align-items: center;
 }
-.Home .Header > div {
+.Header > div {
   flex-grow: 1;
 }
-.Home .Header .left * {
+.Header .left * {
   margin-left: 1em;
 }
-.Home .Header .right {
+.Header .right {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
 }
-.Home .Header .right * {
+.Header .right * {
   margin-right: 1em;
 }
-.Home .Content {
+.Content {
   margin: 1em;
 }

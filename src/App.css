@@ -4,6 +4,10 @@
   height: 100vh;
 }
 
+.Main {
+  margin: 1em;
+}
+
 button {
   background-color: var(--button-bg-color);
   border: 1px solid var(--button-border-color);
