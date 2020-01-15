@@ -3,9 +3,11 @@ import { MdSettings, MdLock, MdHome } from "react-icons/md";
 import { IconContext } from "react-icons";
 import React from "react";
 import useAuth from "./Auth/useAuth";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 const Header = () => {
+  const location = useLocation();
+
   const { user } = useAuth();
 
   return (
@@ -15,10 +17,16 @@ const Header = () => {
           <NavLink exact to="/" className="link">
             <MdHome />
           </NavLink>
+          {location.pathname
+            .replace(/\//, "")
+            .split("/")
+            .map((name, i) => (
+              <span key={i}>{name}</span>
+            ))}
         </div>
         <div className="right">
           <span>{user.name}</span>
-          <span>{JSON.stringify(user.roles)}</span>
+          {/* <span>{JSON.stringify(user.roles)}</span> */}
           <Link to="/logout" className="link">
             <MdLock />
           </Link>
