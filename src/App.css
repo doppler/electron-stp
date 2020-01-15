@@ -8,6 +8,20 @@
   margin: 1em;
 }
 
+.react-icons {
+  /* color: var(--button-border-color); */
+  /* background-color: var(--button-bg-color); */
+  /* border: 1px solid var(--button-border-color); */
+  /* border-radius: 0.25em; */
+}
+
+a.link {
+  color: var(--app-text-color);
+}
+a.link:hover {
+  color: var(--button-border-color);
+}
+
 button {
   background-color: var(--button-bg-color);
   border: 1px solid var(--button-border-color);
