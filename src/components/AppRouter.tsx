@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Header from "./Header";
+import SettingsRouter from "./Settings";
 
 const AppRouter = () => {
   return (
@@ -12,6 +13,9 @@ const AppRouter = () => {
             <div>
               <h2>Hello</h2>
             </div>
+          </Route>
+          <Route path="/settings">
+            <SettingsRouter />
           </Route>
         </Switch>
       </div>
