@@ -1,7 +1,7 @@
-import React, { useEffect, useContext, useCallback, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import useFormValidation from "../../useFormValidation";
-import DBContext from "../../DBContext";
+import useDB from "../../../useDB";
 
 const INITIAL_STATE: TLocation = {
   code: "",
@@ -20,9 +20,9 @@ const validate = (values: TLocation) => {
 };
 
 const EditLocation = () => {
-  const DB = useContext(DBContext);
   const params: TEditLocationParams = useParams();
   const history = useHistory();
+  const { get, put } = useDB();
 
   const [isNew, setNew] = useState(true);
 
@@ -35,46 +35,13 @@ const EditLocation = () => {
     handleSubmit
   } = useFormValidation(INITIAL_STATE, validate, submit);
 
-  const getDoc = useCallback(
-    async _id => {
-      let doc;
-      try {
-        // @ts-ignore
-        doc = await DB.get(_id);
-        // console.log(doc);
-        return doc;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    [DB]
-  );
-
   async function submit() {
-    let result;
-    const doc = await getDoc(`location:${values.code}`);
-    if (doc) {
-      console.log("TODO: save doc", { values });
-      try {
-        // @ts-ignore
-        result = await DB.put(values);
-        console.log(result);
-        history.goBack();
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      const newDoc = { ...values };
-      newDoc.type = "location";
-      newDoc._id = `location:${values.code}`;
-      try {
-        // @ts-ignore
-        result = await DB.put(newDoc);
-        console.log(result);
-      } catch (error) {
-        console.error(error);
-      }
+    if (!values._id || !values.type) {
+      values._id = `location:${values.code}`;
+      values.type = "location";
     }
+    await put(values);
+    history.goBack();
   }
 
   useEffect(() => {
@@ -83,11 +50,10 @@ const EditLocation = () => {
     setNew(false);
 
     (async () => {
-      const doc = await getDoc(`location:${params.code}`);
-      console.log(doc);
+      const doc = await get(`location:${params.code}`);
       setValues(doc);
     })();
-  }, [params.code, getDoc, setValues]);
+  }, [params.code, get, setValues]);
 
   return (
     <div className="EditLocation">

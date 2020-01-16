@@ -1,10 +1,12 @@
 declare module "pouchdb-auth";
 
 type TLocation = {
+  _id?: string;
+  _rev?: string;
   name: string;
   code: string;
 };
-type TLocations = [TLocation];
+type TLocations = Array<TLocation>;
 type TEditLocationParams = {
   code?: string;
 };

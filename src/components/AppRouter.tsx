@@ -26,6 +26,7 @@ const AppRouter = () => {
       }
     })();
   }, []);
+
   return (
     <DBContext.Provider value={DB}>
       <Header />
