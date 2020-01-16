@@ -49,9 +49,8 @@ const useAuth = () => {
         JSON.stringify({ name: email, roles })
       );
       console.log(result);
-      history.push("/");
-    } catch (error) {
-      console.error(error);
+      return result;
+    } finally {
     }
   };
 
@@ -61,9 +60,8 @@ const useAuth = () => {
       const result = await usersDB.logIn(email, password);
       delete result.ok;
       window.sessionStorage.setItem("stp:user", JSON.stringify(result));
-      history.push("/");
-    } catch (error) {
-      console.error(error);
+      return result;
+    } finally {
     }
   };
 

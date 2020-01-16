@@ -3,19 +3,22 @@ import React, { useState, useEffect } from "react";
 import useFormValidation from "../useFormValidation";
 import validateAdminLogin from "./validateAdminLogin";
 import useAuth from "../Auth/useAuth";
+import { useHistory } from "react-router-dom";
 
 const INITIAL_STATE: TLoginFormValues = {
-  email: process.env.REACT_APP_TEST_EMAIL || "",
+  email: process.env.REACT_APP_TEST_EMAIL + "invalid" || "",
   password: process.env.REACT_APP_TEST_PASSWORD || "",
   passwordConfirm: process.env.REACT_APP_TEST_PASSWORD || ""
 };
 
 export default () => {
+  const history = useHistory();
   const { userDocCount, logIn, signUp } = useAuth();
 
   // if there are no user docs, we'll show a passwordConfirm field and create the first user.
   // otherwise, we'll attempt a log in.
   const [isLogin, setLogin] = useState(false);
+  const [loginError, setLoginError] = useState(null);
 
   useEffect(() => {
     setLogin(userDocCount > 0);
@@ -40,7 +43,13 @@ export default () => {
 
   async function authenticateUser() {
     const { email, password }: TLoginFormValues = values;
-    isLogin ? logIn(email, password) : signUp(email, password);
+    try {
+      isLogin ? await logIn(email, password) : await signUp(email, password);
+      history.push("/");
+    } catch (error) {
+      console.error(error);
+      setLoginError(error.message);
+    }
   }
 
   return (
@@ -86,6 +95,7 @@ export default () => {
       <button onClick={handleSubmit}>
         {!isLogin ? "Create " : ""}Admin Login
       </button>
+      {loginError && <span className="error-text">{loginError}</span>}
     </div>
   );
 };

@@ -7,7 +7,7 @@ const validateAdminLogin = (values: TLoginFormValues, isLogin: Boolean) => {
     errors.email = "Invalid email address";
   }
 
-  if (values.password && values.password.length < 8) {
+  if (values.password.length < 8) {
     errors.password = "Password must be at least 8 characters";
   } else if (
     values.password &&
