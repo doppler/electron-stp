@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useCallback, useEffect } from "react";
 import { MdAddBox, MdEdit } from "react-icons/md";
 import { useHistory, useRouteMatch, Link } from "react-router-dom";
+import DBContext from "../../DBContext";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const initialState = [
@@ -19,29 +20,48 @@ const initialState = [
 ];
 
 const LocationsSummary = () => {
+  const DB = useContext(DBContext);
   const history = useHistory();
   const match = useRouteMatch();
 
   // @ts-ignore
   const [locations, setLocations]: [TLocations, Function] = useState([]); // eslint-disable-line @typescript-eslint/no-unused-vars
 
-  const handleAddLocationClick = () => {
-    console.log("Add Location");
-  };
+  const getLocations = useCallback(async () => {
+    let result;
+    try {
+      // @ts-ignore
+      result = await DB.find({
+        selector: { type: "location" }
+      });
+      return result.docs;
+    } catch (error) {
+      console.error(error);
+    }
+  }, [DB]);
+
+  useEffect(() => {
+    (async () => {
+      const locations = await getLocations();
+      setLocations(locations);
+    })();
+  }, [getLocations]);
 
   return (
     <div className="Locations panel">
       <div className="panel-header">
         <h2 className="panel-title">Locations</h2>
-        <button className="icon" onClick={handleAddLocationClick}>
-          <MdAddBox />
-        </button>
+        <Link to={`${match.url}/location/NEW`}>
+          <button className="icon">
+            <MdAddBox />
+          </button>
+        </Link>
       </div>
       <div className="panel-body">
         <div className="location-grid grid">
           {locations.length ? (
             locations.map(location => (
-              <>
+              <div key={location.code}>
                 <div>{location.name}</div>
                 <div>{location.code}</div>
                 <div>
@@ -54,7 +74,7 @@ const LocationsSummary = () => {
                     <MdEdit />
                   </button>
                 </div>
-              </>
+              </div>
             ))
           ) : (
             <div>

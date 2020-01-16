@@ -17,6 +17,7 @@
     "electron-is-dev": "^1.1.0",
     "pouchdb": "^7.1.1",
     "pouchdb-auth": "https://github.com/doppler/pouchdb-auth/",
+    "pouchdb-find": "^7.1.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-icons": "^3.8.0",

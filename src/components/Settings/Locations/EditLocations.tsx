@@ -1,11 +1,11 @@
-import React, { useEffect, useContext, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useContext, useCallback, useState } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import useFormValidation from "../../useFormValidation";
 import DBContext from "../../DBContext";
 
 const INITIAL_STATE: TLocation = {
-  code: "ABC",
-  name: "Test Location"
+  code: "",
+  name: ""
 };
 
 const validate = (values: TLocation) => {
@@ -22,9 +22,12 @@ const validate = (values: TLocation) => {
 const EditLocation = () => {
   const DB = useContext(DBContext);
   const params: TEditLocationParams = useParams();
+  const history = useHistory();
+
   const {
     values,
     errors,
+    setValues,
     handleBlur,
     handleChange,
     handleSubmit
@@ -36,12 +39,10 @@ const EditLocation = () => {
       try {
         // @ts-ignore
         doc = await DB.get(_id);
-        console.log(doc);
+        // console.log(doc);
         return doc;
       } catch (error) {
         console.error(error);
-      } finally {
-        return doc;
       }
     },
     [DB]
@@ -51,12 +52,19 @@ const EditLocation = () => {
     let result;
     const doc = await getDoc(`location:${values.code}`);
     if (doc) {
-      console.log("TODO: save doc", { doc });
+      console.log("TODO: save doc", { values });
+      try {
+        // @ts-ignore
+        result = await DB.put(values);
+        console.log(result);
+        history.goBack();
+      } catch (error) {
+        console.error(error);
+      }
     } else {
       const newDoc = { ...values };
       newDoc.type = "location";
       newDoc._id = `location:${values.code}`;
-      console.log({ newDoc });
       try {
         // @ts-ignore
         result = await DB.put(newDoc);
@@ -69,7 +77,12 @@ const EditLocation = () => {
 
   useEffect(() => {
     if (params.code === "NEW") return;
-  }, [params.code, DB]);
+    (async () => {
+      const doc = await getDoc(`location:${params.code}`);
+      console.log(doc);
+      setValues(doc);
+    })();
+  }, [params.code, getDoc, setValues]);
 
   return (
     <div className="EditLocation">
