@@ -5,6 +5,7 @@ import SettingsRouter from "./Settings";
 import DBContext from "./DBContext";
 import PouchDB from "pouchdb";
 import PouchDBfind from "pouchdb-find";
+import StudentRouter from "./Students";
 PouchDB.plugin(PouchDBfind);
 
 const DB = new PouchDB("stp");
@@ -33,9 +34,7 @@ const AppRouter = () => {
       <div className="Main">
         <Switch>
           <Route exact path="/">
-            <div>
-              <h2>Hello</h2>
-            </div>
+            <StudentRouter />
           </Route>
           <Route path="/settings">
             <SettingsRouter />
