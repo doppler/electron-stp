@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useContext, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import useFormValidation from "../../useFormValidation";
+import DBContext from "../../DBContext";
 
 const INITIAL_STATE: TLocation = {
-  name: "",
-  code: ""
+  code: "ABC",
+  name: "Test Location"
 };
 
 const validate = (values: TLocation) => {
@@ -12,12 +13,14 @@ const validate = (values: TLocation) => {
   if (!values.code.match(/[A-Z]{3}/)) {
     errors.code = "Code must be at least 3 characters and UPPERCASE";
   }
+  if (!values.name) {
+    errors.name = "Name cannot be blank";
+  }
   return errors;
 };
 
-const authenticate = () => console.log("authenticate");
-
 const EditLocation = () => {
+  const DB = useContext(DBContext);
   const params: TEditLocationParams = useParams();
   const {
     values,
@@ -25,13 +28,48 @@ const EditLocation = () => {
     handleBlur,
     handleChange,
     handleSubmit
-  } = useFormValidation(INITIAL_STATE, validate, authenticate);
+  } = useFormValidation(INITIAL_STATE, validate, submit);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const getDoc = useCallback(
+    async _id => {
+      let doc;
+      try {
+        // @ts-ignore
+        doc = await DB.get(_id);
+        console.log(doc);
+        return doc;
+      } catch (error) {
+        console.error(error);
+      } finally {
+        return doc;
+      }
+    },
+    [DB]
+  );
+
+  async function submit() {
+    let result;
+    const doc = await getDoc(`location:${values.code}`);
+    if (doc) {
+      console.log("TODO: save doc", { doc });
+    } else {
+      const newDoc = { ...values };
+      newDoc.type = "location";
+      newDoc._id = `location:${values.code}`;
+      console.log({ newDoc });
+      try {
+        // @ts-ignore
+        result = await DB.put(newDoc);
+        console.log(result);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
 
   useEffect(() => {
     if (params.code === "NEW") return;
-  }, [params.code]);
+  }, [params.code, DB]);
 
   return (
     <div className="EditLocation">
@@ -58,6 +96,7 @@ const EditLocation = () => {
             autoComplete="off"
           />
         </div>
+        {errors.name && <span className="error-text">{errors.name}</span>}
         <button onClick={handleSubmit}>Save</button>
       </form>
     </div>

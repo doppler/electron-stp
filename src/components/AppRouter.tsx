@@ -2,10 +2,13 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Header from "./Header";
 import SettingsRouter from "./Settings";
+import DBContext from "./DBContext";
+import PouchDB from "pouchdb";
+const DB = new PouchDB("stp");
 
 const AppRouter = () => {
   return (
-    <div>
+    <DBContext.Provider value={DB}>
       <Header />
       <div className="Main">
         <Switch>
@@ -19,7 +22,7 @@ const AppRouter = () => {
           </Route>
         </Switch>
       </div>
-    </div>
+    </DBContext.Provider>
   );
 };
 

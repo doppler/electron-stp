@@ -1,6 +1,5 @@
 import PouchDB from "pouchdb";
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 PouchDB.plugin(require("pouchdb-auth"));
 
 const usersDB = new PouchDB("_users");
@@ -8,7 +7,6 @@ const usersDB = new PouchDB("_users");
 usersDB.useAsAuthenticationDB();
 
 const useAuth = () => {
-  const history = useHistory();
   const [addAdminRole, setAddAdminRole] = useState(false);
   const [userDocCount, setUserDocCount] = useState(0);
   const user = JSON.parse(window.sessionStorage.getItem("stp:user") || "null");
