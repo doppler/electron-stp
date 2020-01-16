@@ -17,11 +17,11 @@ const initialState = [
   }
 ];
 
-type LocationProps = {
+interface LocationProps {
   code: string;
   name: string;
   handleEditLocationClick: (code: string) => void;
-};
+}
 
 const Location: React.FC<LocationProps> = ({
   code,
@@ -48,6 +48,8 @@ const Location: React.FC<LocationProps> = ({
 const Locations = () => {
   // @ts-ignore
   const [locations, setLocations] = useState(initialState); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [addLocation, setAddLocation] = useState(false);
+  const [values, setValues] = useState({ name: "", code: "" });
 
   // const { handleChange, values, errors} = useFormValidation(initialState, () => {}, () => {})
 
@@ -55,11 +57,26 @@ const Locations = () => {
     console.log(code);
   };
 
+  const handleAddLocationClick = () => {
+    setAddLocation(true);
+    console.log("Add Location");
+  };
+
+  const handleSaveLocation = (event: React.FormEvent) => {
+    event.preventDefault();
+    console.log(values);
+    const updatedLocations = locations.filter(
+      location => location.code !== values.code
+    );
+    setLocations([...updatedLocations, values]);
+    setAddLocation(false);
+  };
+
   return (
     <div className="Locations panel">
       <div className="panel-header">
         <h2 className="panel-title">Locations</h2>
-        <button className="icon">
+        <button className="icon" onClick={handleAddLocationClick}>
           <MdAddBox />
         </button>
       </div>
@@ -73,7 +90,13 @@ const Locations = () => {
               handleEditLocationClick={handleEditLocationClick}
             />
           ))}
-          <LocationEditor />
+          {addLocation ? (
+            <LocationEditor
+              values={values}
+              setValues={setValues}
+              handleSaveLocation={handleSaveLocation}
+            />
+          ) : null}
         </div>
       </div>
     </div>
@@ -82,18 +105,23 @@ const Locations = () => {
 
 export default Locations;
 
-const LocationEditor = () => {
-  const initialState = {
-    name: "",
-    code: ""
+interface LocationEditorProps {
+  values: {
+    name: string;
+    code: string;
   };
+  setValues: Function;
+  handleSaveLocation: (event: React.FormEvent<Element>) => void;
+}
 
-  const [values, setValues] = useState(initialState);
-
+const LocationEditor: React.FC<LocationEditorProps> = ({
+  values,
+  setValues,
+  handleSaveLocation
+}) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.persist();
-    console.log(event.target.value);
-    setValues(prevValues => {
+    setValues((prevValues: any) => {
       return {
         ...prevValues,
         [event.target.name]: event.target.value
@@ -108,6 +136,7 @@ const LocationEditor = () => {
           value={values.name}
           onChange={handleInputChange}
           placeholder="Location Name"
+          autoComplete="off"
         />
       </div>
       <div>
@@ -116,10 +145,11 @@ const LocationEditor = () => {
           value={values.code}
           onChange={handleInputChange}
           placeholder="CODE"
+          autoComplete="off"
         />
       </div>
       <div>
-        <button className="icon">
+        <button className="icon" onClick={handleSaveLocation}>
           <MdSave />
         </button>
       </div>
