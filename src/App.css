@@ -52,3 +52,29 @@ button.icon {
 button.icon:hover {
   color: var(--button-icon-hover-color);
 }
+
+form.clean input {
+  width: 100%;
+  margin-bottom: 1em;
+  background-color: transparent;
+  color: var(--app-text-color);
+  border: 0;
+  border-bottom: 1px solid var(--button-border-color);
+}
+form.clean input:hover,
+form.clean input:active {
+  border-bottom: 1px solid var(--app-text-color);
+}
+form.clean input:focus {
+  outline: none !important;
+  border: 0;
+  border-bottom: 1px solid var(--app-text-color);
+}
+
+form.clean input.invalid,
+form.clean input:focus:invalid {
+  border-bottom: 1px solid var(--warning-border-color);
+}
+form.login {
+  width: 50%;
+}

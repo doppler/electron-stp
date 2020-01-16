@@ -6,7 +6,7 @@ import useAuth from "../Auth/useAuth";
 import { useHistory } from "react-router-dom";
 
 const INITIAL_STATE: TLoginFormValues = {
-  email: process.env.REACT_APP_TEST_EMAIL + "invalid" || "",
+  email: process.env.REACT_APP_TEST_EMAIL || "",
   password: process.env.REACT_APP_TEST_PASSWORD || "",
   passwordConfirm: process.env.REACT_APP_TEST_PASSWORD || ""
 };
@@ -54,48 +54,52 @@ export default () => {
 
   return (
     <div className="CreateAdminLogin">
-      {isLogin ? <p>Instructor login</p> : <p>Add instructor account</p>}
-      <input
-        name="email"
-        value={values.email}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        type="email"
-        required
-        placeholder="Email Address"
-        className={errors.email ? "invalid" : ""}
-      />
-      {errors.email && <span className="error-text">{errors.email}</span>}
-      <input
-        name="password"
-        value={values.password}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        type="password"
-        required
-        placeholder="Password"
-        className={errors.password ? "invalid" : ""}
-      />
-      {errors.password && <span className="error-text">{errors.password}</span>}
-      {!isLogin ? (
+      <form className="clean login">
+        {isLogin ? <p>Instructor login</p> : <p>Add instructor account</p>}
         <input
-          name="passwordConfirm"
-          value={values.passwordConfirm}
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          type="email"
+          required
+          placeholder="Email Address"
+          className={errors.email ? "invalid" : ""}
+        />
+        {errors.email && <span className="error-text">{errors.email}</span>}
+        <input
+          name="password"
+          value={values.password}
           onChange={handleChange}
           onBlur={handleBlur}
           type="password"
-          placeholder="Confirm Password"
-          className={errors.passwordConfirm ? "invalid" : ""}
+          required
+          placeholder="Password"
+          className={errors.password ? "invalid" : ""}
         />
-      ) : null}
-      {errors.passwordConfirm && (
-        <span className="error-text">{errors.passwordConfirm}</span>
-      )}
+        {errors.password && (
+          <span className="error-text">{errors.password}</span>
+        )}
+        {!isLogin ? (
+          <input
+            name="passwordConfirm"
+            value={values.passwordConfirm}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            type="password"
+            placeholder="Confirm Password"
+            className={errors.passwordConfirm ? "invalid" : ""}
+          />
+        ) : null}
+        {errors.passwordConfirm && (
+          <span className="error-text">{errors.passwordConfirm}</span>
+        )}
 
-      <button onClick={handleSubmit}>
-        {!isLogin ? "Create " : ""}Admin Login
-      </button>
-      {loginError && <span className="error-text">{loginError}</span>}
+        <button onClick={handleSubmit}>
+          {!isLogin ? "Create " : ""}Admin Login
+        </button>
+        {loginError && <span className="error-text">{loginError}</span>}
+      </form>
     </div>
   );
 };
