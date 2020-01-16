@@ -8,7 +8,7 @@
       "url": "http://localhost:3000",
       "runtimeExecutable": "/usr/bin/chromium",
       "webRoot": "${workspaceFolder}",
-      "userDataDir": "/tmp/vscode-chrome-debug",
+      "userDataDir": "${workspaceFolder}/../.vscode-chrome-debug",
       "runtimeArgs": ["--remote-debugging-port=9222"]
     },
     {
