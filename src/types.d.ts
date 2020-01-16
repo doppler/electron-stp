@@ -1,11 +1,14 @@
 declare module "pouchdb-auth";
 
-type TLocations = [
-  {
-    name: string;
-    code: string;
-  }
-];
+type TLocation = {
+  name: string;
+  code: string;
+};
+type TLocations = [TLocation];
+
+type TEditLocationParams = {
+  code?: string;
+};
 
 type TLoginFormValues = {
   email: string;

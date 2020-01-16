@@ -11,7 +11,7 @@ const SettingsRouter = () => {
       <Route exact path={`${match.url}`}>
         <Settings />
       </Route>
-      <Route path={`${match.url}/location/:id`}>
+      <Route path={`${match.url}/location/:code`}>
         <EditLocation />
       </Route>
     </Switch>
