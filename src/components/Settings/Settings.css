@@ -24,23 +24,22 @@ h2.panel-title {
   margin: 1em;
 }
 
-.grid {
+ul.location-list {
+  padding-left: 0;
   display: grid;
   row-gap: 0.5em;
 }
-.grid > div {
+ul.location-list li {
+  list-style-type: none;
   display: grid;
-  grid-template-columns: [name] 1fr [code] 4em [edit] 1em;
+  padding: 0.25em 0 0.25em 0;
+  grid-template-columns: [code] 6em [name] 1fr [edit] 1em;
 }
-
-.grid input {
-  width: 100%;
-  background-color: transparent;
+ul.location-list li:hover {
+  background-color: var(--button-border-color);
+  cursor: pointer;
+}
+ul.location-list a {
+  text-decoration: none;
   color: var(--app-text-color);
-  font-size: 1em;
-  border: 0;
-  border-bottom: 1px solid var(--button-border-color);
-}
-.grid input:focus {
-  outline: none !important;
 }

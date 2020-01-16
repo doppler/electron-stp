@@ -24,6 +24,8 @@ const EditLocation = () => {
   const params: TEditLocationParams = useParams();
   const history = useHistory();
 
+  const [isNew, setNew] = useState(true);
+
   const {
     values,
     errors,
@@ -77,6 +79,9 @@ const EditLocation = () => {
 
   useEffect(() => {
     if (params.code === "NEW") return;
+
+    setNew(false);
+
     (async () => {
       const doc = await getDoc(`location:${params.code}`);
       console.log(doc);
@@ -96,6 +101,7 @@ const EditLocation = () => {
             onBlur={handleBlur}
             placeholder="CODE"
             autoComplete="off"
+            disabled={!isNew}
           />
         </div>
         {errors.code && <span className="error-text">{errors.code}</span>}
