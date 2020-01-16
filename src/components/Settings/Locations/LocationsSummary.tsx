@@ -18,13 +18,6 @@ const initialState = [
   }
 ];
 
-type TLocations = [
-  {
-    name: string;
-    code: string;
-  }
-];
-
 const LocationsSummary = () => {
   const history = useHistory();
   const match = useRouteMatch();

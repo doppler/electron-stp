@@ -1,7 +1,5 @@
-import { LoginFormValues, LoginFormErrors } from "../types";
-
-const validateAdminLogin = (values: LoginFormValues, isLogin: Boolean) => {
-  let errors: LoginFormErrors = {};
+const validateAdminLogin = (values: TLoginFormValues, isLogin: Boolean) => {
+  let errors: TLoginFormErrors = {};
   if (
     values.email &&
     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)

@@ -3,13 +3,8 @@ import React, { useState, useEffect } from "react";
 import useFormValidation from "../useFormValidation";
 import validateAdminLogin from "./validateAdminLogin";
 import useAuth from "../Auth/useAuth";
-import {
-  FormValidationReturns,
-  LoginFormValues,
-  LoginFormErrors
-} from "../types";
 
-const INITIAL_STATE: LoginFormValues = {
+const INITIAL_STATE: TLoginFormValues = {
   email: process.env.REACT_APP_TEST_EMAIL || "",
   password: process.env.REACT_APP_TEST_PASSWORD || "",
   passwordConfirm: process.env.REACT_APP_TEST_PASSWORD || ""
@@ -26,9 +21,9 @@ export default () => {
     setLogin(userDocCount > 0);
   }, [userDocCount]);
 
-  interface CreateLoginFormValidationReturns extends FormValidationReturns {
-    values: LoginFormValues;
-    errors: LoginFormErrors;
+  interface CreateLoginFormValidationReturns extends TFormValidationReturns {
+    values: TLoginFormValues;
+    errors: TLoginFormErrors;
   }
 
   const {
@@ -44,7 +39,7 @@ export default () => {
   );
 
   async function authenticateUser() {
-    const { email, password }: LoginFormValues = values;
+    const { email, password }: TLoginFormValues = values;
     isLogin ? logIn(email, password) : signUp(email, password);
   }
 

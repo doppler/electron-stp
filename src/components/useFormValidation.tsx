@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { LoginFormValues } from "./types";
-import { FormValidationReturns } from "./types.d";
 
 const useFormValidation = (
   initialState: any,
   validate: Function,
   authenticate: Function
-): FormValidationReturns => {
+): TFormValidationReturns => {
   const [values, setValues] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setSubmitting] = useState(false);
@@ -25,7 +23,7 @@ const useFormValidation = (
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.persist();
-    setValues((prevValues: LoginFormValues) => {
+    setValues((prevValues: TLoginFormValues) => {
       return {
         ...prevValues,
         [event.target.name]: event.target.value
