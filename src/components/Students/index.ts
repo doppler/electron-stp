@@ -1,3 +1,3 @@
-import StudentRouter from "./StudentRouter";
+import StudentRouter from './StudentRouter';
 
 export default StudentRouter;

@@ -1,3 +1,3 @@
-import CreateAdminLogin from "./CreateAdminLogin";
+import CreateAdminLogin from './CreateAdminLogin';
 
 export default CreateAdminLogin;

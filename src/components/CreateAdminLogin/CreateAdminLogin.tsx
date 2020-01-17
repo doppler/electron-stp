@@ -1,14 +1,14 @@
-import "./CreateAdminLogin.css";
-import React, { useState, useEffect } from "react";
-import useFormValidation from "../useFormValidation";
-import validateAdminLogin from "./validateAdminLogin";
-import useAuth from "../Auth/useAuth";
-import { useHistory } from "react-router-dom";
+import './CreateAdminLogin.css';
+import React, { useState, useEffect } from 'react';
+import useFormValidation from '../useFormValidation';
+import validateAdminLogin from './validateAdminLogin';
+import useAuth from '../Auth/useAuth';
+import { useHistory } from 'react-router-dom';
 
 const INITIAL_STATE: TLoginFormValues = {
-  email: process.env.REACT_APP_TEST_EMAIL || "",
-  password: process.env.REACT_APP_TEST_PASSWORD || "",
-  passwordConfirm: process.env.REACT_APP_TEST_PASSWORD || ""
+  email: process.env.REACT_APP_TEST_EMAIL || '',
+  password: process.env.REACT_APP_TEST_PASSWORD || '',
+  passwordConfirm: process.env.REACT_APP_TEST_PASSWORD || ''
 };
 
 export default () => {
@@ -45,7 +45,7 @@ export default () => {
     const { email, password }: TLoginFormValues = values;
     try {
       isLogin ? await logIn(email, password) : await signUp(email, password);
-      history.push("/");
+      history.push('/');
     } catch (error) {
       console.error(error);
       setLoginError(error.message);
@@ -64,7 +64,7 @@ export default () => {
           type="email"
           required
           placeholder="Email Address"
-          className={errors.email ? "invalid" : ""}
+          className={errors.email ? 'invalid' : ''}
         />
         {errors.email && <span className="error-text">{errors.email}</span>}
         <input
@@ -75,7 +75,7 @@ export default () => {
           type="password"
           required
           placeholder="Password"
-          className={errors.password ? "invalid" : ""}
+          className={errors.password ? 'invalid' : ''}
         />
         {errors.password && (
           <span className="error-text">{errors.password}</span>
@@ -88,7 +88,7 @@ export default () => {
             onBlur={handleBlur}
             type="password"
             placeholder="Confirm Password"
-            className={errors.passwordConfirm ? "invalid" : ""}
+            className={errors.passwordConfirm ? 'invalid' : ''}
           />
         ) : null}
         {errors.passwordConfirm && (
@@ -96,7 +96,7 @@ export default () => {
         )}
 
         <button onClick={handleSubmit}>
-          {!isLogin ? "Create " : ""}Admin Login
+          {!isLogin ? 'Create ' : ''}Admin Login
         </button>
         {loginError && <span className="error-text">{loginError}</span>}
       </form>

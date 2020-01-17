@@ -1,15 +1,15 @@
-import PouchDB from "pouchdb";
-import { useState, useEffect } from "react";
-PouchDB.plugin(require("pouchdb-auth"));
+import PouchDB from 'pouchdb';
+import { useState, useEffect } from 'react';
+PouchDB.plugin(require('pouchdb-auth'));
 
-const usersDB = new PouchDB("_users");
+const usersDB = new PouchDB('_users');
 // @ts-ignore
 usersDB.useAsAuthenticationDB();
 
 const useAuth = () => {
   const [addAdminRole, setAddAdminRole] = useState(false);
   const [userDocCount, setUserDocCount] = useState(0);
-  const user = JSON.parse(window.sessionStorage.getItem("stp:user") || "null");
+  const user = JSON.parse(window.sessionStorage.getItem('stp:user') || 'null');
 
   useEffect(() => {
     const contoller = new AbortController();
@@ -37,13 +37,13 @@ const useAuth = () => {
   const signUp = async (email: string, password: string) => {
     const roles = [];
     if (addAdminRole) {
-      roles.push("admin");
+      roles.push('admin');
     }
     try {
       // @ts-ignore
       const result = await usersDB.signUp(email, password, { roles });
       window.sessionStorage.setItem(
-        "stp:user",
+        'stp:user',
         JSON.stringify({ name: email, roles })
       );
       console.log(result);
@@ -57,7 +57,7 @@ const useAuth = () => {
       // @ts-ignore
       const result = await usersDB.logIn(email, password);
       delete result.ok;
-      window.sessionStorage.setItem("stp:user", JSON.stringify(result));
+      window.sessionStorage.setItem('stp:user', JSON.stringify(result));
       return result;
     } finally {
     }
@@ -67,7 +67,7 @@ const useAuth = () => {
     try {
       // @ts-ignore
       const result = await usersDB.logOut(); // eslint-disable-line @typescript-eslint/no-unused-vars
-      window.sessionStorage.removeItem("stp:user");
+      window.sessionStorage.removeItem('stp:user');
     } catch (error) {
       console.error(error);
     }

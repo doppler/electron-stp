@@ -1,6 +1,6 @@
-import React from "react";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
-import ListStudents from "./ListStudents";
+import React from 'react';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import ListStudents from './ListStudents';
 
 const StudentRouter: React.FC = () => {
   const match = useRouteMatch();

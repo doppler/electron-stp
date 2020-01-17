@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, RouteProps, Redirect } from "react-router-dom";
+import React from 'react';
+import { Route, RouteProps, Redirect } from 'react-router-dom';
 
 interface PrivateRouteProps extends RouteProps {
   children?: any;
@@ -7,7 +7,7 @@ interface PrivateRouteProps extends RouteProps {
 
 const PrivateRoute = (props: PrivateRouteProps) => {
   const { children, ...rest } = props;
-  const user = JSON.parse(window.sessionStorage.getItem("stp:user") || "null");
+  const user = JSON.parse(window.sessionStorage.getItem('stp:user') || 'null');
   return (
     <Route
       {...rest}
@@ -17,7 +17,7 @@ const PrivateRoute = (props: PrivateRouteProps) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: '/login',
               state: { from: location }
             }}
           />

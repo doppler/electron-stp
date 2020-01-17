@@ -4,11 +4,11 @@ const validateAdminLogin = (values: TLoginFormValues, isLogin: Boolean) => {
     values.email &&
     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
   ) {
-    errors.email = "Invalid email address";
+    errors.email = 'Invalid email address';
   }
 
   if (values.password.length < 8) {
-    errors.password = "Password must be at least 8 characters";
+    errors.password = 'Password must be at least 8 characters';
   } else if (
     values.password &&
     !(
@@ -18,7 +18,7 @@ const validateAdminLogin = (values: TLoginFormValues, isLogin: Boolean) => {
     )
   ) {
     errors.password =
-      "Password must contain at least one of each: Uppercase, lowercase, digit";
+      'Password must contain at least one of each: Uppercase, lowercase, digit';
   }
 
   if (
@@ -26,7 +26,7 @@ const validateAdminLogin = (values: TLoginFormValues, isLogin: Boolean) => {
     values.password &&
     values.passwordConfirm !== values.password
   ) {
-    errors.passwordConfirm = "Password confirmation does not match password";
+    errors.passwordConfirm = 'Password confirmation does not match password';
   }
 
   return errors;

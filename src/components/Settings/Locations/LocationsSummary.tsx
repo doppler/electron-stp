@@ -1,7 +1,7 @@
-import React, { useState, useEffect, SetStateAction } from "react";
-import { MdAddBox } from "react-icons/md";
-import { useRouteMatch, Link } from "react-router-dom";
-import useDB from "../../../useDB";
+import React, { useState, useEffect, SetStateAction } from 'react';
+import { MdAddBox } from 'react-icons/md';
+import { useRouteMatch, Link } from 'react-router-dom';
+import useDB from '../../../useDB';
 
 const LocationsSummary = () => {
   const { find } = useDB();
@@ -14,7 +14,7 @@ const LocationsSummary = () => {
 
   useEffect(() => {
     (async () => {
-      const locations = await find({ selector: { type: "location" } });
+      const locations = await find({ selector: { type: 'location' } });
       setLocations(locations);
     })();
   }, [find]);

@@ -1,5 +1,5 @@
-import React from "react";
-import { LocationsSummary } from "./Locations";
+import React from 'react';
+import { LocationsSummary } from './Locations';
 
 const Settings = () => {
   return (

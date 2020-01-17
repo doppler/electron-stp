@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import useFormValidation from "../../useFormValidation";
-import useDB from "../../../useDB";
+import React, { useEffect, useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import useFormValidation from '../../useFormValidation';
+import useDB from '../../../useDB';
 
 const INITIAL_STATE: TLocation = {
-  code: "",
-  name: ""
+  code: '',
+  name: ''
 };
 
 const validate = (values: TLocation) => {
   let errors: TLocationErrors = {};
   if (!values.code.match(/[A-Z]{3}/)) {
-    errors.code = "Code must be at least 3 characters and UPPERCASE";
+    errors.code = 'Code must be at least 3 characters and UPPERCASE';
   }
   if (!values.name) {
-    errors.name = "Name cannot be blank";
+    errors.name = 'Name cannot be blank';
   }
   return errors;
 };
@@ -38,14 +38,14 @@ const EditLocation = () => {
   async function submit() {
     if (!values._id || !values.type) {
       values._id = `location:${values.code}`;
-      values.type = "location";
+      values.type = 'location';
     }
     await put(values);
     history.goBack();
   }
 
   useEffect(() => {
-    if (params.code === "NEW") return;
+    if (params.code === 'NEW') return;
 
     setNew(false);
 

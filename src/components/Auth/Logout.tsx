@@ -1,7 +1,7 @@
-import "./Logout.css";
-import React, { useEffect, useState, useCallback } from "react";
-import useAuth from "./useAuth";
-import { useHistory } from "react-router-dom";
+import './Logout.css';
+import React, { useEffect, useState, useCallback } from 'react';
+import useAuth from './useAuth';
+import { useHistory } from 'react-router-dom';
 
 const Logout = () => {
   const { logOut } = useAuth();
@@ -10,7 +10,7 @@ const Logout = () => {
 
   const logOutNow = useCallback(() => {
     logOut();
-    history.replace("/login");
+    history.replace('/login');
   }, [history, logOut]);
 
   useEffect(() => {

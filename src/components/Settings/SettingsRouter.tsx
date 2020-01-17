@@ -1,8 +1,8 @@
-import "./Settings.css";
-import React from "react";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
-import Settings from "./Settings";
-import { EditLocation } from "./Locations";
+import './Settings.css';
+import React from 'react';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import Settings from './Settings';
+import { EditLocation } from './Locations';
 
 const SettingsRouter = () => {
   const match = useRouteMatch();
