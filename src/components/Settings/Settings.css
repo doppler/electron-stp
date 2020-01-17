@@ -7,13 +7,13 @@ ul.location-list li {
   list-style-type: none;
   display: grid;
   padding: 0.25em 0 0.25em 0;
-  grid-template-columns: [code] 6em [name] 1fr [edit] 1em;
+  grid-template-columns: [code] 6em [name] 1fr;
 }
-ul.location-list li:hover {
-  background-color: var(--button-border-color);
+ul.location-list li {
+  background-color: hsl(
+    var(--primary),
+    calc(var(--saturation)),
+    calc(var(--lightness) + var(--darken))
+  );
   cursor: pointer;
-}
-ul.location-list a {
-  text-decoration: none;
-  color: var(--app-text-color);
 }

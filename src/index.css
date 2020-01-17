@@ -20,13 +20,6 @@
       calc(var(--lightness) + var(--lighten))
     );
 }
-
-html,
-body {
-  height: 100%;
-  background-color: var(--app-bg-color);
-}
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

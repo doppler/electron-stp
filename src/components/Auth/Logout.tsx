@@ -28,7 +28,7 @@ const Logout = () => {
 
   return (
     <div className="Logout">
-      <p>Logging out in {timeRemaining} seconds</p>
+      <p className="warning">Logging out in {timeRemaining} seconds</p>
       <div>
         <button className="warning" onClick={handleBackButtonClick}>
           Cancel

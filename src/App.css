@@ -44,7 +44,7 @@ a.active {
   color: hsl(
     var(--complement),
     calc(var(--light)),
-    calc(var(--lightness) + var(--lite))
+    calc(var(--lightness) + var(--light))
   );
 }
 button {
@@ -62,7 +62,7 @@ button {
     );
   border-radius: 0.25em;
   padding: 0.25em 1em 0.25em 1em;
-  color: var(--app-text-color);
+  color: hsl(var(--complement), var(--saturation), var(--lightness));
 }
 button:hover {
   cursor: pointer;
@@ -95,8 +95,8 @@ button.warning:hover {
 .panel {
   border: var(--panel-border);
   border-radius: 0.25em;
+  margin-bottom: 1em;
 }
-
 .panel-header {
   display: flex;
   flex-direction: row;
@@ -122,7 +122,7 @@ form.clean input {
   width: 100%;
   margin-bottom: 1em;
   background-color: transparent;
-  color: hsl(var(--adj-1), var(--saturation), var(--ligh));
+  color: hsl(var(--adj-1), var(--saturation), var(--light));
   border: 0;
   border-bottom: 1px solid
     hsl(var(--adj-1), var(--saturation), calc(var(--lightness)));
