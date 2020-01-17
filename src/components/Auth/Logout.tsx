@@ -28,9 +28,13 @@ const Logout = () => {
 
   return (
     <div className="Logout">
-      <button onClick={() => logOutNow()}>Log out now</button>
       <p>Logging out in {timeRemaining} seconds</p>
-      <button onClick={handleBackButtonClick}>Cancel</button>
+      <div>
+        <button className="warning" onClick={handleBackButtonClick}>
+          Cancel
+        </button>
+        <button onClick={() => logOutNow()}>Log out now</button>
+      </div>
     </div>
   );
 };

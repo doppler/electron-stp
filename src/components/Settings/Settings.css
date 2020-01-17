@@ -1,29 +1,3 @@
-.Settings > .panel {
-  border: 1px solid var(--div-border-color);
-  border-radius: 0.125em;
-}
-
-.panel-header {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  border-bottom: 1px solid var(--div-border-color);
-  padding: 1em;
-}
-h2.panel-title {
-  flex-grow: 1;
-  display: inline-block;
-  margin: 0;
-  /* padding: 0.25em 0 0.25em 1em; */
-}
-.panel-header .icon {
-  font-size: 1.5em;
-}
-
-.panel-body {
-  margin: 1em;
-}
-
 ul.location-list {
   padding-left: 0;
   display: grid;

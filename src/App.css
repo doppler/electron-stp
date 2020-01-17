@@ -1,79 +1,177 @@
-.App {
-  color: var(--app-text-color);
-  background-color: var(--app-bg-color);
-  height: 100vh;
+html,
+body {
+  background-color: hsl(var(--primary), var(--saturation), var(--dark));
 }
-
+.App {
+  color: hsl(var(--complement), var(--saturation), var(--light));
+  background-color: hsl(var(--primary), var(--saturation), var(--dark));
+  /* height: 100vh; */
+}
 .Main {
   margin: 1em;
 }
-
-/* .react-icons {
-  color: var(--button-border-color);
-  background-color: var(--button-bg-color);
-  border: 1px solid var(--button-border-color);
-  border-radius: 0.25em;
-} */
-
-a.link {
-  color: var(--app-text-color);
+p.success {
+  color: hsl(
+    var(--tri-2),
+    var(--light),
+    calc(var(--lightness) + var(--lighten))
+  );
+}
+p.warning {
+  color: hsl(
+    calc(var(--tri-1) + var(--degree) + var(--degree)),
+    var(--light),
+    calc(var(--lightness) + var(--lighten))
+  );
+}
+p.error {
+  color: hsl(
+    var(--tri-1),
+    var(--light),
+    calc(var(--lightness) + var(--lighten))
+  );
+}
+a {
+  color: hsl(
+    var(--complement),
+    calc(var(--light) - var(--adjust)),
+    calc(var(--light) + var(--darken))
+  );
   text-decoration: none;
 }
-a.link:hover {
-  color: var(--button-border-color);
+a:hover,
+a.active {
+  color: hsl(
+    var(--complement),
+    calc(var(--light)),
+    calc(var(--lightness) + var(--lite))
+  );
 }
-a.link.active {
-  color: var(--app-active-color);
-}
-
 button {
-  background-color: var(--button-bg-color);
-  border: 1px solid var(--button-border-color);
+  margin: 0.5em 1em 0.5em 0;
+  background-color: hsl(
+    var(--tri-2),
+    var(--saturation),
+    calc(var(--lightness) + var(--darken))
+  );
+  border: 1px solid
+    hsl(
+      var(--tri-2),
+      var(--saturation),
+      calc(var(--lightness) + var(--lighten))
+    );
   border-radius: 0.25em;
   padding: 0.25em 1em 0.25em 1em;
   color: var(--app-text-color);
 }
-
 button:hover {
   cursor: pointer;
-  background-color: var(--button-hover-color);
+  background-color: hsl(
+    var(--tri-2),
+    var(--saturation),
+    calc(var(--lightness) + var(--darken) + var(--adjust))
+  );
 }
 button.warning {
-  background-color: var(--warning-bg-color);
-  border: 1px solid var(--warning-border-color);
+  background-color: hsl(
+    var(--tri-1),
+    var(--saturation),
+    calc(var(--lightness) + var(--darken))
+  );
+  border: 1px solid
+    hsl(
+      var(--tri-1),
+      var(--saturation),
+      calc(var(--lightness) + var(--lighten))
+    );
+}
+button.warning:hover {
+  background-color: hsl(
+    var(--tri-1),
+    var(--saturation),
+    calc(var(--lightness) + var(--darken) + var(--adjust))
+  );
+}
+.panel {
+  border: var(--panel-border);
+  border-radius: 0.25em;
 }
 
-button.icon {
-  background-color: transparent;
-  color: var(--button-icon-color);
-  border: 0;
-  padding: 0;
+.panel-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  border-bottom: var(--panel-border);
+  padding: 0.25em;
 }
-button.icon:hover {
-  color: var(--button-icon-hover-color);
+.panel-header button {
+  margin: 0;
 }
-
+h2.panel-title {
+  flex-grow: 1;
+  display: inline-block;
+  margin: 0;
+}
+.panel-header .icon {
+  font-size: 1.5em;
+}
+.panel-body {
+  margin: 1em;
+}
 form.clean input {
   width: 100%;
   margin-bottom: 1em;
   background-color: transparent;
-  color: var(--app-text-color);
+  color: hsl(var(--adj-1), var(--saturation), var(--ligh));
   border: 0;
-  border-bottom: 1px solid var(--button-border-color);
+  border-bottom: 1px solid
+    hsl(var(--adj-1), var(--saturation), calc(var(--lightness)));
+}
+form.clean input::placeholder {
+  color: hsl(var(--complement), var(--saturation), var(--lightness));
 }
 form.clean input:hover,
 form.clean input:active {
-  border-bottom: 1px solid var(--app-text-color);
+  border-bottom: 1px solid
+    hsl(
+      var(--adj-1),
+      var(--saturation),
+      calc(var(--lightness) + var(--lighten))
+    );
 }
 form.clean input:focus {
   outline: none !important;
   border: 0;
-  border-bottom: 1px solid var(--app-text-color);
+  border-bottom: 1px solid
+    hsl(
+      var(--adj-1),
+      var(--saturation),
+      calc(var(--lightness) + var(--lighten))
+    );
 }
-
 form.clean input.invalid,
 form.clean input:focus:invalid {
-  border-bottom: 1px solid var(--warning-border-color);
+  border-bottom: 1px solid
+    hsl(var(--tri-1), var(--saturation), calc(var(--lightness)));
+}
+form.clean input.invalid:hover,
+form.clean input.invalid:active {
+  border-bottom: 1px solid
+    hsl(
+      var(--tri-1),
+      var(--saturation),
+      calc(var(--lightness) + var(--lighten))
+    );
+}
+form.clean input.invalid:focus {
+  outline: none !important;
+  border: 0;
+  border-bottom: 1px solid
+    hsl(
+      var(--tri-1),
+      var(--saturation),
+      calc(var(--lightness) + var(--lighten))
+    );
 }
 form.login {
   width: 50%;

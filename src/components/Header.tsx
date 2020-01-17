@@ -17,12 +17,14 @@ const Header = () => {
           <NavLink exact to="/" className="link">
             <MdHome />
           </NavLink>
-          {location.pathname
-            .replace(/\//, '')
-            .split('/')
-            .map((name, i) => (
-              <span key={i}>{name}</span>
-            ))}
+          <span className="breadcrumbs">
+            {location.pathname
+              .replace(/\//, '')
+              .split('/')
+              .map((name, i) => (
+                <span key={i}>{name}</span>
+              ))}
+          </span>
         </div>
         <div className="right">
           <span>{user.name}</span>

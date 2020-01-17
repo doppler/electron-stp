@@ -1,7 +1,7 @@
 .Header {
   height: 2em;
   width: 100%;
-  border-bottom: 1px solid var(--div-border-color);
+  border-bottom: var(--panel-border);
   display: flex;
   align-items: center;
 }
@@ -12,15 +12,27 @@
   display: flex;
   flex-direction: row;
 }
+.Header span {
+  line-height: 1.5em;
+}
 .Header .left {
   justify-content: flex-start;
 }
 .Header .left > * {
-  margin-left: 1em;
+  margin-left: 0.5em;
 }
 .Header .right {
   justify-content: flex-end;
 }
 .Header .right > * {
-  margin-right: 1em;
+  margin-right: 0.5em;
+}
+.Header a {
+  font-size: 1.5em;
+}
+.Header span.breadcrumbs > span::after {
+  content: ' > ';
+}
+.Header span.breadcrumbs > span:last-child::after {
+  content: '';
 }

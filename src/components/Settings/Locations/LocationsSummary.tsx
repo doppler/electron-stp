@@ -1,5 +1,4 @@
 import React, { useState, useEffect, SetStateAction } from 'react';
-import { MdAddBox } from 'react-icons/md';
 import { useRouteMatch, Link } from 'react-router-dom';
 import useDB from '../../../useDB';
 
@@ -24,9 +23,7 @@ const LocationsSummary = () => {
       <div className="panel-header">
         <h2 className="panel-title">Locations</h2>
         <Link to={`${match.url}/location/NEW`}>
-          <button className="icon">
-            <MdAddBox />
-          </button>
+          <button>Add Location</button>
         </Link>
       </div>
       <div className="panel-body">

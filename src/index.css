@@ -1,49 +1,24 @@
 :root {
-  --base-hue: 0;
-
-  --very-low: 5%;
-  --low: 20%;
-  --med-low: 35%;
-  --med: 50%;
-  --med-high: 65%;
-  --high: 80%;
-  --very-high: 95%;
-
-  --app-bg-color: hsl(var(--base-hue), var(--med-low), var(--very-low));
-  --app-text-color: hsl(calc(var(--base-hue) + 60), var(--med), var(--high));
-  --app-active-color: hsl(calc(var(--base-hue) + 60), var(--high), var(--med));
-
-  --div-border-color: hsl(
-    calc(var(--base-hue) + 120),
-    var(--med),
-    var(--very-high)
-  );
-
-  --button-bg-color: hsl(
-    calc(var(--base-hue) + 120),
-    var(--med-low),
-    var(--low)
-  );
-  --button-hover-color: hsl(
-    calc(var(--base-hue) + 120),
-    var(--very-high),
-    var(--low)
-  );
-  --button-border-color: hsl(
-    calc(var(--base-hue) + 120),
-    var(--very-low),
-    var(--low)
-  );
-
-  --button-icon-color: hsl(calc(var(--base-hue) + 120), var(--med), var(--med));
-  --button-icon-hover-color: hsl(
-    calc(var(--base-hue) + 120),
-    var(--med),
-    var(--med-high)
-  );
-
-  --warning-bg-color: hsl(30, 100%, 48%);
-  --warning-border-color: hsl(30, 100%, 75%);
+  --primary: 230;
+  --saturation: 50%;
+  --lightness: 50%;
+  --complement: calc(var(--primary) - 180);
+  --tri-1: calc(var(--primary) + 120);
+  --tri-2: calc(var(--primary) - 120);
+  --degree: 15;
+  --adj-1: calc(var(--primary) + var(--degree));
+  --adj-2: calc(var(--primary) - var(--degree));
+  --dark: 10%;
+  --light: 90%;
+  --lighten: 25%;
+  --darken: -25%;
+  --adjust: 15%;
+  --panel-border: 1px solid
+    hsl(
+      var(--primary),
+      var(--saturation),
+      calc(var(--lightness) + var(--lighten))
+    );
 }
 
 html,
@@ -54,15 +29,15 @@ body {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
   white-space: pre;
 }
