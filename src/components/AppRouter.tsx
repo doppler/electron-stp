@@ -10,6 +10,17 @@ import { createIndexes } from '../utils';
 PouchDB.plugin(PouchDBfind);
 
 const DB = new PouchDB('stp');
+const AppDB = `${process.env.REACT_APP_COUCHDB_REMOTE_PROTOCOL}://${process.env.REACT_APP_COUCHDB_REMOTE_ADMIN_USERNAME}:${process.env.REACT_APP_COUCHDB_REMOTE_ADMIN_PASSWORD}@${process.env.REACT_APP_COUCHDB_REMOTE_HOST}:${process.env.REACT_APP_COUCHDB_REMOTE_PORT}/stp`;
+DB.sync(AppDB, {
+  live: true,
+  retry: true
+})
+  .on('change', info => console.info)
+  .on('paused', err => console.error)
+  .on('active', () => console.info('DB replication active.'))
+  .on('denied', err => console.error)
+  .on('complete', info => console.info)
+  .on('error', err => console.error);
 
 const AppRouter = () => {
   useEffect(() => {
@@ -18,7 +29,7 @@ const AppRouter = () => {
      * Indexes are defined in src/utils/createIndexes.ts for now.
      */
     (async () => {
-      const createIndexesResults = await createIndexes(DB);
+      const createIndexesResults = await createIndexes(DB); // eslint-disable-line @typescript-eslint/no-unused-vars
     })();
   }, []);
 

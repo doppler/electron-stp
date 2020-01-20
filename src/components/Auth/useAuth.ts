@@ -3,6 +3,19 @@ import { useState, useEffect } from 'react';
 PouchDB.plugin(require('pouchdb-auth'));
 
 const usersDB = new PouchDB('_users');
+const remoteUsersDB = `${process.env.REACT_APP_COUCHDB_REMOTE_PROTOCOL}://${process.env.REACT_APP_COUCHDB_REMOTE_ADMIN_USERNAME}:${process.env.REACT_APP_COUCHDB_REMOTE_ADMIN_PASSWORD}@${process.env.REACT_APP_COUCHDB_REMOTE_HOST}:${process.env.REACT_APP_COUCHDB_REMOTE_PORT}/_users`;
+usersDB
+  .sync(remoteUsersDB, {
+    live: true,
+    retry: true
+  })
+  .on('change', info => console.info)
+  .on('paused', err => console.error)
+  .on('active', () => console.info('DB replication active.'))
+  .on('denied', err => console.error)
+  .on('complete', info => console.info)
+  .on('error', err => console.error);
+
 // @ts-ignore
 usersDB.useAsAuthenticationDB();
 
