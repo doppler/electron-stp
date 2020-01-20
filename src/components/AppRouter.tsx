@@ -6,25 +6,19 @@ import DBContext from './DBContext';
 import PouchDB from 'pouchdb';
 import PouchDBfind from 'pouchdb-find';
 import StudentRouter from './Students';
+import { createIndexes } from '../utils';
 PouchDB.plugin(PouchDBfind);
 
 const DB = new PouchDB('stp');
 
 const AppRouter = () => {
   useEffect(() => {
+    /* Before we render the rest of the app, check and see if there
+     * are DB indexes that need to be created, and create them.
+     * Indexes are defined in src/utils/createIndexes.ts for now.
+     */
     (async () => {
-      const res = await DB.getIndexes();
-      const indexNames = res.indexes.map(i => i.name);
-      if (!indexNames.includes('type')) {
-        const idxRes = await DB.createIndex({
-          index: {
-            fields: ['type'],
-            ddoc: 'by',
-            name: 'type'
-          }
-        });
-        console.log(idxRes);
-      }
+      const createIndexesResults = await createIndexes(DB);
     })();
   }, []);
 
