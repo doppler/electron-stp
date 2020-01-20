@@ -1,4 +1,4 @@
-declare module "pouchdb-auth";
+declare module 'pouchdb-auth';
 
 type TLocation = {
   _id?: string;
@@ -35,3 +35,13 @@ interface TFormValidationReturns {
   setValues: React.Dispatch<any>;
   isSubmitting?: Boolean;
 }
+
+type TIndexDefinition = {
+  index: {
+    fields: string[];
+    ddoc: string;
+    name: string;
+  };
+};
+
+type TCreateIndexResults = object[];

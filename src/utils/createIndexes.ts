@@ -1,14 +1,4 @@
-import PouchDB from 'pouchdb';
-
-type TAppIndex = {
-  index: {
-    fields: string[];
-    ddoc: string;
-    name: string;
-  };
-};
-
-const APP_INDEXES: TAppIndex[] = [
+const APP_INDEXES: TIndexDefinition[] = [
   {
     index: {
       fields: ['type'],
@@ -24,9 +14,6 @@ const APP_INDEXES: TAppIndex[] = [
     }
   }
 ];
-
-type TCreateIndexResults = object[];
-
 const createIndexes = async (
   DB: PouchDB.Database
 ): Promise<TCreateIndexResults> => {
