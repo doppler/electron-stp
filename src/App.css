@@ -191,3 +191,66 @@ form .tooltip .error {
   right: 0;
   z-index: 1;
 }
+form .checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+form .checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: transparent;
+  border-bottom: 1px solid
+    hsl(var(--adj-1), var(--saturation), calc(var(--lightness)));
+}
+form .checkbox:hover input ~ .checkmark {
+  border-bottom: 1px solid
+    hsl(
+      var(--adj-1),
+      var(--saturation),
+      calc(var(--lightness) + var(--lighten))
+    );
+}
+form .checkbox input:checked ~ .checkmark {
+  background-color: hsl(
+    var(--tri-1),
+    var(--light),
+    calc(var(--lightness) + var(--lighten))
+  );
+}
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+form .checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+form .checkbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

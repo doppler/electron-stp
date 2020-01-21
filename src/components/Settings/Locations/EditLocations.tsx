@@ -4,6 +4,7 @@ import useFormValidation from '../../useFormValidation';
 import useDB from '../../../useDB';
 
 const INITIAL_STATE: TLocation = {
+  _deleted: false,
   type: 'location',
   code: '',
   name: ''
@@ -51,6 +52,9 @@ const EditLocation = () => {
 
     (async () => {
       const doc = await get(`location:${params.code}`);
+      // to keep React from bitching about changing from uncontrolled
+      // form into controlled form:
+      doc._deleted = false;
       setValues(doc);
     })();
   }, [params.code, get, setValues]);
@@ -83,6 +87,20 @@ const EditLocation = () => {
           {errors.name && <span className="error">{errors.name}</span>}
         </div>
         <button type="submit">Save</button>
+        {!isNew && (
+          <div className="checkbox">
+            <label>
+              <input
+                type="checkbox"
+                name="_deleted"
+                checked={values._deleted}
+                onChange={handleChange}
+              />
+              <span className="checkmark"></span>
+              Delete?
+            </label>
+          </div>
+        )}
       </form>
     </div>
   );

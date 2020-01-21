@@ -4,6 +4,7 @@ import useDB from '../../../useDB';
 import useFormValidation from '../../useFormValidation';
 
 const INITIAL_STATE: TAircraft = {
+  _deleted: false,
   type: 'aircraft',
   tailNumber: '',
   model: '',
@@ -55,6 +56,9 @@ const EditAircraft: React.FC = () => {
 
     (async () => {
       const doc = await get(`aircraft:${params.tailNumber}`);
+      // to keep React from bitching about changing from uncontrolled
+      // form into controlled form:
+      doc._deleted = false;
       setValues(doc);
     })();
   }, [params.tailNumber, get, find, setValues]);
@@ -104,6 +108,20 @@ const EditAircraft: React.FC = () => {
           </select>
         </div>
         <button type="submit">Save</button>
+        {!isNew && (
+          <div className="checkbox">
+            <label>
+              <input
+                type="checkbox"
+                name="_deleted"
+                checked={values._deleted}
+                onChange={handleChange}
+              />
+              <span className="checkmark"></span>
+              Delete?
+            </label>
+          </div>
+        )}
       </form>
     </div>
   );

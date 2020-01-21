@@ -3,6 +3,7 @@ declare module 'pouchdb-auth';
 type TLocation = {
   _id?: string;
   _rev?: string;
+  _deleted?: boolean;
   type: 'location';
   name: string;
   code: string;
@@ -18,6 +19,7 @@ type TLocationErrors = {
 type TAircraft = {
   _id?: string;
   _rev?: string;
+  _deleted?: boolean;
   type: 'aircraft';
   tailNumber: string;
   model: string;
