@@ -21,7 +21,7 @@ const useFormValidation = (
     }
   }, [errors, isSubmitting, authenticate]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<any>) => {
     event.persist();
     setValues((prevValues: TLoginFormValues) => {
       return {
@@ -31,7 +31,7 @@ const useFormValidation = (
     });
   };
 
-  const handleBlur = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleBlur = (event: React.FormEvent) => {
     const validationErrors = validate(values);
     setErrors(validationErrors);
   };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, SetStateAction } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useDB from '../../../useDB';
 import useFormValidation from '../../useFormValidation';
@@ -6,15 +6,20 @@ import useFormValidation from '../../useFormValidation';
 const INITIAL_STATE: TAircraft = {
   type: 'aircraft',
   tailNumber: '',
-  model: ''
+  model: '',
+  currentLocation: ''
 };
 
 const EditAircraft: React.FC = () => {
   const params: TEditAircraftParams = useParams();
   const history = useHistory();
-  const { get, put } = useDB();
+  const { get, put, find } = useDB();
 
   const [isNew, setNew] = useState(true);
+  const [locations, setLocations]: [
+    TLocations,
+    React.Dispatch<SetStateAction<[]>>
+  ] = useState([]);
 
   const validate = (values: TAircraft) => {
     let errors: TAircraftErrors = {};
@@ -39,20 +44,23 @@ const EditAircraft: React.FC = () => {
   }
 
   useEffect(() => {
+    (async () => {
+      const locations = await find({ selector: { type: 'location' } });
+      setLocations(locations);
+    })();
+
     if (params.tailNumber === 'NEW') return;
 
     setNew(false);
 
     (async () => {
       const doc = await get(`aircraft:${params.tailNumber}`);
-      console.log(doc);
       setValues(doc);
     })();
-  }, [params.tailNumber, get, setValues]);
+  }, [params.tailNumber, get, find, setValues]);
 
   return (
     <div className="EditAircraft">
-      <span>isNew: {JSON.stringify(isNew)}</span>
       <h1>Edit {values.tailNumber}</h1>
       <form onSubmit={handleSubmit} className="clean">
         <div className="tooltip">
@@ -63,7 +71,7 @@ const EditAircraft: React.FC = () => {
             onBlur={handleBlur}
             placeholder={'NTAILN0'}
             autoComplete={'off'}
-            // disabled={!isNew}
+            disabled={!isNew}
           />
           {errors.tailNumber && (
             <span className="error">{errors.tailNumber}</span>
@@ -80,6 +88,20 @@ const EditAircraft: React.FC = () => {
             // disabled={!isNew}
           />
           {errors.model && <span className="error">{errors.model}</span>}
+        </div>
+        <div className="tooltip">
+          <select
+            name="currentLocation"
+            value={values.currentLocation}
+            onChange={handleChange}
+          >
+            <option value="">Current Location: None</option>
+            {locations.map(location => (
+              <option key={location.code} value={location.code}>
+                {location.name}
+              </option>
+            ))}
+          </select>
         </div>
         <button type="submit">Save</button>
       </form>

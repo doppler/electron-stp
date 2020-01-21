@@ -119,6 +119,7 @@ h2.panel-title {
 .panel-body {
   margin: 1em;
 }
+form.clean select,
 form.clean input {
   width: 100%;
   margin-bottom: 1em;
@@ -173,6 +174,9 @@ form.clean input.invalid:focus {
       var(--saturation),
       calc(var(--lightness) + var(--lighten))
     );
+}
+form.clean select > option {
+  background-color: hsl(var(--primary), var(--saturation), var(--dark));
 }
 form.login {
   width: 50%;

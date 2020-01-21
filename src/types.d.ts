@@ -21,6 +21,7 @@ type TAircraft = {
   type: 'aircraft';
   tailNumber: string;
   model: string;
+  currentLocation?: string;
 };
 type TAircraftList = Array<TAircraft>;
 type TEditAircraftParams = {
@@ -43,8 +44,8 @@ type TLoginFormErrors = {
 interface TFormValidationReturns {
   values: any;
   errors: any;
-  handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  handleChange?: (event: React.ChangeEvent) => void;
+  handleBlur?: (event: React.FocusEvent) => void;
   handleSubmit?: (event: React.SyntheticEvent) => void;
   setValues: React.Dispatch<any>;
   isSubmitting?: Boolean;

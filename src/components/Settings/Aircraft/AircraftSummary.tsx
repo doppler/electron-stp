@@ -27,7 +27,7 @@ const AircraftSummary: React.FC = () => {
         </Link>
       </div>
       <div className="panel-body">
-        <ul className="settings-list">
+        <ul className="settings-list aircraft">
           {aircraftList.map((aircraft: TAircraft) => (
             <Link
               key={aircraft.tailNumber}
@@ -36,6 +36,7 @@ const AircraftSummary: React.FC = () => {
               <li>
                 <div>{aircraft.model}</div>
                 <div>{aircraft.tailNumber}</div>
+                <div>{aircraft.currentLocation}</div>
               </li>
             </Link>
           ))}
