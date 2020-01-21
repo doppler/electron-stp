@@ -10,11 +10,11 @@ const INITIAL_STATE: TLocation = {
 
 const validate = (values: TLocation) => {
   let errors: TLocationErrors = {};
-  if (!values.code.match(/[A-Z]{3}/)) {
+  if (values.code && !values.code.match(/[A-Z]{3}/)) {
     errors.code = 'Code must be at least 3 characters and UPPERCASE';
   }
-  if (!values.name) {
-    errors.name = 'Name cannot be blank';
+  if (values.name && values.name.length < 2) {
+    errors.name = 'Really? One character? No.';
   }
   return errors;
 };
@@ -58,8 +58,8 @@ const EditLocation = () => {
   return (
     <div className="EditLocation">
       <h1>Edit {values.code}</h1>
-      <form className="clean">
-        <div>
+      <form onSubmit={handleSubmit} className="clean">
+        <div className="tooltip">
           <input
             name="code"
             value={values.code}
@@ -69,9 +69,9 @@ const EditLocation = () => {
             autoComplete="off"
             disabled={!isNew}
           />
+          {errors.code && <span className="error">{errors.code}</span>}
         </div>
-        {errors.code && <span className="error-text">{errors.code}</span>}
-        <div>
+        <div className="tooltip">
           <input
             name="name"
             value={values.name}
@@ -80,9 +80,9 @@ const EditLocation = () => {
             placeholder="Location Name"
             autoComplete="off"
           />
+          {errors.name && <span className="error">{errors.name}</span>}
         </div>
-        {errors.name && <span className="error-text">{errors.name}</span>}
-        <button onClick={handleSubmit}>Save</button>
+        <button type="submit">Save</button>
       </form>
     </div>
   );

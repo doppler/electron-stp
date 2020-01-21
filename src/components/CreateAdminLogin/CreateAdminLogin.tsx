@@ -54,7 +54,7 @@ export default () => {
 
   return (
     <div className="CreateAdminLogin">
-      <form className="clean login">
+      <form onSubmit={handleSubmit} className="clean login">
         {isLogin ? <p>Instructor login</p> : <p>Add instructor account</p>}
         <input
           name="email"
@@ -95,9 +95,7 @@ export default () => {
           <span className="error-text">{errors.passwordConfirm}</span>
         )}
 
-        <button onClick={handleSubmit}>
-          {!isLogin ? 'Create ' : ''}Admin Login
-        </button>
+        <button type="submit">{!isLogin ? 'Create ' : ''}Admin Login</button>
         {loginError && <span className="error-text">{loginError}</span>}
       </form>
     </div>

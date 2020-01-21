@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, MouseEvent } from 'react';
 
 const useFormValidation = (
   initialState: any,
@@ -36,7 +36,7 @@ const useFormValidation = (
     setErrors(validationErrors);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
     event.preventDefault();
     const validationErrors = validate(values);
     setErrors(validationErrors);

@@ -29,9 +29,7 @@ interface TFormValidationReturns {
   errors: any;
   handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  handleSubmit?: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
+  handleSubmit?: (event: React.SyntheticEvent) => void;
   setValues: React.Dispatch<any>;
   isSubmitting?: Boolean;
 }

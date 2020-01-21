@@ -24,6 +24,7 @@ p.warning {
     calc(var(--lightness) + var(--lighten))
   );
 }
+.error,
 p.error {
   color: hsl(
     var(--tri-1),
@@ -175,4 +176,14 @@ form.clean input.invalid:focus {
 }
 form.login {
   width: 50%;
+}
+form .tooltip {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+form .tooltip .error {
+  position: absolute;
+  right: 0;
+  z-index: 1;
 }
