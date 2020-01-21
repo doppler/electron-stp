@@ -1,14 +1,14 @@
-ul.location-list {
+ul.settings-list {
   padding-left: 0;
   display: grid;
 }
-ul.location-list li {
+ul.settings-list li {
   list-style-type: none;
   display: grid;
   padding: 0.25em 0 0.25em 0;
-  grid-template-columns: [code] 6em [name] 1fr;
+  grid-template-columns: 1fr 1fr;
 }
-ul.location-list li:hover {
+ul.settings-list li:hover {
   background-color: hsl(
     var(--primary),
     calc(var(--saturation)),

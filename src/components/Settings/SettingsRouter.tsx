@@ -3,6 +3,7 @@ import React from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Settings from './Settings';
 import { EditLocation } from './Locations';
+import { EditAircraft } from './Aircraft';
 
 const SettingsRouter = () => {
   const match = useRouteMatch();
@@ -13,6 +14,9 @@ const SettingsRouter = () => {
       </Route>
       <Route path={`${match.url}/location/:code`}>
         <EditLocation />
+      </Route>
+      <Route path={`${match.url}/aircraft/:tailNumber`}>
+        <EditAircraft />
       </Route>
     </Switch>
   );

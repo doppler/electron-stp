@@ -4,6 +4,7 @@ import useFormValidation from '../../useFormValidation';
 import useDB from '../../../useDB';
 
 const INITIAL_STATE: TLocation = {
+  type: 'location',
   code: '',
   name: ''
 };
@@ -38,7 +39,6 @@ const EditLocation = () => {
   async function submit() {
     if (!values._id || !values.type) {
       values._id = `location:${values.code}`;
-      values.type = 'location';
     }
     await put(values);
     history.goBack();

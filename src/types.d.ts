@@ -3,6 +3,7 @@ declare module 'pouchdb-auth';
 type TLocation = {
   _id?: string;
   _rev?: string;
+  type: 'location';
   name: string;
   code: string;
 };
@@ -13,6 +14,21 @@ type TEditLocationParams = {
 type TLocationErrors = {
   name?: string;
   code?: string;
+};
+type TAircraft = {
+  _id?: string;
+  _rev?: string;
+  type: 'aircraft';
+  tailNumber: string;
+  model: string;
+};
+type TAircraftList = Array<TAircraft>;
+type TEditAircraftParams = {
+  tailNumber?: string;
+};
+type TAircraftErrors = {
+  tailNumber?: string;
+  model?: string;
 };
 type TLoginFormValues = {
   email: string;

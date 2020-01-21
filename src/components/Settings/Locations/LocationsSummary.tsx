@@ -2,7 +2,7 @@ import React, { useState, useEffect, SetStateAction } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import useDB from '../../../useDB';
 
-const LocationsSummary = () => {
+const LocationsSummary: React.FC = () => {
   const { find } = useDB();
   const match = useRouteMatch();
 
@@ -27,15 +27,15 @@ const LocationsSummary = () => {
         </Link>
       </div>
       <div className="panel-body">
-        <ul className="location-list">
+        <ul className="settings-list">
           {locations.map((location: TLocation) => (
             <Link
               key={location.code}
               to={`${match.url}/location/${location.code}`}
             >
               <li>
-                <div>{location.code}</div>
                 <div>{location.name}</div>
+                <div>{location.code}</div>
               </li>
             </Link>
           ))}
