@@ -2,6 +2,7 @@ import React, { useState, useEffect, SetStateAction } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useDB from '../../../useDB';
 import useFormValidation from '../../useFormValidation';
+import DeleteDocInput from '../../DeleteDocInput';
 
 const INITIAL_STATE: TAircraft = {
   _deleted: false,
@@ -107,21 +108,10 @@ const EditAircraft: React.FC = () => {
             ))}
           </select>
         </div>
-        <button type="submit">Save</button>
-        {!isNew && (
-          <div className="checkbox">
-            <label>
-              <input
-                type="checkbox"
-                name="_deleted"
-                checked={values._deleted}
-                onChange={handleChange}
-              />
-              <span className="checkmark"></span>
-              Delete?
-            </label>
-          </div>
-        )}
+        <div className="button-row">
+          <button type="submit">Save</button>
+          <DeleteDocInput setValues={setValues} idValue={values.tailNumber} />
+        </div>
       </form>
     </div>
   );

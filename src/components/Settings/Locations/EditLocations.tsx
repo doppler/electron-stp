@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useFormValidation from '../../useFormValidation';
 import useDB from '../../../useDB';
+import DeleteDocInput from '../../DeleteDocInput';
 
 const INITIAL_STATE: TLocation = {
   _deleted: false,
@@ -86,21 +87,10 @@ const EditLocation = () => {
           />
           {errors.name && <span className="error">{errors.name}</span>}
         </div>
-        <button type="submit">Save</button>
-        {!isNew && (
-          <div className="checkbox">
-            <label>
-              <input
-                type="checkbox"
-                name="_deleted"
-                checked={values._deleted}
-                onChange={handleChange}
-              />
-              <span className="checkmark"></span>
-              Delete?
-            </label>
-          </div>
-        )}
+        <div className="button-row">
+          <button type="submit">Save</button>
+          <DeleteDocInput setValues={setValues} idValue={values.code} />
+        </div>
       </form>
     </div>
   );

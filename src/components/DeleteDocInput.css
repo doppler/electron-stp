@@ -1,0 +1,28 @@
+.DeleteDocInput {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+}
+.DeleteDocInput .dialog {
+  position: absolute;
+  top: 0;
+  display: block;
+  z-index: 1;
+  width: calc(100% - 2em);
+  padding: 1em;
+  background-color: hsl(
+    var(--tri-1),
+    var(--saturation),
+    calc(var(--lightness) + var(--darken))
+  );
+  border: 1px solid
+    hsl(
+      var(--tri-1),
+      var(--saturation),
+      calc(var(--lightness) + var(--lighten))
+    );
+  border-radius: 0.25em;
+}
+.DeleteDocInput .hidden {
+  display: none;
+}

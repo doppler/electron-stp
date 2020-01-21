@@ -48,6 +48,9 @@ a.active {
     calc(var(--lightness) + var(--light))
   );
 }
+.button-row {
+  display: flex;
+}
 button {
   margin: 0.5em 1em 0.5em 0;
   background-color: hsl(
