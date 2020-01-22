@@ -132,7 +132,11 @@ const EditInstructor: React.FC = () => {
         <div className="button-row">
           <button type="submit">Save</button>
           {!isNew ? (
-            <DeleteDocInput setValues={setValues} idValue={values.uspaNumber} />
+            <DeleteDocInput
+              setValues={setValues}
+              idValue={values.uspaNumber}
+              handleSubmit={handleSubmit}
+            />
           ) : null}
         </div>
       </form>

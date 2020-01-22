@@ -1,10 +1,33 @@
+:root {
+  --warning-background-color: hsl(
+    var(--tri-1),
+    var(--saturation),
+    calc(var(--lightness) + var(--darken))
+  );
+  --warning-border-color: hsl(
+    var(--tri-1),
+    var(--saturation),
+    calc(var(--lightness) + var(--lighten))
+  );
+  --body-background-color: hsl(var(--primary), var(--saturation), var(--dark));
+  --button-background-color: hsl(
+    var(--tri-2),
+    var(--saturation),
+    calc(var(--lightness) + var(--darken))
+  );
+  --button-border-color: hsl(
+    var(--tri-2),
+    var(--saturation),
+    calc(var(--lightness) + var(--lighten))
+  );
+}
 html,
 body {
-  background-color: hsl(var(--primary), var(--saturation), var(--dark));
+  background-color: var(--body-background-color);
 }
 .App {
   color: hsl(var(--complement), var(--saturation), var(--light));
-  background-color: hsl(var(--primary), var(--saturation), var(--dark));
+  background-color: var(--body-background-color);
   /* height: 100vh; */
 }
 .Main {
@@ -53,17 +76,8 @@ a.active {
 }
 button {
   margin: 0.5em 1em 0.5em 0;
-  background-color: hsl(
-    var(--tri-2),
-    var(--saturation),
-    calc(var(--lightness) + var(--darken))
-  );
-  border: 1px solid
-    hsl(
-      var(--tri-2),
-      var(--saturation),
-      calc(var(--lightness) + var(--lighten))
-    );
+  background-color: var(--button-background-color);
+  border: 1px solid var(--button-border-color);
   border-radius: 0.25em;
   padding: 0.25em 1em 0.25em 1em;
   color: hsl(var(--complement), var(--saturation), var(--lightness));
@@ -77,17 +91,8 @@ button:hover {
   );
 }
 button.warning {
-  background-color: hsl(
-    var(--tri-1),
-    var(--saturation),
-    calc(var(--lightness) + var(--darken))
-  );
-  border: 1px solid
-    hsl(
-      var(--tri-1),
-      var(--saturation),
-      calc(var(--lightness) + var(--lighten))
-    );
+  background-color: var(--warning-background-color);
+  border: 1px solid var(--warning-border-color);
 }
 button.warning:hover {
   background-color: hsl(
@@ -179,7 +184,7 @@ form.clean input.invalid:focus {
     );
 }
 form.clean select > option {
-  background-color: hsl(var(--primary), var(--saturation), var(--dark));
+  background-color: var(--body-background-color);
 }
 form.login {
   width: 50%;

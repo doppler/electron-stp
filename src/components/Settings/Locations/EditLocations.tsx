@@ -75,7 +75,11 @@ const EditLocation = () => {
         </div>
         <div className="button-row">
           <button type="submit">Save</button>
-          <DeleteDocInput setValues={setValues} idValue={values.code} />
+          <DeleteDocInput
+            setValues={setValues}
+            idValue={values.code}
+            handleSubmit={handleSubmit}
+          />
         </div>
       </form>
     </div>

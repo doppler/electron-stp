@@ -107,7 +107,11 @@ const EditAircraft: React.FC = () => {
         <div className="button-row">
           <button type="submit">Save</button>
           {!isNew ? (
-            <DeleteDocInput setValues={setValues} idValue={values.tailNumber} />
+            <DeleteDocInput
+              setValues={setValues}
+              idValue={values.tailNumber}
+              handleSubmit={handleSubmit}
+            />
           ) : null}
         </div>
       </form>
