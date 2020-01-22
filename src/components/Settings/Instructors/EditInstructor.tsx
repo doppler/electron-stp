@@ -1,30 +1,35 @@
-import React, { useState, useEffect, SetStateAction } from 'react';
+import React, { useState, SetStateAction, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useDB from '../../../useDB';
 import useFormValidation from '../../useFormValidation';
 import DeleteDocInput from '../../DeleteDocInput';
 
-const INITIAL_STATE: TAircraft = {
+const INITIAL_STATE: TInstructor = {
   _deleted: false,
-  type: 'aircraft',
-  tailNumber: '',
-  model: '',
-  currentLocation: ''
+  type: 'instructor',
+  name: '',
+  email: '',
+  phone: '',
+  uspaNumber: null
 };
 
-const EditAircraft: React.FC = () => {
-  const params: TEditAircraftParams = useParams();
+const EditInstructor: React.FC = () => {
+  const params: TEditInstructorParams = useParams();
   const history = useHistory();
   const { get, put, find } = useDB();
 
   const [isNew, setNew] = useState(true);
+  const [instructors, setInstructors]: [
+    TInstructorList,
+    React.Dispatch<SetStateAction<[]>>
+  ] = useState([]);
   const [locations, setLocations]: [
     TLocations,
     React.Dispatch<SetStateAction<[]>>
   ] = useState([]);
 
-  const validate = (values: TAircraft) => {
-    let errors: TAircraftErrors = {};
+  const validate = (values: TInstructor) => {
+    let errors: TInstructorErrors = {};
     return errors;
   };
 
@@ -35,7 +40,7 @@ const EditAircraft: React.FC = () => {
     handleBlur,
     handleChange,
     handleSubmit
-  }: TAircraftValidationReturns = useFormValidation(
+  }: TInstructorValidationReturns = useFormValidation(
     INITIAL_STATE,
     validate,
     submit
@@ -43,7 +48,7 @@ const EditAircraft: React.FC = () => {
 
   async function submit() {
     if (!values._id || !values.type) {
-      values._id = `aircraft:${values.tailNumber}`;
+      values._id = `${INITIAL_STATE.type}:${values.uspaNumber}`;
     }
     await put(values);
     history.goBack();
@@ -55,48 +60,77 @@ const EditAircraft: React.FC = () => {
       setLocations(locations);
     })();
 
-    if (params.tailNumber === 'NEW') return;
+    if (params.uspaNumber === 'NEW') return;
 
     setNew(false);
 
     (async () => {
-      const doc = await get(`aircraft:${params.tailNumber}`);
+      const instructors = await find({
+        selector: { type: INITIAL_STATE.type }
+      });
+      setInstructors(instructors);
+    })();
+
+    if (params.uspaNumber === 'NEW') return;
+
+    setNew(false);
+
+    (async () => {
+      const doc = await get(`${INITIAL_STATE.type}:${params.uspaNumber}`);
       // to keep React from bitching about changing from uncontrolled
       // form into controlled form:
       doc._deleted = false;
       setValues(doc);
     })();
-  }, [params.tailNumber, get, find, setValues]);
+  }, [params.uspaNumber, get, find, setValues]);
 
   return (
-    <div className="EditAircraft">
-      <h1>Edit {values.tailNumber}</h1>
+    <div>
+      <h1>Edit {values.uspaNumber}</h1>
       <form onSubmit={handleSubmit} className="clean">
         <div className="tooltip">
           <input
-            name="tailNumber"
-            value={values.tailNumber}
+            name="uspaNumber"
+            value={Number(values.uspaNumber) || undefined}
             onChange={handleChange}
             onBlur={handleBlur}
-            placeholder={'NTAILN0'}
+            placeholder={'12345'}
             autoComplete={'off'}
             disabled={!isNew}
           />
-          {errors.tailNumber && (
-            <span className="error">{errors.tailNumber}</span>
-          )}
         </div>
         <div className="tooltip">
           <input
-            name="model"
-            value={values.model}
+            name="name"
+            value={values.name}
             onChange={handleChange}
             onBlur={handleBlur}
-            placeholder={'Model'}
+            onSubmit={handleSubmit}
+            placeholder={'Full Name'}
             autoComplete={'off'}
-            // disabled={!isNew}
           />
-          {errors.model && <span className="error">{errors.model}</span>}
+        </div>
+        <div className="tooltip">
+          <input
+            name="email"
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onSubmit={handleSubmit}
+            placeholder={'email@example.com'}
+            autoComplete={'off'}
+          />
+        </div>
+        <div className="tooltip">
+          <input
+            name="phone"
+            value={values.phone}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onSubmit={handleSubmit}
+            placeholder={'123 456 7890'}
+            autoComplete={'off'}
+          />
         </div>
         <div className="tooltip">
           <select
@@ -114,11 +148,13 @@ const EditAircraft: React.FC = () => {
         </div>
         <div className="button-row">
           <button type="submit">Save</button>
-          <DeleteDocInput setValues={setValues} idValue={values.tailNumber} />
+          {!isNew ? (
+            <DeleteDocInput setValues={setValues} idValue={values.uspaNumber} />
+          ) : null}
         </div>
       </form>
     </div>
   );
 };
 
-export default EditAircraft;
+export default EditInstructor;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { LocationsSummary } from './Locations';
-import AircraftSummary from './Aircraft';
+import { AircraftSummary } from './Aircraft';
+import { InstructorSummary } from './Instructors';
 
 const Settings = () => {
   return (
@@ -8,6 +9,7 @@ const Settings = () => {
       <h1>Settings</h1>
       <LocationsSummary />
       <AircraftSummary />
+      <InstructorSummary />
     </div>
   );
 };

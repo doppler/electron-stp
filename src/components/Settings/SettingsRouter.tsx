@@ -4,6 +4,7 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Settings from './Settings';
 import { EditLocation } from './Locations';
 import { EditAircraft } from './Aircraft';
+import { EditInstructor } from './Instructors';
 
 const SettingsRouter = () => {
   const match = useRouteMatch();
@@ -17,6 +18,9 @@ const SettingsRouter = () => {
       </Route>
       <Route path={`${match.url}/aircraft/:tailNumber`}>
         <EditAircraft />
+      </Route>
+      <Route path={`${match.url}/instructor/:uspaNumber`}>
+        <EditInstructor />
       </Route>
     </Switch>
   );
