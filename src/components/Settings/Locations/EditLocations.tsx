@@ -5,7 +5,6 @@ import useDB from '../../../useDB';
 import DeleteDocInput from '../../DeleteDocInput';
 
 const INITIAL_STATE: TLocation = {
-  _deleted: false,
   type: 'location',
   code: '',
   name: ''
@@ -53,9 +52,6 @@ const EditLocation = () => {
 
     (async () => {
       const doc = await get(`location:${params.code}`);
-      // to keep React from bitching about changing from uncontrolled
-      // form into controlled form:
-      doc._deleted = false;
       setValues(doc);
     })();
   }, [params.code, get, setValues]);

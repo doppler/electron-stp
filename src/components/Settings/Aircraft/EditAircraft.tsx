@@ -5,7 +5,6 @@ import useFormValidation from '../../../utils/useFormValidation';
 import DeleteDocInput from '../../DeleteDocInput';
 
 const INITIAL_STATE: TAircraft = {
-  _deleted: false,
   type: 'aircraft',
   tailNumber: '',
   model: '',
@@ -25,6 +24,9 @@ const EditAircraft: React.FC = () => {
 
   const validate = (values: TAircraft) => {
     let errors: TAircraftErrors = {};
+    if (values.tailNumber && !values.tailNumber.match(/^N/)) {
+      errors.tailNumber = 'Tail number must start with N';
+    }
     return errors;
   };
 
@@ -63,7 +65,7 @@ const EditAircraft: React.FC = () => {
       const doc = await get(`aircraft:${params.tailNumber}`);
       // to keep React from bitching about changing from uncontrolled
       // form into controlled form:
-      doc._deleted = false;
+      // doc._deleted = false;
       setValues(doc);
     })();
   }, [params.tailNumber, get, find, setValues]);
@@ -114,7 +116,9 @@ const EditAircraft: React.FC = () => {
         </div>
         <div className="button-row">
           <button type="submit">Save</button>
-          <DeleteDocInput setValues={setValues} idValue={values.tailNumber} />
+          {!isNew ? (
+            <DeleteDocInput setValues={setValues} idValue={values.tailNumber} />
+          ) : null}
         </div>
       </form>
     </div>

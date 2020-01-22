@@ -1,7 +1,7 @@
 type TAircraft = {
+  readonly _rev?: string;
   _id?: string;
-  _rev?: string;
-  _deleted?: boolean;
+  _deleted?: boolean = false;
   type: 'aircraft';
   tailNumber: string;
   model: string;

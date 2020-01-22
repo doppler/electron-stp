@@ -1,7 +1,7 @@
 type TLocation = {
   _id?: string;
   _rev?: string;
-  _deleted?: boolean;
+  _deleted?: boolean = false;
   type: 'location';
   name: string;
   code: string;

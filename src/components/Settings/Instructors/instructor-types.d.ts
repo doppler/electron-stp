@@ -1,9 +1,9 @@
 type TInstructor = {
+  readonly _rev?: string;
   _id?: string;
-  _rev?: string;
-  _deleted?: boolean;
+  _deleted?: boolean = false;
   type: 'instructor';
-  uspaNumber: null | Number;
+  uspaNumber: string | number | undefined;
   name: string;
   email: string;
   phone: string;

@@ -5,12 +5,11 @@ import useFormValidation from '../../../utils/useFormValidation';
 import DeleteDocInput from '../../DeleteDocInput';
 
 const INITIAL_STATE: TInstructor = {
-  _deleted: false,
   type: 'instructor',
   name: '',
   email: '',
   phone: '',
-  uspaNumber: null
+  uspaNumber: ''
 };
 
 const EditInstructor: React.FC = () => {
@@ -77,9 +76,6 @@ const EditInstructor: React.FC = () => {
 
     (async () => {
       const doc = await get(`${INITIAL_STATE.type}:${params.uspaNumber}`);
-      // to keep React from bitching about changing from uncontrolled
-      // form into controlled form:
-      doc._deleted = false;
       setValues(doc);
     })();
   }, [params.uspaNumber, get, find, setValues]);
@@ -91,7 +87,7 @@ const EditInstructor: React.FC = () => {
         <div className="tooltip">
           <input
             name="uspaNumber"
-            value={Number(values.uspaNumber) || undefined}
+            value={values.uspaNumber}
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder={'12345'}
