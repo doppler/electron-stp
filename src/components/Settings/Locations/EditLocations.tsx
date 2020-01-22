@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import useFormValidation from '../../useFormValidation';
+import useFormValidation from '../../../utils/useFormValidation';
 import useDB from '../../../useDB';
 import DeleteDocInput from '../../DeleteDocInput';
 

@@ -1,7 +1,7 @@
 import React, { useState, SetStateAction, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useDB from '../../../useDB';
-import useFormValidation from '../../useFormValidation';
+import useFormValidation from '../../../utils/useFormValidation';
 import DeleteDocInput from '../../DeleteDocInput';
 
 const INITIAL_STATE: TInstructor = {

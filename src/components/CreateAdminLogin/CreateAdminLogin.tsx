@@ -1,6 +1,6 @@
 import './CreateAdminLogin.css';
 import React, { useState, useEffect } from 'react';
-import useFormValidation from '../useFormValidation';
+import useFormValidation from '../../utils/useFormValidation';
 import validateAdminLogin from './validateAdminLogin';
 import useAuth from '../Auth/useAuth';
 import { useHistory } from 'react-router-dom';
