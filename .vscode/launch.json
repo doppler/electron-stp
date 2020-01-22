@@ -7,7 +7,7 @@
       "name": "Launch Chrome",
       "preLaunchTask": "npm: start",
       "url": "http://localhost:3000",
-      "runtimeExecutable": "/usr/bin/chromium",
+      "runtimeExecutable": "/snap/bin/chromium",
       "webRoot": "${workspaceFolder}",
       "userDataDir": "${workspaceFolder}/../.vscode-chrome-debug",
       "runtimeArgs": ["--remote-debugging-port=9222"],
