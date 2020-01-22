@@ -22,8 +22,8 @@ const EditAircraft: React.FC = () => {
     React.Dispatch<SetStateAction<[]>>
   ] = useState([]);
 
-  const validate = (values: TAircraft) => {
-    let errors: TAircraftErrors = {};
+  const validate: ValidateAircraftFunction = values => {
+    const errors: TAircraftErrors = {};
     if (values.tailNumber && !values.tailNumber.match(/^N/)) {
       errors.tailNumber = 'Tail number must start with N';
     }

@@ -18,3 +18,6 @@ interface TLocationValidationReturns extends TFormValidationReturns {
   values: TLocation;
   errors: TLocationErrors;
 }
+interface ValidateLocationFunction {
+  (values: TLocation): TLocationErrors;
+}

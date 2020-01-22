@@ -19,3 +19,6 @@ interface TAircraftValidationReturns extends TFormValidationReturns {
   values: TAircraft;
   errors: TAircraftErrors;
 }
+interface ValidateAircraftFunction {
+  (values: TAircraft): TAircraftErrors;
+}

@@ -10,23 +10,23 @@ const INITIAL_STATE: TLocation = {
   name: ''
 };
 
-const validate = (values: TLocation) => {
-  let errors: TLocationErrors = {};
-  if (values.code && !values.code.match(/[A-Z]{3}/)) {
-    errors.code = 'Code must be at least 3 characters and UPPERCASE';
-  }
-  if (values.name && values.name.length < 2) {
-    errors.name = 'Really? One character? No.';
-  }
-  return errors;
-};
-
 const EditLocation = () => {
   const params: TEditLocationParams = useParams();
   const history = useHistory();
   const { get, put } = useDB();
 
   const [isNew, setNew] = useState(true);
+
+  const validate: ValidateLocationFunction = values => {
+    const errors: TLocationErrors = {};
+    if (values.code && !values.code.match(/[A-Z]{3}/)) {
+      errors.code = 'Code must be at least 3 characters and UPPERCASE';
+    }
+    if (values.name && values.name.length < 2) {
+      errors.name = 'Really? One character? No.';
+    }
+    return errors;
+  };
 
   const {
     values,

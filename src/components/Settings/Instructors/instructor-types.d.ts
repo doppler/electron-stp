@@ -23,3 +23,6 @@ interface TInstructorValidationReturns extends TFormValidationReturns {
   values: TInstructor;
   errors: TInstructorErrors;
 }
+interface ValidateInstructorFunction {
+  (values: TInstructor): TInstructorErrors;
+}

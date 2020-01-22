@@ -18,17 +18,13 @@ const EditInstructor: React.FC = () => {
   const { get, put, find } = useDB();
 
   const [isNew, setNew] = useState(true);
-  const [instructors, setInstructors]: [
-    TInstructorList,
-    React.Dispatch<SetStateAction<[]>>
-  ] = useState([]);
   const [locations, setLocations]: [
     TLocations,
     React.Dispatch<SetStateAction<[]>>
   ] = useState([]);
 
-  const validate = (values: TInstructor) => {
-    let errors: TInstructorErrors = {};
+  const validate: ValidateInstructorFunction = values => {
+    const errors: TInstructorErrors = {};
     return errors;
   };
 
@@ -64,17 +60,6 @@ const EditInstructor: React.FC = () => {
     setNew(false);
 
     (async () => {
-      const instructors = await find({
-        selector: { type: INITIAL_STATE.type }
-      });
-      setInstructors(instructors);
-    })();
-
-    if (params.uspaNumber === 'NEW') return;
-
-    setNew(false);
-
-    (async () => {
       const doc = await get(`${INITIAL_STATE.type}:${params.uspaNumber}`);
       setValues(doc);
     })();
@@ -94,6 +79,9 @@ const EditInstructor: React.FC = () => {
             autoComplete={'off'}
             disabled={!isNew}
           />
+          {errors.uspaNumber && (
+            <span className="error">{errors.uspaNumber}</span>
+          )}
         </div>
         <div className="tooltip">
           <input
@@ -105,6 +93,7 @@ const EditInstructor: React.FC = () => {
             placeholder={'Full Name'}
             autoComplete={'off'}
           />
+          {errors.name && <span className="error">{errors.name}</span>}
         </div>
         <div className="tooltip">
           <input
@@ -116,6 +105,7 @@ const EditInstructor: React.FC = () => {
             placeholder={'email@example.com'}
             autoComplete={'off'}
           />
+          {errors.email && <span className="error">{errors.email}</span>}
         </div>
         <div className="tooltip">
           <input
@@ -127,6 +117,7 @@ const EditInstructor: React.FC = () => {
             placeholder={'123 456 7890'}
             autoComplete={'off'}
           />
+          {errors.phone && <span className="error">{errors.phone}</span>}
         </div>
         <div className="tooltip">
           <select
