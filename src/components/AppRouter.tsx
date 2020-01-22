@@ -9,8 +9,13 @@ import StudentRouter from './Students';
 import { createIndexes } from '../utils';
 PouchDB.plugin(PouchDBfind);
 
-const DB = new PouchDB('stp');
-const AppDB = `${process.env.REACT_APP_COUCHDB_REMOTE_PROTOCOL}://${process.env.REACT_APP_COUCHDB_REMOTE_ADMIN_USERNAME}:${process.env.REACT_APP_COUCHDB_REMOTE_ADMIN_PASSWORD}@${process.env.REACT_APP_COUCHDB_REMOTE_HOST}:${process.env.REACT_APP_COUCHDB_REMOTE_PORT}/stp`;
+const DB = new PouchDB('stp', { auto_compaction: true });
+const AppDB = new PouchDB(`${process.env.REACT_APP_REMOTE_COUCHDB}/stp`, {
+  auth: {
+    username: process.env.REACT_APP_REMOTE_COUCHDB_USERNAME,
+    password: process.env.REACT_APP_REMOTE_COUCHDB_PASSWORD
+  }
+});
 DB.sync(AppDB, {
   live: true,
   retry: true
