@@ -2,6 +2,7 @@ import React, { useState, useEffect, SetStateAction } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useDB from '../../../useDB';
 import useFormValidation from '../../../utils/useFormValidation';
+import validate from './validateAircraft';
 import DeleteDocInput from '../../DeleteDocInput';
 
 const INITIAL_STATE: TAircraft = {
@@ -21,14 +22,6 @@ const EditAircraft: React.FC = () => {
     TLocations,
     React.Dispatch<SetStateAction<[]>>
   ] = useState([]);
-
-  const validate: ValidateAircraftFunction = values => {
-    const errors: TAircraftErrors = {};
-    if (values.tailNumber && !values.tailNumber.match(/^N/)) {
-      errors.tailNumber = 'Tail number must start with N';
-    }
-    return errors;
-  };
 
   const {
     values,
@@ -63,9 +56,6 @@ const EditAircraft: React.FC = () => {
 
     (async () => {
       const doc = await get(`aircraft:${params.tailNumber}`);
-      // to keep React from bitching about changing from uncontrolled
-      // form into controlled form:
-      // doc._deleted = false;
       setValues(doc);
     })();
   }, [params.tailNumber, get, find, setValues]);

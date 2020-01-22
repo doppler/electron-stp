@@ -2,6 +2,7 @@ import React, { useState, SetStateAction, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useDB from '../../../useDB';
 import useFormValidation from '../../../utils/useFormValidation';
+import validate from './validateInstructor';
 import DeleteDocInput from '../../DeleteDocInput';
 
 const INITIAL_STATE: TInstructor = {
@@ -22,11 +23,6 @@ const EditInstructor: React.FC = () => {
     TLocations,
     React.Dispatch<SetStateAction<[]>>
   ] = useState([]);
-
-  const validate: ValidateInstructorFunction = values => {
-    const errors: TInstructorErrors = {};
-    return errors;
-  };
 
   const {
     values,

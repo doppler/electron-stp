@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useFormValidation from '../../../utils/useFormValidation';
+import validate from './validateLocation';
 import useDB from '../../../useDB';
 import DeleteDocInput from '../../DeleteDocInput';
 
@@ -16,17 +17,6 @@ const EditLocation = () => {
   const { get, put } = useDB();
 
   const [isNew, setNew] = useState(true);
-
-  const validate: ValidateLocationFunction = values => {
-    const errors: TLocationErrors = {};
-    if (values.code && !values.code.match(/[A-Z]{3}/)) {
-      errors.code = 'Code must be at least 3 characters and UPPERCASE';
-    }
-    if (values.name && values.name.length < 2) {
-      errors.name = 'Really? One character? No.';
-    }
-    return errors;
-  };
 
   const {
     values,
