@@ -3,27 +3,29 @@ import { useState, useEffect } from 'react';
 PouchDB.plugin(require('pouchdb-auth'));
 
 const usersDB = new PouchDB('_users', { auto_compaction: true });
-const remoteUsersDB = new PouchDB(
-  `${process.env.REACT_APP_REMOTE_COUCHDB}/_users`,
-  {
-    auth: {
-      username: process.env.REACT_APP_REMOTE_COUCHDB_USERNAME,
-      password: process.env.REACT_APP_REMOTE_COUCHDB_PASSWORD
-    }
-  }
-);
-usersDB
-  .sync(remoteUsersDB, {
-    live: true,
-    retry: true
-  })
-  .on('change', info => console.info)
-  .on('paused', err => console.error)
-  .on('active', () => console.info('DB replication active.'))
-  .on('denied', err => console.error)
-  .on('complete', info => console.info)
-  .on('error', err => console.error);
 
+if (process.env.REACT_APP_REMOTE_COUCHDB) {
+  const remoteUsersDB = new PouchDB(
+    `${process.env.REACT_APP_REMOTE_COUCHDB}/_users`,
+    {
+      auth: {
+        username: process.env.REACT_APP_REMOTE_COUCHDB_USERNAME,
+        password: process.env.REACT_APP_REMOTE_COUCHDB_PASSWORD
+      }
+    }
+  );
+  usersDB
+    .sync(remoteUsersDB, {
+      live: true,
+      retry: true
+    })
+    .on('change', info => console.info)
+    .on('paused', err => console.error)
+    .on('active', () => console.info('DB replication active.'))
+    .on('denied', err => console.error)
+    .on('complete', info => console.info)
+    .on('error', err => console.error);
+}
 // @ts-ignore
 usersDB.useAsAuthenticationDB();
 
