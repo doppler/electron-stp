@@ -1,12 +1,8 @@
-type TLocation = {
-  _id?: string;
-  _rev?: string;
-  _deleted?: boolean = false;
-  type: 'location';
+interface ILocation extends ICouchDocument {
   name: string;
   code: string;
-};
-type TLocations = Array<TLocation>;
+}
+type TLocationList = Array<ILocation>;
 type TEditLocationParams = {
   code?: string;
 };
@@ -15,9 +11,9 @@ type TLocationErrors = {
   code?: string;
 };
 interface TLocationValidationReturns extends TFormValidationReturns {
-  values: TLocation;
+  values: ILocation;
   errors: TLocationErrors;
 }
 interface ValidateLocationFunction {
-  (values: TLocation): TLocationErrors;
+  (values: ILocation): TLocationErrors;
 }

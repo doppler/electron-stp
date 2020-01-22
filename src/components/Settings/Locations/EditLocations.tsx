@@ -5,7 +5,7 @@ import validate from './validateLocation';
 import useDB from '../../../useDB';
 import DeleteDocInput from '../../DeleteDocInput';
 
-const INITIAL_STATE: TLocation = {
+const INITIAL_STATE: ILocation = {
   type: 'location',
   code: '',
   name: ''
@@ -28,8 +28,8 @@ const EditLocation = () => {
   } = useFormValidation(INITIAL_STATE, validate, submit);
 
   async function submit() {
-    if (!values._id || !values.type) {
-      values._id = `location:${values.code}`;
+    if (!values._id) {
+      values._id = `${INITIAL_STATE.type}:${values.code}`;
     }
     await put(values);
     history.goBack();

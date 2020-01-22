@@ -5,7 +5,7 @@ import useFormValidation from '../../../utils/useFormValidation';
 import validate from './validateInstructor';
 import DeleteDocInput from '../../DeleteDocInput';
 
-const INITIAL_STATE: TInstructor = {
+const INITIAL_STATE: IInstructor = {
   type: 'instructor',
   name: '',
   email: '',
@@ -20,7 +20,7 @@ const EditInstructor: React.FC = () => {
 
   const [isNew, setNew] = useState(true);
   const [locations, setLocations]: [
-    TLocations,
+    TLocationList,
     React.Dispatch<SetStateAction<[]>>
   ] = useState([]);
 
@@ -38,7 +38,7 @@ const EditInstructor: React.FC = () => {
   );
 
   async function submit() {
-    if (!values._id || !values.type) {
+    if (!values._id) {
       values._id = `${INITIAL_STATE.type}:${values.uspaNumber}`;
     }
     await put(values);

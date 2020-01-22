@@ -1,15 +1,11 @@
-type TInstructor = {
-  readonly _rev?: string;
-  _id?: string;
-  _deleted?: boolean = false;
-  type: 'instructor';
+interface IInstructor extends ICouchDocument {
   uspaNumber: string | number | undefined;
   name: string;
   email: string;
   phone: string;
   currentLocation?: string;
-};
-type TInstructorList = Array<TInstructor>;
+}
+type TInstructorList = Array<IInstructor>;
 type TEditInstructorParams = {
   uspaNumber?: string;
 };
@@ -20,9 +16,9 @@ type TInstructorErrors = {
   phone?: string;
 };
 interface TInstructorValidationReturns extends TFormValidationReturns {
-  values: TInstructor;
+  values: IInstructor;
   errors: TInstructorErrors;
 }
 interface ValidateInstructorFunction {
-  (values: TInstructor): TInstructorErrors;
+  (values: IInstructor): TInstructorErrors;
 }

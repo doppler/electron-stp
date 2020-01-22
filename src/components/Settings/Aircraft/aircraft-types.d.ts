@@ -1,13 +1,9 @@
-type TAircraft = {
-  readonly _rev?: string;
-  _id?: string;
-  _deleted?: boolean = false;
-  type: 'aircraft';
+interface IAircraft extends ICouchDocument {
   tailNumber: string;
   model: string;
   currentLocation?: string;
-};
-type TAircraftList = Array<TAircraft>;
+}
+type TAircraftList = Array<IAircraft>;
 type TEditAircraftParams = {
   tailNumber?: string;
 };
@@ -16,9 +12,9 @@ type TAircraftErrors = {
   model?: string;
 };
 interface TAircraftValidationReturns extends TFormValidationReturns {
-  values: TAircraft;
+  values: IAircraft;
   errors: TAircraftErrors;
 }
 interface ValidateAircraftFunction {
-  (values: TAircraft): TAircraftErrors;
+  (values: IAircraft): TAircraftErrors;
 }

@@ -7,7 +7,7 @@ const LocationsSummary: React.FC = () => {
   const match = useRouteMatch();
 
   const [locations, setLocations]: [
-    TLocations,
+    TLocationList,
     React.Dispatch<SetStateAction<[]>>
   ] = useState([]);
 
@@ -28,7 +28,7 @@ const LocationsSummary: React.FC = () => {
       </div>
       <div className="panel-body">
         <ul className="settings-list">
-          {locations.map((location: TLocation) => (
+          {locations.map((location: ILocation) => (
             <Link
               key={location.code}
               to={`${match.url}/location/${location.code}`}

@@ -5,7 +5,7 @@ import useFormValidation from '../../../utils/useFormValidation';
 import validate from './validateAircraft';
 import DeleteDocInput from '../../DeleteDocInput';
 
-const INITIAL_STATE: TAircraft = {
+const INITIAL_STATE: IAircraft = {
   type: 'aircraft',
   tailNumber: '',
   model: '',
@@ -19,7 +19,7 @@ const EditAircraft: React.FC = () => {
 
   const [isNew, setNew] = useState(true);
   const [locations, setLocations]: [
-    TLocations,
+    TLocationList,
     React.Dispatch<SetStateAction<[]>>
   ] = useState([]);
 
@@ -37,8 +37,8 @@ const EditAircraft: React.FC = () => {
   );
 
   async function submit() {
-    if (!values._id || !values.type) {
-      values._id = `aircraft:${values.tailNumber}`;
+    if (!values._id) {
+      values._id = `${INITIAL_STATE.type}:${values.tailNumber}`;
     }
     await put(values);
     history.goBack();

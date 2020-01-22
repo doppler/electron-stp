@@ -28,7 +28,7 @@ const AircraftSummary: React.FC = () => {
       </div>
       <div className="panel-body">
         <ul className="settings-list aircraft">
-          {aircraftList.map((aircraft: TAircraft) => (
+          {aircraftList.map((aircraft: IAircraft) => (
             <Link
               key={aircraft.tailNumber}
               to={`${match.url}/aircraft/${aircraft.tailNumber}`}

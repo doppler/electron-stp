@@ -28,7 +28,7 @@ const InstructorSummary: React.FC = () => {
       </div>
       <div className="panel-body">
         <ul className="settings-list instructors">
-          {instructorList.map((instructor: TInstructor) => (
+          {instructorList.map((instructor: IInstructor) => (
             <Link
               key={instructor.uspaNumber?.toString()}
               to={`${match.url}/instructor/${instructor.uspaNumber}`}
