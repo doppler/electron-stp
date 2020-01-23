@@ -3,10 +3,10 @@ import { MdSettings, MdLock, MdHome } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 import React from 'react';
 import useAuth from './Auth/useAuth';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
-  const location = useLocation();
+  // const location = useLocation();
 
   const { user } = useAuth();
 
@@ -17,6 +17,7 @@ const Header = () => {
           <NavLink exact to="/" className="link">
             <MdHome />
           </NavLink>
+          {/*
           <span className="breadcrumbs">
             {location.pathname
               .replace(/\//, '')
@@ -25,6 +26,7 @@ const Header = () => {
                 <span key={i}>{name}</span>
               ))}
           </span>
+              */}
         </div>
         <div className="right">
           <span>{user.name}</span>

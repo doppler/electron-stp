@@ -30,6 +30,10 @@
 .Header a {
   font-size: 1.5em;
 }
+.Header span.breadcrumbs {
+  white-space: pre;
+  overflow-x: hidden;
+}
 .Header span.breadcrumbs > span::after {
   content: ' > ';
 }

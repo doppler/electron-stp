@@ -1,8 +1,10 @@
-import React, { SetStateAction, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import useAuth from '../../Auth/useAuth';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 const UserSummary: React.FC = () => {
   const { usersDB } = useAuth();
+  const match = useRouteMatch();
 
   const [users, setUsers]: [any, any] = useState([]);
 
@@ -24,13 +26,15 @@ const UserSummary: React.FC = () => {
         <ul className="settings-list">
           {users.map((user: any) => (
             <li key={user._id}>
-              <code>
-                {JSON.stringify(
-                  { name: user.name, roles: user.roles },
-                  null,
-                  2
-                )}
-              </code>
+              <Link to={`${match.url}/user/${user._id}`}>
+                <code>
+                  {JSON.stringify(
+                    { name: user.name, roles: user.roles },
+                    null,
+                    2
+                  )}
+                </code>
+              </Link>
             </li>
           ))}
         </ul>
