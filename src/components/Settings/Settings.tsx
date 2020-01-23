@@ -2,6 +2,7 @@ import React from 'react';
 import { LocationsSummary } from './Locations';
 import { AircraftSummary } from './Aircraft';
 import { InstructorSummary } from './Instructors';
+import { UserSummary } from './Users';
 
 const Settings = () => {
   return (
@@ -10,6 +11,7 @@ const Settings = () => {
       <LocationsSummary />
       <AircraftSummary />
       <InstructorSummary />
+      <UserSummary />
     </div>
   );
 };

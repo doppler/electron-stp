@@ -95,7 +95,7 @@ const useAuth = () => {
     }
   };
 
-  return { userDocCount, signUp, logIn, logOut, user };
+  return { userDocCount, signUp, logIn, logOut, user, usersDB };
 };
 
 export default useAuth;

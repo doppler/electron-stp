@@ -64,13 +64,6 @@ const EditInstructor: React.FC = () => {
     } finally {
     }
   }
-  // async function submit() {
-  //   if (!values._id) {
-  //     values._id = `${INITIAL_STATE.type}:${values.uspaNumber}`;
-  //   }
-  //   await put(values);
-  //   history.goBack();
-  // }
 
   useEffect(() => {
     (async () => {

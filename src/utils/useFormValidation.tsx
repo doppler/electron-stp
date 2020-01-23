@@ -41,9 +41,7 @@ const useFormValidation = (
 
   const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
     event.preventDefault();
-    console.log('handleSubmit');
     const validationErrors = validate(values);
-    console.log(validationErrors);
     setErrors(validationErrors);
     setSubmitting(true);
   };
