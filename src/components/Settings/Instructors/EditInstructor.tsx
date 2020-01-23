@@ -171,42 +171,46 @@ const EditInstructor: React.FC = () => {
             </select>
           </div>
         </div>
-        <div className="input-group">
-          <label htmlFor="password">Password</label>
-          <div className="tooltip">
-            <input
-              id="password"
-              name="password"
-              type="password"
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              onSubmit={handleSubmit}
-              autoComplete={'off'}
-            />
-            {errors.password && (
-              <span className="error">{errors.password}</span>
-            )}
-          </div>
-        </div>
-        <div className="input-group">
-          <label htmlFor="passwordConfirm">Password</label>
-          <div className="tooltip">
-            <input
-              id="passwordConfirm"
-              name="passwordConfirm"
-              type="password"
-              value={values.passwordConfirm}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              onSubmit={handleSubmit}
-              autoComplete={'off'}
-            />
-            {errors.passwordConfirm && (
-              <span className="error">{errors.passwordConfirm}</span>
-            )}
-          </div>
-        </div>
+        {isNew && (
+          <>
+            <div className="input-group">
+              <label htmlFor="password">Password</label>
+              <div className="tooltip">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  onSubmit={handleSubmit}
+                  autoComplete={'off'}
+                />
+                {errors.password && (
+                  <span className="error">{errors.password}</span>
+                )}
+              </div>
+            </div>
+            <div className="input-group">
+              <label htmlFor="passwordConfirm">Password</label>
+              <div className="tooltip">
+                <input
+                  id="passwordConfirm"
+                  name="passwordConfirm"
+                  type="password"
+                  value={values.passwordConfirm}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  onSubmit={handleSubmit}
+                  autoComplete={'off'}
+                />
+                {errors.passwordConfirm && (
+                  <span className="error">{errors.passwordConfirm}</span>
+                )}
+              </div>
+            </div>
+          </>
+        )}
         <div className="button-row">
           <button type="submit">Save</button>
           {!isNew ? (
