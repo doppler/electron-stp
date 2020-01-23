@@ -199,6 +199,17 @@ form .tooltip .error {
   right: 0;
   z-index: 1;
 }
+form .tooltip label {
+  float: left;
+}
+form .input-group {
+  display: grid;
+  grid-template-columns: 4em 1fr;
+}
+form .input-group label {
+  font-size: 0.8em;
+  padding-top: 0.2em;
+}
 form .checkbox {
   display: block;
   position: relative;

@@ -57,8 +57,7 @@ const useAuth = () => {
     };
   }, []);
 
-  const signUp = async (email: string, password: string) => {
-    const roles = [];
+  const signUp = async (email: string, password: string, roles: string[]) => {
     if (addAdminRole) {
       roles.push('admin');
     }

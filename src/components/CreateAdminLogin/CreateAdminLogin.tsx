@@ -44,7 +44,9 @@ export default () => {
   async function authenticateUser() {
     const { email, password }: TLoginFormValues = values;
     try {
-      isLogin ? await logIn(email, password) : await signUp(email, password);
+      isLogin
+        ? await logIn(email, password)
+        : await signUp(email, password, []);
       history.push('/');
     } catch (error) {
       console.error(error);
