@@ -63,7 +63,7 @@ const EditInstructor: React.FC = () => {
           values.email,
           values.password,
           roles,
-          false
+          !user ? true : false
         );
         values._id = `${INITIAL_STATE.type}:${values.uspaNumber}`;
         delete values.password;
