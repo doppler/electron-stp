@@ -60,17 +60,23 @@ const useAuth = () => {
     };
   }, []);
 
-  const signUp = async (email: string, password: string, roles: string[]) => {
+  const signUp = async (
+    email: string,
+    password: string,
+    roles: string[],
+    signIn: boolean
+  ) => {
     if (addAdminRole) {
       roles.push('admin');
     }
     try {
       // @ts-ignore
       const result = await usersDB.signUp(email, password, { roles });
-      window.sessionStorage.setItem(
-        'stp:user',
-        JSON.stringify({ name: email, roles })
-      );
+      signIn &&
+        window.sessionStorage.setItem(
+          'stp:user',
+          JSON.stringify({ name: email, roles })
+        );
       console.log(result);
       return result;
     } finally {

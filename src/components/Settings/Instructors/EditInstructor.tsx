@@ -61,7 +61,12 @@ const EditInstructor: React.FC = () => {
         history.push('/');
       } else if (isNew) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const signupRes = await signUp(values.email, values.password, roles);
+        const signupRes = await signUp(
+          values.email,
+          values.password,
+          roles,
+          false
+        );
         values._id = `${INITIAL_STATE.type}:${values.uspaNumber}`;
         await put(values);
         history.push('/settings');
