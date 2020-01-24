@@ -5,7 +5,6 @@ import PouchDBfind from 'pouchdb-find';
 import DBContext from './components/DBContext';
 import { createIndexes } from './utils';
 import AppRouter from './components/AppRouter';
-import PrivateRoute from './components/PrivateRoute';
 import Login from './components/Auth/Login';
 import Logout from './components/Auth/Logout';
 import { EditInstructor } from './components/Settings/Instructors';

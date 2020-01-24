@@ -103,7 +103,6 @@ const useAuth = () => {
       window.sessionStorage.getItem('stp:user') || 'null'
     );
     const isAdminUser = user && user.roles.includes('admin');
-    console.log({ user, isAdminUser });
     return isAdminUser;
   };
 
