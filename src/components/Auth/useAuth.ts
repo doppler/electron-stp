@@ -98,7 +98,15 @@ const useAuth = () => {
     }
   };
 
-  return { userDocCount, signUp, logIn, logOut, user, usersDB };
+  const isAdminUser = (): boolean => {
+    const user: IAuthUser = JSON.parse(
+      window.sessionStorage.getItem('stp:user') || 'null'
+    );
+    const isAdminUser = user && user.roles.includes('admin');
+    return isAdminUser;
+  };
+
+  return { userDocCount, signUp, logIn, logOut, user, isAdminUser, usersDB };
 };
 
 export default useAuth;

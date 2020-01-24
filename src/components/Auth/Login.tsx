@@ -1,5 +1,5 @@
 import './Login.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useAuth from '../Auth/useAuth';
 import { useHistory } from 'react-router-dom';
 import useFormValidation from '../../utils/useFormValidation';
@@ -13,7 +13,7 @@ const INITIAL_STATE: TLoginFormValues = {
 
 const Login = () => {
   const history = useHistory();
-  const { logIn, signUp } = useAuth();
+  const { logIn } = useAuth();
 
   const [loginError, setLoginError] = useState(null);
 
