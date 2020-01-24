@@ -18,27 +18,30 @@ const validate: ValidateInstructorFunction = (
     errors.email = 'Invalid email address';
   }
 
-  if (values.password.length < 8) {
-    errors.password = 'Password must be at least 8 characters';
-  } else if (
-    values.password &&
-    !(
-      values.password.match(/[A-Z]/) &&
-      values.password.match(/[a-z]/) &&
-      values.password.match(/[0-9]/)
-    )
-  ) {
-    errors.password =
-      'Password must contain at least one of each: Uppercase, lowercase, digit';
+  if (values.password) {
+    if (values.password.length < 8) {
+      errors.password = 'Password must be at least 8 characters';
+    } else if (
+      values.password &&
+      !(
+        values.password.match(/[A-Z]/) &&
+        values.password.match(/[a-z]/) &&
+        values.password.match(/[0-9]/)
+      )
+    ) {
+      errors.password =
+        'Password must contain at least one of each: Uppercase, lowercase, digit';
+    }
+
+    if (
+      values.password &&
+      isLogin &&
+      values.passwordConfirm !== values.password
+    ) {
+      errors.passwordConfirm = 'Password confirmation does not match password';
+    }
   }
 
-  if (
-    values.password &&
-    isLogin &&
-    values.passwordConfirm !== values.password
-  ) {
-    errors.passwordConfirm = 'Password confirmation does not match password';
-  }
   return errors;
 };
 
