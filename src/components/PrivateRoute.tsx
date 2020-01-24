@@ -8,13 +8,13 @@ interface PrivateRouteProps extends RouteProps {
 
 const PrivateRoute = (props: PrivateRouteProps) => {
   const { children, ...rest } = props;
-  const { isAdminUser } = useAuth();
+  const { isAdminUser, isInstructor } = useAuth();
   return (
     <Route
       {...rest}
       render={({ location }) =>
         // user && user.roles.include('admin') ? (
-        isAdminUser() ? (
+        isAdminUser() || isInstructor() ? (
           children
         ) : (
           <Redirect

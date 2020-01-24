@@ -112,7 +112,23 @@ const useAuth = () => {
     return isAdminUser;
   };
 
-  return { userDocCount, signUp, logIn, logOut, user, isAdminUser, usersDB };
+  const isInstructor = (): boolean => {
+    const user: IAuthUser = JSON.parse(
+      window.sessionStorage.getItem('stp:user') || 'null'
+    );
+    const isInstructor = user && user.roles.includes('instructor');
+    return isInstructor;
+  };
+  return {
+    userDocCount,
+    signUp,
+    logIn,
+    logOut,
+    user,
+    isAdminUser,
+    isInstructor,
+    usersDB
+  };
 };
 
 export default useAuth;
