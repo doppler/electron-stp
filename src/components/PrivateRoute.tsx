@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, RouteProps, Redirect } from 'react-router-dom';
+import useAuth from './Auth/useAuth';
 
 interface PrivateRouteProps extends RouteProps {
   children?: any;
@@ -7,12 +8,13 @@ interface PrivateRouteProps extends RouteProps {
 
 const PrivateRoute = (props: PrivateRouteProps) => {
   const { children, ...rest } = props;
-  const user = JSON.parse(window.sessionStorage.getItem('stp:user') || 'null');
+  const { isAdminUser } = useAuth();
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        user ? (
+        // user && user.roles.include('admin') ? (
+        isAdminUser() ? (
           children
         ) : (
           <Redirect

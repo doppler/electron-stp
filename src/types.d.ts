@@ -6,3 +6,8 @@ interface ICouchDocument {
   _deleted?: boolean = false;
   type: 'user' | 'location' | 'aircraft' | 'instructor' | 'student' | 'jump';
 }
+
+interface IAuthUser {
+  name: string;
+  roles: string[];
+}

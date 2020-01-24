@@ -71,9 +71,9 @@ const App = () => {
             <Route path="/logout">
               <Logout />
             </Route>
-            <PrivateRoute path="/">
+            <Route path="/">
               <AppRouter />
-            </PrivateRoute>
+            </Route>
           </Switch>
         </Router>
       </div>
