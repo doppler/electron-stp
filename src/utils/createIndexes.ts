@@ -12,6 +12,20 @@ const APP_INDEXES: TIndexDefinition[] = [
       ddoc: 'by',
       name: 'name'
     }
+  },
+  {
+    index: {
+      fields: ['email'],
+      ddoc: 'by',
+      name: 'email'
+    }
+  },
+  {
+    index: {
+      fields: ['type', 'email'],
+      ddoc: 'by',
+      name: 'type_and_email'
+    }
   }
 ];
 const createIndexes = async (
