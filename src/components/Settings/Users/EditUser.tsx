@@ -25,7 +25,7 @@ const INITIAL_STATE: User = {
 
 const EditUser: React.FC = () => {
   const history = useHistory();
-  const { usersDB } = useAuth();
+  const { usersDB, user: authUser } = useAuth();
   const params: Params = useParams();
   const [user, setUser]: [User, any] = useState(INITIAL_STATE);
 
@@ -56,15 +56,17 @@ const EditUser: React.FC = () => {
   return (
     <div>
       <code>{JSON.stringify(user, null, 2)}</code>
-      <form className="clean">
-        <div className="button-row">
-          <DeleteDocInput
-            setValues={setUser}
-            idValue={user._id}
-            handleSubmit={handleSubmit}
-          />
-        </div>
-      </form>
+      {user.name !== authUser.name && (
+        <form className="clean">
+          <div className="button-row">
+            <DeleteDocInput
+              setValues={setUser}
+              idValue={user._id}
+              handleSubmit={handleSubmit}
+            />
+          </div>
+        </form>
+      )}
     </div>
   );
 };
