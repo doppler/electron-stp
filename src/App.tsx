@@ -9,6 +9,7 @@ import Login from './components/Auth/Login';
 import Logout from './components/Auth/Logout';
 import { EditInstructor } from './components/Settings/Instructors';
 import useAuth from './components/Auth/useAuth';
+import PrivateRoute from './components/PrivateRoute';
 PouchDB.plugin(PouchDBfind);
 
 const DB = new PouchDB('stp', { auto_compaction: true });
@@ -70,9 +71,9 @@ const App = () => {
             <Route path="/logout">
               <Logout />
             </Route>
-            <Route path="/">
+            <PrivateRoute path="/">
               <AppRouter />
-            </Route>
+            </PrivateRoute>
           </Switch>
         </Router>
       </div>

@@ -52,14 +52,16 @@ const EditInstructor: React.FC = () => {
   async function submit() {
     // todo: handle roles
     const roles = ['instructor'];
+    delete values.password;
+    delete values.passwordConfirm;
     try {
       if (isLogin) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const loginRes = await logIn(values.email, values.password);
-        console.info(loginRes);
         history.push('/');
       } else if (isNew) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const signupRes = await signUp(values.email, values.password, roles);
-        console.info(signupRes);
         values._id = `${INITIAL_STATE.type}:${values.uspaNumber}`;
         await put(values);
         history.push('/settings');
