@@ -52,8 +52,6 @@ const EditInstructor: React.FC = () => {
   async function submit() {
     // todo: handle roles
     const roles = ['instructor'];
-    delete values.password;
-    delete values.passwordConfirm;
     try {
       if (isLogin) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -68,6 +66,8 @@ const EditInstructor: React.FC = () => {
           false
         );
         values._id = `${INITIAL_STATE.type}:${values.uspaNumber}`;
+        delete values.password;
+        delete values.passwordConfirm;
         await put(values);
         history.push('/settings');
       } else {
