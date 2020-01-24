@@ -1,9 +1,9 @@
-import './CreateAdminLogin.css';
+import './Login.css';
 import React, { useState, useEffect } from 'react';
-import useFormValidation from '../../utils/useFormValidation';
-import validateAdminLogin from './validateAdminLogin';
 import useAuth from '../Auth/useAuth';
 import { useHistory } from 'react-router-dom';
+import useFormValidation from '../../utils/useFormValidation';
+import validateLogin from './validateLogin';
 
 const INITIAL_STATE: TLoginFormValues = {
   email: process.env.REACT_APP_TEST_EMAIL || '',
@@ -11,7 +11,7 @@ const INITIAL_STATE: TLoginFormValues = {
   passwordConfirm: process.env.REACT_APP_TEST_PASSWORD || ''
 };
 
-export default () => {
+const Login = () => {
   const history = useHistory();
   const { userDocCount, logIn, signUp } = useAuth();
 
@@ -37,7 +37,7 @@ export default () => {
     handleSubmit
   }: CreateLoginFormValidationReturns = useFormValidation(
     INITIAL_STATE,
-    validateAdminLogin,
+    validateLogin,
     authenticateUser
   );
 
@@ -103,3 +103,5 @@ export default () => {
     </div>
   );
 };
+
+export default Login;

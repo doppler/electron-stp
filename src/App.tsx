@@ -6,7 +6,7 @@ import DBContext from './components/DBContext';
 import { createIndexes } from './utils';
 import AppRouter from './components/AppRouter';
 import PrivateRoute from './components/PrivateRoute';
-import CreateAdminLogin from './components/CreateAdminLogin';
+import Login from './components/Auth/Login';
 import Logout from './components/Auth/Logout';
 import { EditInstructor } from './components/Settings/Instructors';
 import useAuth from './components/Auth/useAuth';
@@ -66,7 +66,7 @@ const App = () => {
         <Router>
           <Switch>
             <Route path="/login">
-              {isFirstRun ? <EditInstructor /> : <CreateAdminLogin />}
+              {isFirstRun ? <EditInstructor /> : <Login />}
             </Route>
             <Route path="/logout">
               <Logout />

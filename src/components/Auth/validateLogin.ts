@@ -1,4 +1,4 @@
-const validateAdminLogin = (values: TLoginFormValues, isLogin: Boolean) => {
+const validateLogin = (values: TLoginFormValues, isLogin: Boolean) => {
   let errors: TLoginFormErrors = {};
   if (
     values.email &&
@@ -32,4 +32,4 @@ const validateAdminLogin = (values: TLoginFormValues, isLogin: Boolean) => {
   return errors;
 };
 
-export default validateAdminLogin;
+export default validateLogin;
