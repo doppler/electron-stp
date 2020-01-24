@@ -17,7 +17,10 @@ if (process.env.REACT_APP_REMOTE_COUCHDB) {
   usersDB
     .sync(remoteUsersDB, {
       live: true,
-      retry: true
+      retry: true,
+      filter: function(doc) {
+        return !doc._id.match(/^_design\/_auth/);
+      }
     })
     .on('change', info => console.info)
     .on('paused', err => console.error)
@@ -31,7 +34,7 @@ usersDB.useAsAuthenticationDB();
 
 const useAuth = () => {
   const [addAdminRole, setAddAdminRole] = useState(false);
-  const [userDocCount, setUserDocCount] = useState(0);
+  const [userDocCount, setUserDocCount] = useState(-999); // magic number
   const user = JSON.parse(window.sessionStorage.getItem('stp:user') || 'null');
 
   useEffect(() => {

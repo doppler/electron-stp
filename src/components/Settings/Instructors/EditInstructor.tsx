@@ -1,5 +1,5 @@
 import React, { useState, SetStateAction, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useRouteMatch } from 'react-router-dom';
 import useDB from '../../../useDB';
 import useFormValidation from '../../../utils/useFormValidation';
 import validate from './validateInstructor';
@@ -18,16 +18,23 @@ const INITIAL_STATE: IInstructor = {
 
 const EditInstructor: React.FC = () => {
   const params: TEditInstructorParams = useParams();
+  const match = useRouteMatch();
   const history = useHistory();
   const { get, put, find } = useDB();
-  const { signUp } = useAuth();
+  const { userDocCount, signUp, logIn, user } = useAuth();
+  const [isLogin, setLogin] = useState(false);
   const [loginError, setLoginError] = useState(null);
 
-  const [isNew, setNew] = useState(true);
+  const isNew = params.uspaNumber === 'NEW' || match.path === '/login';
+
   const [locations, setLocations]: [
     TLocationList,
     React.Dispatch<SetStateAction<[]>>
   ] = useState([]);
+
+  useEffect(() => {
+    setLogin(userDocCount > 0 && !user);
+  }, [userDocCount, user]);
 
   const {
     values,
@@ -43,19 +50,23 @@ const EditInstructor: React.FC = () => {
   );
 
   async function submit() {
-    console.log('submit');
     // todo: handle roles
     const roles = ['instructor'];
     try {
-      if (isNew) {
+      if (isLogin) {
+        const loginRes = await logIn(values.email, values.password);
+        console.info(loginRes);
+        history.push('/');
+      } else if (isNew) {
         const signupRes = await signUp(values.email, values.password, roles);
-        console.log(signupRes);
-      }
-      if (!values._id) {
+        console.info(signupRes);
         values._id = `${INITIAL_STATE.type}:${values.uspaNumber}`;
+        await put(values);
+        history.push('/settings');
+      } else {
+        await put(values);
+        history.push('/settings');
       }
-      await put(values);
-      history.goBack();
     } catch (error) {
       console.error(error);
       if (error.name === 'conflict')
@@ -71,19 +82,21 @@ const EditInstructor: React.FC = () => {
       setLocations(locations);
     })();
 
-    if (params.uspaNumber === 'NEW') return;
-
-    setNew(false);
+    /* If the route is /login and there are no users in the _users db,
+     * we need to create an admin user with this instructor, so we
+     * won't be needing to fetch them from the db.
+     */
+    if (isNew) return;
 
     (async () => {
       const doc = await get(`${INITIAL_STATE.type}:${params.uspaNumber}`);
       setValues(doc);
     })();
-  }, [params.uspaNumber, get, find, setValues]);
+  }, [params.uspaNumber, get, find, setValues, match, isNew]);
 
   return (
     <div>
-      {isNew ? <h1>New Instructor</h1> : <h1>Edit {values.uspaNumber}</h1>}
+      <h1>{isNew ? 'New Instructor' : `Edit ${values.uspaNumber}`}</h1>
       <form onSubmit={handleSubmit} className="clean">
         <div className="input-group">
           <label htmlFor="uspaNumber">USPA #</label>

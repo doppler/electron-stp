@@ -32,7 +32,11 @@ const validate: ValidateInstructorFunction = (
       'Password must contain at least one of each: Uppercase, lowercase, digit';
   }
 
-  if (values.password && values.passwordConfirm !== values.password) {
+  if (
+    values.password &&
+    isLogin &&
+    values.passwordConfirm !== values.password
+  ) {
     errors.passwordConfirm = 'Password confirmation does not match password';
   }
   return errors;

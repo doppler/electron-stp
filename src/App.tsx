@@ -1,28 +1,83 @@
-import './App.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import CreateAdminLogin from './components/CreateAdminLogin';
+import PouchDB from 'pouchdb';
+import PouchDBfind from 'pouchdb-find';
+import DBContext from './components/DBContext';
+import { createIndexes } from './utils';
 import AppRouter from './components/AppRouter';
 import PrivateRoute from './components/PrivateRoute';
+import CreateAdminLogin from './components/CreateAdminLogin';
 import Logout from './components/Auth/Logout';
+import { EditInstructor } from './components/Settings/Instructors';
+import useAuth from './components/Auth/useAuth';
+PouchDB.plugin(PouchDBfind);
+
+const DB = new PouchDB('stp', { auto_compaction: true });
+
+if (process.env.REACT_APP_REMOTE_COUCHDB) {
+  const AppDB = new PouchDB(`${process.env.REACT_APP_REMOTE_COUCHDB}/stp`, {
+    auth: {
+      username: process.env.REACT_APP_REMOTE_COUCHDB_USERNAME,
+      password: process.env.REACT_APP_REMOTE_COUCHDB_PASSWORD
+    }
+  });
+  DB.sync(AppDB, {
+    live: true,
+    retry: true
+  })
+    .on('change', info => console.info)
+    .on('paused', err => console.error)
+    .on('active', () => console.info('DB replication active.'))
+    .on('denied', err => console.error)
+    .on('complete', info => console.info)
+    .on('error', err => console.error);
+}
 
 const App = () => {
+  useEffect(() => {
+    /*
+    /* Before we render the rest of the app, check and see if there
+    /* are DB indexes that need to be created, and create them.
+    /* Indexes are defined in src/utils/createIndexes.ts for now.
+     */
+    (async () => {
+      const createIndexesResults = await createIndexes(DB); // eslint-disable-line @typescript-eslint/no-unused-vars
+    })();
+  }, []);
+
+  /*
+  /* FirstRun:
+  /* If there are no _users docs besides the _design doc, we'll use the 
+  /* EditInstructor interface to create a new Instructor and _user at
+  /* the same time. Otherwise, we'll just use the Login screen.
+   */
+  const [didFetchUserDocCount, setFetchedUserDocCount] = useState(false);
+  const [isFirstRun, setFirstRun] = useState(true);
+  const { userDocCount } = useAuth();
+  useEffect(() => {
+    setFirstRun(userDocCount <= 0);
+    setFetchedUserDocCount(userDocCount !== -999); // magic number
+  }, [userDocCount]);
+  if (!didFetchUserDocCount) return null;
+
   return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/login">
-            <CreateAdminLogin />
-          </Route>
-          <Route path="/logout">
-            <Logout />
-          </Route>
-          <PrivateRoute path="/">
-            <AppRouter />
-          </PrivateRoute>
-        </Switch>
-      </Router>
-    </div>
+    <DBContext.Provider value={DB}>
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route path="/login">
+              {isFirstRun ? <EditInstructor /> : <CreateAdminLogin />}
+            </Route>
+            <Route path="/logout">
+              <Logout />
+            </Route>
+            <PrivateRoute path="/">
+              <AppRouter />
+            </PrivateRoute>
+          </Switch>
+        </Router>
+      </div>
+    </DBContext.Provider>
   );
 };
 

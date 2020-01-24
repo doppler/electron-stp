@@ -1,4 +1,5 @@
 :root {
+  --body-background-color: hsl(var(--primary), var(--saturation), var(--dark));
   --warning-background-color: hsl(
     var(--tri-1),
     var(--saturation),
@@ -9,7 +10,6 @@
     var(--saturation),
     calc(var(--lightness) + var(--lighten))
   );
-  --body-background-color: hsl(var(--primary), var(--saturation), var(--dark));
   --button-background-color: hsl(
     var(--tri-2),
     var(--saturation),
@@ -27,6 +27,7 @@ body {
 }
 .App {
   color: hsl(var(--complement), var(--saturation), var(--light));
+  color: white;
   background-color: var(--body-background-color);
   /* height: 100vh; */
 }
