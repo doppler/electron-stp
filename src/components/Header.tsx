@@ -8,7 +8,7 @@ import { Link, NavLink } from 'react-router-dom';
 const Header = () => {
   // const location = useLocation();
 
-  const { user } = useAuth();
+  const { user, isAdminUser } = useAuth();
 
   return (
     <IconContext.Provider value={{ className: 'react-icons' }}>
@@ -34,9 +34,11 @@ const Header = () => {
           <Link to="/logout" className="link">
             <MdLock />
           </Link>
-          <NavLink to="/settings" className="link">
-            <MdSettings />
-          </NavLink>
+          {isAdminUser() && (
+            <NavLink to="/settings" className="link">
+              <MdSettings />
+            </NavLink>
+          )}
         </div>
       </div>
     </IconContext.Provider>
