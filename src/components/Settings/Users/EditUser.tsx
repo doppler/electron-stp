@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useAuth from '../../Auth/useAuth';
 import { useParams, useHistory } from 'react-router-dom';
 import DeleteDocInput from '../../DeleteDocInput';
+import useDB from '../../../useDB';
 
 type Params = {
   id?: string;
@@ -26,6 +27,7 @@ const INITIAL_STATE: User = {
 const EditUser: React.FC = () => {
   const history = useHistory();
   const { usersDB, user: authUser } = useAuth();
+  const DB = useDB();
   const params: Params = useParams();
   const [user, setUser]: [User, any] = useState(INITIAL_STATE);
 
@@ -47,6 +49,14 @@ const EditUser: React.FC = () => {
         _deleted: user._deleted
       });
       console.info(result);
+      DB.find({
+        selector: { type: 'instructor', email: user.name }
+      })
+        .then(results => {
+          const instructor = results[0];
+          DB.put({ ...instructor, _deleted: true });
+        })
+        .catch(error => console.error(error));
       history.go(-1);
     } catch (error) {
       console.error(error);
