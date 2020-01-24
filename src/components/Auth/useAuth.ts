@@ -48,7 +48,7 @@ const useAuth = () => {
         const result = await usersDB.info();
         doc_count = result.doc_count - 1;
         if (isCancelled) return;
-        if (doc_count <= 1) setAddAdminRole(true);
+        if (doc_count <= 0) setAddAdminRole(true);
         setUserDocCount(doc_count);
       } catch (error) {
         console.error(error);
