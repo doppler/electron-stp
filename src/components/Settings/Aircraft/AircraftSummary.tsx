@@ -6,7 +6,7 @@ const AircraftSummary: React.FC = () => {
   const { find } = useDB();
   const match = useRouteMatch();
 
-  const [aircraftList, setAircraftList] = useState<TAircraftList>([]);
+  const [aircraftList, setAircraftList] = useState<any>([]);
 
   useEffect(() => {
     (async () => {
@@ -25,7 +25,7 @@ const AircraftSummary: React.FC = () => {
       </div>
       <div className='panel-body'>
         <ul className='settings-list aircraft'>
-          {aircraftList.map(aircraft => (
+          {aircraftList.map((aircraft: IAircraft) => (
             <Link
               key={aircraft.tailNumber}
               to={`${match.url}/aircraft/${aircraft.tailNumber}`}

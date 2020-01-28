@@ -6,7 +6,7 @@ const InstructorSummary: React.FC = () => {
   const { find } = useDB();
   const match = useRouteMatch();
 
-  const [instructorList, setInstructorList] = useState<TInstructorList>([]);
+  const [instructorList, setInstructorList] = useState<any>([]);
 
   useEffect(() => {
     (async () => {
@@ -25,7 +25,7 @@ const InstructorSummary: React.FC = () => {
       </div>
       <div className='panel-body'>
         <ul className='settings-list instructors'>
-          {instructorList.map(instructor => (
+          {instructorList.map((instructor: IInstructor) => (
             <Link
               key={instructor.uspaNumber?.toString()}
               to={`${match.url}/instructor/${instructor.uspaNumber}`}

@@ -1,4 +1,4 @@
-import React, { useState, SetStateAction, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useHistory, useRouteMatch } from 'react-router-dom';
 import useDB from '../../../useDB';
 import useFormValidation from '../../../utils/useFormValidation';
@@ -27,10 +27,7 @@ const EditInstructor: React.FC = () => {
 
   const isNew = params.uspaNumber === 'NEW' || match.path === '/login';
 
-  const [locations, setLocations]: [
-    TLocationList,
-    React.Dispatch<SetStateAction<[]>>
-  ] = useState([]);
+  const [locations, setLocations] = useState<any>([]);
 
   useEffect(() => {
     setLogin(userDocCount > 0 && !user);
@@ -104,14 +101,14 @@ const EditInstructor: React.FC = () => {
   return (
     <div>
       <h1>{isNew ? 'New Instructor' : `Edit ${values.uspaNumber}`}</h1>
-      <form onSubmit={handleSubmit} className="clean">
-        <div className="input-group">
-          <label htmlFor="uspaNumber">USPA #</label>
-          <div className="tooltip">
+      <form onSubmit={handleSubmit} className='clean'>
+        <div className='input-group'>
+          <label htmlFor='uspaNumber'>USPA #</label>
+          <div className='tooltip'>
             <input
-              type="number"
-              name="uspaNumber"
-              id="uspaNumber"
+              type='number'
+              name='uspaNumber'
+              id='uspaNumber'
               value={values.uspaNumber}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -120,16 +117,16 @@ const EditInstructor: React.FC = () => {
               disabled={!isNew}
             />
             {errors.uspaNumber && (
-              <span className="error">{errors.uspaNumber}</span>
+              <span className='error'>{errors.uspaNumber}</span>
             )}
           </div>
         </div>
-        <div className="input-group">
-          <label htmlFor="name">Name</label>
-          <div className="tooltip">
+        <div className='input-group'>
+          <label htmlFor='name'>Name</label>
+          <div className='tooltip'>
             <input
-              id="name"
-              name="name"
+              id='name'
+              name='name'
               value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -137,16 +134,16 @@ const EditInstructor: React.FC = () => {
               placeholder={'Full Name'}
               autoComplete={'off'}
             />
-            {errors.name && <span className="error">{errors.name}</span>}
+            {errors.name && <span className='error'>{errors.name}</span>}
           </div>
         </div>
-        <div className="input-group">
-          <label htmlFor="email">Email</label>
-          <div className="tooltip">
+        <div className='input-group'>
+          <label htmlFor='email'>Email</label>
+          <div className='tooltip'>
             <input
-              id="email"
-              name="email"
-              type="email"
+              id='email'
+              name='email'
+              type='email'
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -154,15 +151,15 @@ const EditInstructor: React.FC = () => {
               placeholder={'email@example.com'}
               autoComplete={'off'}
             />
-            {errors.email && <span className="error">{errors.email}</span>}
+            {errors.email && <span className='error'>{errors.email}</span>}
           </div>
         </div>
-        <div className="input-group">
-          <label htmlFor="phone">Phone</label>
-          <div className="tooltip">
+        <div className='input-group'>
+          <label htmlFor='phone'>Phone</label>
+          <div className='tooltip'>
             <input
-              id="phone"
-              name="phone"
+              id='phone'
+              name='phone'
               value={values.phone}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -170,20 +167,20 @@ const EditInstructor: React.FC = () => {
               placeholder={'123 456 7890'}
               autoComplete={'off'}
             />
-            {errors.phone && <span className="error">{errors.phone}</span>}
+            {errors.phone && <span className='error'>{errors.phone}</span>}
           </div>
         </div>
-        <div className="input-group">
-          <label htmlFor="currentLocation">Location</label>
-          <div className="tooltip">
+        <div className='input-group'>
+          <label htmlFor='currentLocation'>Location</label>
+          <div className='tooltip'>
             <select
-              id="currentLocation"
-              name="currentLocation"
+              id='currentLocation'
+              name='currentLocation'
               value={values.currentLocation}
               onChange={handleChange}
             >
-              <option value="">Current Location: None</option>
-              {locations.map(location => (
+              <option value=''>Current Location: None</option>
+              {locations.map((location: ILocation) => (
                 <option key={location.code} value={location.code}>
                   {location.name}
                 </option>
@@ -193,13 +190,13 @@ const EditInstructor: React.FC = () => {
         </div>
         {isNew && (
           <>
-            <div className="input-group">
-              <label htmlFor="password">Password</label>
-              <div className="tooltip">
+            <div className='input-group'>
+              <label htmlFor='password'>Password</label>
+              <div className='tooltip'>
                 <input
-                  id="password"
-                  name="password"
-                  type="password"
+                  id='password'
+                  name='password'
+                  type='password'
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -207,17 +204,17 @@ const EditInstructor: React.FC = () => {
                   autoComplete={'off'}
                 />
                 {errors.password && (
-                  <span className="error">{errors.password}</span>
+                  <span className='error'>{errors.password}</span>
                 )}
               </div>
             </div>
-            <div className="input-group">
-              <label htmlFor="passwordConfirm">Password</label>
-              <div className="tooltip">
+            <div className='input-group'>
+              <label htmlFor='passwordConfirm'>Password</label>
+              <div className='tooltip'>
                 <input
-                  id="passwordConfirm"
-                  name="passwordConfirm"
-                  type="password"
+                  id='passwordConfirm'
+                  name='passwordConfirm'
+                  type='password'
                   value={values.passwordConfirm}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -225,14 +222,14 @@ const EditInstructor: React.FC = () => {
                   autoComplete={'off'}
                 />
                 {errors.passwordConfirm && (
-                  <span className="error">{errors.passwordConfirm}</span>
+                  <span className='error'>{errors.passwordConfirm}</span>
                 )}
               </div>
             </div>
           </>
         )}
-        <div className="button-row">
-          <button type="submit">Save</button>
+        <div className='button-row'>
+          <button type='submit'>Save</button>
           {!isNew && !(user.name === values.email) ? (
             <DeleteDocInput
               setValues={setValues}
@@ -242,7 +239,7 @@ const EditInstructor: React.FC = () => {
           ) : null}
         </div>
       </form>
-      {loginError && <span className="error-text">{loginError}</span>}
+      {loginError && <span className='error-text'>{loginError}</span>}
     </div>
   );
 };

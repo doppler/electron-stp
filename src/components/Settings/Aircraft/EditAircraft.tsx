@@ -1,4 +1,4 @@
-import React, { useState, useEffect, SetStateAction } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useDB from '../../../useDB';
 import useFormValidation from '../../../utils/useFormValidation';
@@ -18,10 +18,7 @@ const EditAircraft: React.FC = () => {
   const { get, put, find } = useDB();
 
   const [isNew, setNew] = useState(true);
-  const [locations, setLocations]: [
-    TLocationList,
-    React.Dispatch<SetStateAction<[]>>
-  ] = useState([]);
+  const [locations, setLocations] = useState<any>([]);
 
   const {
     values,
@@ -61,12 +58,12 @@ const EditAircraft: React.FC = () => {
   }, [params.tailNumber, get, find, setValues]);
 
   return (
-    <div className="EditAircraft">
+    <div className='EditAircraft'>
       <h1>Edit {values.tailNumber}</h1>
-      <form onSubmit={handleSubmit} className="clean">
-        <div className="tooltip">
+      <form onSubmit={handleSubmit} className='clean'>
+        <div className='tooltip'>
           <input
-            name="tailNumber"
+            name='tailNumber'
             value={values.tailNumber}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -75,12 +72,12 @@ const EditAircraft: React.FC = () => {
             disabled={!isNew}
           />
           {errors.tailNumber && (
-            <span className="error">{errors.tailNumber}</span>
+            <span className='error'>{errors.tailNumber}</span>
           )}
         </div>
-        <div className="tooltip">
+        <div className='tooltip'>
           <input
-            name="model"
+            name='model'
             value={values.model}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -88,24 +85,24 @@ const EditAircraft: React.FC = () => {
             autoComplete={'off'}
             // disabled={!isNew}
           />
-          {errors.model && <span className="error">{errors.model}</span>}
+          {errors.model && <span className='error'>{errors.model}</span>}
         </div>
-        <div className="tooltip">
+        <div className='tooltip'>
           <select
-            name="currentLocation"
+            name='currentLocation'
             value={values.currentLocation}
             onChange={handleChange}
           >
-            <option value="">Current Location: None</option>
-            {locations.map(location => (
+            <option value=''>Current Location: None</option>
+            {locations.map((location: ILocation) => (
               <option key={location.code} value={location.code}>
                 {location.name}
               </option>
             ))}
           </select>
         </div>
-        <div className="button-row">
-          <button type="submit">Save</button>
+        <div className='button-row'>
+          <button type='submit'>Save</button>
           {!isNew ? (
             <DeleteDocInput
               setValues={setValues}
