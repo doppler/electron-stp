@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import PouchDB from 'pouchdb';
 import PouchDBfind from 'pouchdb-find';
-import DBContext from './components/DBContext';
+import { DBProvider } from './components/DBContext';
 import { createIndexes } from './utils';
 import AppRouter from './components/AppRouter';
 import Login from './components/Auth/Login';
@@ -61,23 +61,23 @@ const App = () => {
   if (!didFetchUserDocCount) return null;
 
   return (
-    <DBContext.Provider value={DB}>
-      <div className="App">
+    <DBProvider value={DB}>
+      <div className='App'>
         <Router>
           <Switch>
-            <Route path="/login">
+            <Route path='/login'>
               {isFirstRun ? <EditInstructor /> : <Login />}
             </Route>
-            <Route path="/logout">
+            <Route path='/logout'>
               <Logout />
             </Route>
-            <PrivateRoute path="/">
+            <PrivateRoute path='/'>
               <AppRouter />
             </PrivateRoute>
           </Switch>
         </Router>
       </div>
-    </DBContext.Provider>
+    </DBProvider>
   );
 };
 

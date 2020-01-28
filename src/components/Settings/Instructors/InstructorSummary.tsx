@@ -1,4 +1,4 @@
-import React, { SetStateAction, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import useDB from '../../../useDB';
 
