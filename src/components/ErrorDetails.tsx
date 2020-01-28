@@ -2,6 +2,7 @@ import React from 'react';
 
 const ErrorDetails = (props: any) => {
   const { errors } = props;
+
   return (
     <ul>
       {errors.map((error: TValidationError) => (

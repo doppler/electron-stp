@@ -34,13 +34,13 @@ const useFormValidation = (
     });
   };
 
-  const handleBlur = (event: any) => {
-    event.persist();
+  const handleBlur = (event: React.SyntheticEvent) => {
     const validation = validate(values);
-    if (event.target.name && validation.error?.details) {
+    let element = event.target as HTMLInputElement;
+    if (element.name && validation.error?.details) {
       setErrors(
         validation.error.details.filter(
-          (detail: TValidationError) => detail.context.key === event.target.name
+          (detail: TValidationError) => detail.context.key === element.name
         )
       );
     }
