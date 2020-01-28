@@ -66,6 +66,9 @@ const EditAircraft: React.FC = () => {
     }));
   }, [values.tailNumber, setValues]);
 
+  const hasErrors = (fieldName: string): boolean =>
+    errors.map(error => error.context.key).includes(fieldName);
+
   return (
     <div className='EditAircraft'>
       <h1>Edit {values.tailNumber}</h1>
@@ -78,6 +81,7 @@ const EditAircraft: React.FC = () => {
             onBlur={handleBlur}
             placeholder={'NTAILN0'}
             autoComplete={'off'}
+            className={hasErrors('tailNumber') ? 'invalid' : ''}
             disabled={!isNew}
           />
         </div>
@@ -89,6 +93,7 @@ const EditAircraft: React.FC = () => {
             onBlur={handleBlur}
             placeholder={'Model'}
             autoComplete={'off'}
+            className={hasErrors('model') ? 'invalid' : ''}
             disabled={!isNew}
           />
         </div>
