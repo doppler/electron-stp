@@ -6,7 +6,7 @@ const useFormValidation = (
   authenticate: Function
 ): TFormValidationReturns => {
   const [values, setValues] = useState(initialState);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
   const [isSubmitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -34,15 +34,24 @@ const useFormValidation = (
     });
   };
 
-  const handleBlur = (event: React.FormEvent) => {
-    const validationErrors = validate(values);
-    setErrors(validationErrors);
+  const handleBlur = (event: any) => {
+    event.persist();
+    console.log(event.target);
+    const validation = validate(values);
+    if (event.target.name && validation.error?.details) {
+      setErrors(
+        validation.error.details.filter(
+          (detail: TValidationError) => detail.context.key === event.target.name
+        )
+      );
+    }
   };
 
   const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
+    console.log('submit');
     event.preventDefault();
-    const validationErrors = validate(values);
-    setErrors(validationErrors);
+    const validation = validate(values);
+    if (validation.error) setErrors(validation.error.details);
     setSubmitting(true);
   };
 

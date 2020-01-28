@@ -71,9 +71,6 @@ const EditAircraft: React.FC = () => {
             autoComplete={'off'}
             disabled={!isNew}
           />
-          {errors.tailNumber && (
-            <span className='error'>{errors.tailNumber}</span>
-          )}
         </div>
         <div className='tooltip'>
           <input
@@ -85,7 +82,6 @@ const EditAircraft: React.FC = () => {
             autoComplete={'off'}
             // disabled={!isNew}
           />
-          {errors.model && <span className='error'>{errors.model}</span>}
         </div>
         <div className='tooltip'>
           <select
@@ -112,8 +108,21 @@ const EditAircraft: React.FC = () => {
           ) : null}
         </div>
       </form>
+      <ErrorDetails errors={errors} />
+      <code>{JSON.stringify(errors, null, 2)}</code>
     </div>
   );
 };
 
 export default EditAircraft;
+
+const ErrorDetails = (props: any) => {
+  const { errors } = props;
+  return (
+    <ul>
+      {errors.map((error: TValidationError) => (
+        <li key={error.context.key}>{error.message}</li>
+      ))}
+    </ul>
+  );
+};
