@@ -37,7 +37,8 @@ const useFormValidation = (
   const handleBlur = (event: React.SyntheticEvent) => {
     const validation = validate(values);
     let element = event.target as HTMLInputElement;
-    if (element.name && validation.error?.details) {
+    const valueHasChanged = values[element.name] !== initialState[element.name];
+    if (valueHasChanged && element.name && validation.error?.details) {
       setErrors(
         validation.error.details.filter(
           (detail: TValidationError) => detail.context.key === element.name
