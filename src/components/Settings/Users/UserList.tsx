@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import useAuth from '../../Auth/useAuth';
 import { Link, useRouteMatch } from 'react-router-dom';
 
+interface IUser {
+  _id: string;
+  name: string;
+  roles: string[];
+}
 const UserSummary: React.FC = () => {
   const { usersDB } = useAuth();
   const match = useRouteMatch();
 
-  const [users, setUsers]: [any, any] = useState([]);
+  const [users, setUsers] = useState<any>([]);
 
   useEffect(() => {
     (async () => {
@@ -17,14 +22,15 @@ const UserSummary: React.FC = () => {
       setUsers(users);
     })();
   }, [usersDB]);
+
   return (
-    <div className="Users panel">
-      <div className="panel-header">
-        <h2 className="panel-title">Users</h2>
+    <div className='Users panel'>
+      <div className='panel-header'>
+        <h2 className='panel-title'>Users</h2>
       </div>
-      <div className="panel-body">
-        <ul className="settings-list">
-          {users.map((user: any) => (
+      <div className='panel-body'>
+        <ul className='settings-list'>
+          {users.map((user: IUser) => (
             <li key={user._id}>
               <Link to={`${match.url}/user/${user._id}`}>
                 <code>

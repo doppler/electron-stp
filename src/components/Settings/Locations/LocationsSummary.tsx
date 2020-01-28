@@ -6,10 +6,7 @@ const LocationsSummary: React.FC = () => {
   const { find } = useDB();
   const match = useRouteMatch();
 
-  const [locations, setLocations]: [
-    TLocationList,
-    React.Dispatch<SetStateAction<[]>>
-  ] = useState([]);
+  const [locations, setLocations] = useState<TLocationList>([]);
 
   useEffect(() => {
     (async () => {
@@ -19,16 +16,16 @@ const LocationsSummary: React.FC = () => {
   }, [find]);
 
   return (
-    <div className="Locations panel">
-      <div className="panel-header">
-        <h2 className="panel-title">Locations</h2>
+    <div className='Locations panel'>
+      <div className='panel-header'>
+        <h2 className='panel-title'>Locations</h2>
         <Link to={`${match.url}/location/NEW`}>
           <button>Add Location</button>
         </Link>
       </div>
-      <div className="panel-body">
-        <ul className="settings-list">
-          {locations.map((location: ILocation) => (
+      <div className='panel-body'>
+        <ul className='settings-list'>
+          {locations.map(location => (
             <Link
               key={location.code}
               to={`${match.url}/location/${location.code}`}
