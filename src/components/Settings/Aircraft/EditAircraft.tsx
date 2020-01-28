@@ -4,8 +4,10 @@ import useDB from '../../../useDB';
 import useFormValidation from '../../../utils/useFormValidation';
 import validate from './validateAircraft';
 import DeleteDocInput from '../../DeleteDocInput';
+import ErrorDetails from '../../ErrorDetails';
 
 const INITIAL_STATE: IAircraft = {
+  _id: '',
   type: 'aircraft',
   tailNumber: '',
   model: '',
@@ -57,6 +59,13 @@ const EditAircraft: React.FC = () => {
     })();
   }, [params.tailNumber, get, find, setValues]);
 
+  useEffect(() => {
+    setValues((prevValues: IAircraft) => ({
+      ...prevValues,
+      _id: `aircraft:${values.tailNumber}`
+    }));
+  }, [values.tailNumber, setValues]);
+
   return (
     <div className='EditAircraft'>
       <h1>Edit {values.tailNumber}</h1>
@@ -80,7 +89,7 @@ const EditAircraft: React.FC = () => {
             onBlur={handleBlur}
             placeholder={'Model'}
             autoComplete={'off'}
-            // disabled={!isNew}
+            disabled={!isNew}
           />
         </div>
         <div className='tooltip'>
@@ -109,20 +118,8 @@ const EditAircraft: React.FC = () => {
         </div>
       </form>
       <ErrorDetails errors={errors} />
-      <code>{JSON.stringify(errors, null, 2)}</code>
     </div>
   );
 };
 
 export default EditAircraft;
-
-const ErrorDetails = (props: any) => {
-  const { errors } = props;
-  return (
-    <ul>
-      {errors.map((error: TValidationError) => (
-        <li key={error.context.key}>{error.message}</li>
-      ))}
-    </ul>
-  );
-};

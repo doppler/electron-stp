@@ -36,7 +36,6 @@ const useFormValidation = (
 
   const handleBlur = (event: any) => {
     event.persist();
-    console.log(event.target);
     const validation = validate(values);
     if (event.target.name && validation.error?.details) {
       setErrors(
@@ -48,7 +47,6 @@ const useFormValidation = (
   };
 
   const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
-    console.log('submit');
     event.preventDefault();
     const validation = validate(values);
     if (validation.error) setErrors(validation.error.details);
