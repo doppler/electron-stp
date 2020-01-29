@@ -31,7 +31,7 @@ const LocationsSummary: React.FC = () => {
               to={`${match.url}/location/${location.code}`}
             >
               <li>
-                <div>{location.name}</div>
+                <div>{location.dzname}</div>
                 <div>{location.code}</div>
               </li>
             </Link>

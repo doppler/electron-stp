@@ -4,11 +4,12 @@ import useFormValidation from '../../../utils/useFormValidation';
 import validate from './validateLocation';
 import useDB from '../../../useDB';
 import DeleteDocInput from '../../DeleteDocInput';
+import ErrorDetails from '../../ErrorDetails';
 
 const INITIAL_STATE: ILocation = {
   type: 'location',
   code: '',
-  name: ''
+  dzname: ''
 };
 
 const EditLocation = () => {
@@ -25,7 +26,11 @@ const EditLocation = () => {
     handleBlur,
     handleChange,
     handleSubmit
-  } = useFormValidation(INITIAL_STATE, validate, submit);
+  }: TLocationValidationReturns = useFormValidation(
+    INITIAL_STATE,
+    validate,
+    submit
+  );
 
   async function submit() {
     if (!values._id) {
@@ -46,42 +51,48 @@ const EditLocation = () => {
     })();
   }, [params.code, get, setValues]);
 
+  const hasErrors = (fieldName: string): boolean =>
+    errors.map(error => error.context.key).includes(fieldName);
+
   return (
-    <div className="EditLocation">
+    <div className='EditLocation'>
       <h1>Edit {values.code}</h1>
-      <form onSubmit={handleSubmit} className="clean">
-        <div className="tooltip">
+      <form onSubmit={handleSubmit} className='clean'>
+        <div className='tooltip'>
           <input
-            name="code"
+            name='code'
             value={values.code}
             onChange={handleChange}
             onBlur={handleBlur}
-            placeholder="CODE"
-            autoComplete="off"
+            placeholder='CODE'
+            autoComplete='off'
+            className={hasErrors('code') ? 'invalid' : ''}
             disabled={!isNew}
           />
-          {errors.code && <span className="error">{errors.code}</span>}
         </div>
-        <div className="tooltip">
+        <div className='tooltip'>
           <input
-            name="name"
-            value={values.name}
+            name='dzname'
+            value={values.dzname}
             onChange={handleChange}
             onBlur={handleBlur}
-            placeholder="Location Name"
-            autoComplete="off"
+            placeholder='DZ Name'
+            autoComplete='off'
+            className={hasErrors('dzname') ? 'invalid' : ''}
           />
-          {errors.name && <span className="error">{errors.name}</span>}
         </div>
-        <div className="button-row">
-          <button type="submit">Save</button>
-          <DeleteDocInput
-            setValues={setValues}
-            idValue={values.code}
-            handleSubmit={handleSubmit}
-          />
+        <div className='button-row'>
+          <button type='submit'>Save</button>
+          {!isNew ? (
+            <DeleteDocInput
+              setValues={setValues}
+              idValue={values.code}
+              handleSubmit={handleSubmit}
+            />
+          ) : null}
         </div>
       </form>
+      <ErrorDetails errors={errors} />
     </div>
   );
 };

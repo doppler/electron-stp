@@ -7,7 +7,6 @@ import DeleteDocInput from '../../DeleteDocInput';
 import ErrorDetails from '../../ErrorDetails';
 
 const INITIAL_STATE: IAircraft = {
-  _id: '',
   type: 'aircraft',
   tailNumber: '',
   model: '',
@@ -59,13 +58,6 @@ const EditAircraft: React.FC = () => {
     })();
   }, [params.tailNumber, get, find, setValues]);
 
-  useEffect(() => {
-    setValues((prevValues: IAircraft) => ({
-      ...prevValues,
-      _id: `aircraft:${values.tailNumber}`
-    }));
-  }, [values.tailNumber, setValues]);
-
   const hasErrors = (fieldName: string): boolean =>
     errors.map(error => error.context.key).includes(fieldName);
 
@@ -106,7 +98,7 @@ const EditAircraft: React.FC = () => {
             <option value=''>Current Location: None</option>
             {locations.map((location: ILocation) => (
               <option key={location.code} value={location.code}>
-                {location.name}
+                {location.dzname}
               </option>
             ))}
           </select>

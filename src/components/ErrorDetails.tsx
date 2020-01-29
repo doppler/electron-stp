@@ -6,11 +6,13 @@ const ErrorDetails = (props: any) => {
   if (!errors.length) return null;
 
   return (
-    <ul className='errors'>
-      {errors.map((error: TValidationError) => (
-        <li key={error.context.key}>{error.message}</li>
-      ))}
-    </ul>
+    <div>
+      <ul className='errors'>
+        {errors.map((error: TValidationError) => (
+          <li key={error.context.key}>{error.message}</li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

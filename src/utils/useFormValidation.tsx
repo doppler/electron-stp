@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const useFormValidation = (
   initialState: any,
@@ -34,23 +34,28 @@ const useFormValidation = (
     });
   };
 
-  const handleBlur = (event: React.SyntheticEvent) => {
-    const validation = validate(values);
-    let element = event.target as HTMLInputElement;
-    const valueHasChanged = values[element.name] !== initialState[element.name];
-    if (valueHasChanged && element.name && validation.error?.details) {
-      setErrors(
-        validation.error.details.filter(
-          (detail: TValidationError) => detail.context.key === element.name
-        )
-      );
-    }
-  };
+  const handleBlur = useCallback(
+    (event: React.SyntheticEvent) => {
+      const validation = validate(values);
+      let element = event.target as HTMLInputElement;
+      const valueHasChanged =
+        values[element.name] !== initialState[element.name];
+      if (valueHasChanged && element.name && validation.error?.details) {
+        setErrors(
+          validation.error.details.filter(
+            (detail: TValidationError) => detail.context.key === element.name
+          )
+        );
+      }
+    },
+    [initialState, values, validate]
+  );
 
   const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
     event.preventDefault();
     const validation = validate(values);
     if (validation.error) setErrors(validation.error.details);
+    else setErrors([]);
     setSubmitting(true);
   };
 

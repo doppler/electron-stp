@@ -1,10 +1,8 @@
 import Joi from '@hapi/joi';
 
 const schema = Joi.object({
-  _id: Joi.string()
-    .pattern(/^aircraft:/, 'blah')
-    .required(),
-  _rev: Joi.string(),
+  _id: Joi.string().empty(''),
+  _rev: Joi.string().empty(''),
   _deleted: Joi.boolean(),
   type: Joi.string().required(),
   tailNumber: Joi.string()

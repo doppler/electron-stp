@@ -182,7 +182,7 @@ const EditInstructor: React.FC = () => {
               <option value=''>Current Location: None</option>
               {locations.map((location: ILocation) => (
                 <option key={location.code} value={location.code}>
-                  {location.name}
+                  {location.dzname}
                 </option>
               ))}
             </select>

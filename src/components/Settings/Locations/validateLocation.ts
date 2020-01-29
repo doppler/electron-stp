@@ -1,12 +1,15 @@
-const validate: ValidateLocationFunction = values => {
-  const errors: TLocationErrors = {};
-  if (values.code && !values.code.match(/[A-Z]{3}/)) {
-    errors.code = 'Code must be at least 3 characters and UPPERCASE';
-  }
-  if (values.name && values.name.length < 2) {
-    errors.name = 'Really? One character? No.';
-  }
-  return errors;
-};
+import Joi from '@hapi/joi';
 
-export default validate;
+const schema = Joi.object({
+  _id: Joi.string().empty(''),
+  _rev: Joi.string().empty(''),
+  _deleted: Joi.boolean(),
+  type: Joi.string().required(),
+  code: Joi.string()
+    .required()
+    .pattern(/^[A-Z-]{3,16}$/, `code: "/^[A-Z-]{3,7}$/"`),
+  dzname: Joi.string().required()
+});
+
+export default (location: ILocation) =>
+  schema.validate(location, { abortEarly: false });

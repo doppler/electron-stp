@@ -11,3 +11,15 @@ interface IAuthUser {
   name: string;
   roles: string[];
 }
+
+type TValidationError = {
+  message: string;
+  path: string[];
+  type: string;
+  context: {
+    label: string;
+    key: string;
+    child?: string;
+    value?: string;
+  };
+};
