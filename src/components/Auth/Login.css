@@ -1,11 +1,3 @@
 .CreateAdminLogin {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.CreateAdminLogin form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 1em;
 }

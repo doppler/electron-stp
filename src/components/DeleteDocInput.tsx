@@ -43,20 +43,20 @@ const DeleteDocInput = (props: any) => {
     }
   };
   return (
-    <div className="DeleteDocInput">
-      <button className="warning" onClick={toggleDialog}>
+    <div className='DeleteDocInput'>
+      <button className='warning' onClick={toggleDialog}>
         Delete
       </button>
-      <div id="foo" className={`dialog hidden`} ref={dialogRef}>
-        <div className="dialog-header">
+      <div id='foo' className={`dialog hidden`} ref={dialogRef}>
+        <div className='dialog-header'>
           <div>To verify deletion, enter &quot;{idValue}&quot;.</div>
-          <div className="close-button" onClick={toggleDialog}>
+          <div className='close-button' onClick={toggleDialog}>
             X
           </div>
         </div>
-        <div className="dialog-body">
+        <div className='dialog-body'>
           <input
-            name="verificationString"
+            name='verificationString'
             value={verificationString}
             onChange={handleChange}
             autoComplete={'off'}

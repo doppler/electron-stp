@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const useFormValidation = (
   initialState: any,
@@ -6,7 +6,7 @@ const useFormValidation = (
   authenticate: Function
 ): TFormValidationReturns => {
   const [values, setValues] = useState(initialState);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
   const [isSubmitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -34,15 +34,32 @@ const useFormValidation = (
     });
   };
 
-  const handleBlur = (event: React.FormEvent) => {
-    const validationErrors = validate(values);
-    setErrors(validationErrors);
-  };
+  const handleBlur = useCallback(
+    (event: React.SyntheticEvent) => {
+      const validation = validate(values);
+      let element = event.target as HTMLInputElement;
+      const valueHasChanged =
+        values[element.name] !== initialState[element.name];
+      if (valueHasChanged && element.name && validation.error?.details) {
+        setErrors(
+          validation.error.details.filter(
+            (detail: TValidationError) => detail.context.key === element.name
+          )
+        );
+      }
+    },
+    [initialState, values, validate]
+  );
 
   const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
     event.preventDefault();
-    const validationErrors = validate(values);
-    setErrors(validationErrors);
+    if (values._rev) {
+      delete values.passwordConfirm;
+      delete values.password;
+    }
+    const validation = validate(values);
+    if (validation.error) setErrors(validation.error.details);
+    else setErrors([]);
     setSubmitting(true);
   };
 

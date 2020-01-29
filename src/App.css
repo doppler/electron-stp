@@ -10,6 +10,11 @@
     var(--saturation),
     calc(var(--lightness) + var(--lighten))
   );
+  --error-border-color: hsl(
+    var(--tri-1),
+    var(--saturation),
+    calc(var(--lightness))
+  );
   --button-background-color: hsl(
     var(--tri-2),
     var(--saturation),
@@ -273,4 +278,19 @@ form .checkbox .checkmark:after {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+ul.errors::before {
+  content: 'Errors:';
+  display: inline-block;
+  width: calc(100% - 1em);
+  padding: 0.5em;
+  border-bottom: 1px solid var(--error-border-color);
+}
+ul.errors {
+  list-style-type: none;
+  border: 1px solid var(--error-border-color);
+  padding: 0;
+}
+ul.errors li {
+  margin: 0.5em;
 }

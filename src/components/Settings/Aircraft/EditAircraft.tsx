@@ -4,6 +4,7 @@ import useDB from '../../../useDB';
 import useFormValidation from '../../../utils/useFormValidation';
 import validate from './validateAircraft';
 import DeleteDocInput from '../../DeleteDocInput';
+import ErrorDetails from '../../ErrorDetails';
 
 const INITIAL_STATE: IAircraft = {
   type: 'aircraft',
@@ -57,6 +58,9 @@ const EditAircraft: React.FC = () => {
     })();
   }, [params.tailNumber, get, find, setValues]);
 
+  const hasErrors = (fieldName: string): boolean =>
+    errors.map(error => error.context.key).includes(fieldName);
+
   return (
     <div className='EditAircraft'>
       <h1>Edit {values.tailNumber}</h1>
@@ -69,11 +73,9 @@ const EditAircraft: React.FC = () => {
             onBlur={handleBlur}
             placeholder={'NTAILN0'}
             autoComplete={'off'}
+            className={hasErrors('tailNumber') ? 'invalid' : ''}
             disabled={!isNew}
           />
-          {errors.tailNumber && (
-            <span className='error'>{errors.tailNumber}</span>
-          )}
         </div>
         <div className='tooltip'>
           <input
@@ -83,9 +85,9 @@ const EditAircraft: React.FC = () => {
             onBlur={handleBlur}
             placeholder={'Model'}
             autoComplete={'off'}
-            // disabled={!isNew}
+            className={hasErrors('model') ? 'invalid' : ''}
+            disabled={!isNew}
           />
-          {errors.model && <span className='error'>{errors.model}</span>}
         </div>
         <div className='tooltip'>
           <select
@@ -96,7 +98,7 @@ const EditAircraft: React.FC = () => {
             <option value=''>Current Location: None</option>
             {locations.map((location: ILocation) => (
               <option key={location.code} value={location.code}>
-                {location.name}
+                {location.dzname}
               </option>
             ))}
           </select>
@@ -112,6 +114,7 @@ const EditAircraft: React.FC = () => {
           ) : null}
         </div>
       </form>
+      <ErrorDetails errors={errors} />
     </div>
   );
 };
