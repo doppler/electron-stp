@@ -9,9 +9,10 @@ const ErrorDetails = (props: any) => {
     <div>
       <ul className='errors'>
         {errors.map((error: TValidationError) => (
-          <li key={error.context.key}>{error.message}</li>
+          <li key={`${error.context.key}:${error.type}`}>{error.message}</li>
         ))}
       </ul>
+      <code>{JSON.stringify(errors, null, 2)}</code>
     </div>
   );
 };
