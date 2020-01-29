@@ -230,6 +230,7 @@ const EditInstructor: React.FC = () => {
       </form>
       {loginError && <span className='error-text'>{loginError}</span>}
       <ErrorDetails errors={errors} />
+      {/* <code>{JSON.stringify(values, null, 2)}</code> */}
     </div>
   );
 };
