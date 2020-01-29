@@ -5,12 +5,21 @@ export { createIndexes, createViews };
 
 export function sessionBoolean(arg: string): boolean;
 export function sessionBoolean(arg: {}): void;
-export function sessionBoolean(arg: string | object) {
+export function sessionBoolean(arg: any) {
   if (typeof arg === 'object') {
     Object.entries(arg).forEach(entry => {
-      window.sessionStorage.setItem(`stp:${entry[0]}`, entry[1]);
+      const currentValue = JSON.parse(
+        window.sessionStorage.getItem('stp:booleans') || '{}'
+      );
+      window.sessionStorage.setItem(
+        'stp:booleans',
+        JSON.stringify({ ...currentValue, [entry[0]]: entry[1] })
+      );
     });
     return;
   }
-  return JSON.parse(window.sessionStorage.getItem(`stp:${arg}`) || 'false');
+  const currentValue = JSON.parse(
+    window.sessionStorage.getItem('stp:booleans') || '{}'
+  );
+  return currentValue[arg];
 }
