@@ -6,6 +6,7 @@ import { EditLocation } from './Locations';
 import { EditAircraft } from './Aircraft';
 import { EditInstructor } from './Instructors';
 import { EditUser } from './Users';
+import { EditDatabase } from './Database';
 
 const SettingsRouter = () => {
   const match = useRouteMatch();
@@ -25,6 +26,9 @@ const SettingsRouter = () => {
       </Route>
       <Route path={`${match.url}/user/:id`}>
         <EditUser />
+      </Route>
+      <Route path={`${match.url}/database`}>
+        <EditDatabase />
       </Route>
     </Switch>
   );

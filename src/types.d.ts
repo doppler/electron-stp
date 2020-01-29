@@ -23,3 +23,10 @@ type TValidationError = {
     value?: string;
   };
 };
+
+type DBSyncSettings = {
+  doSync: boolean;
+  url: string;
+  username?: string;
+  password?: string;
+};

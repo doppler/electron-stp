@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import PouchDB from 'pouchdb';
 import PouchDBfind from 'pouchdb-find';
 import { useCallback } from 'react';
@@ -6,11 +7,16 @@ PouchDB.plugin(PouchDBfind);
 
 const DB = new PouchDB('stp', { auto_compaction: true });
 
-if (process.env.REACT_APP_REMOTE_COUCHDB) {
-  const AppDB = new PouchDB(`${process.env.REACT_APP_REMOTE_COUCHDB}/stp`, {
+const token = localStorage.getItem('stp:dbSyncSettings');
+
+let dbSyncSettings: any = {};
+if (token) dbSyncSettings = jwt.verify(token, process.env.NODE_ENV);
+
+if (dbSyncSettings.doSync) {
+  const AppDB = new PouchDB(dbSyncSettings.url, {
     auth: {
-      username: process.env.REACT_APP_REMOTE_COUCHDB_USERNAME,
-      password: process.env.REACT_APP_REMOTE_COUCHDB_PASSWORD
+      username: dbSyncSettings.username,
+      password: dbSyncSettings.password
     }
   });
   DB.sync(AppDB, {
