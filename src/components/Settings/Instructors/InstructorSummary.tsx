@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import useDB from '../../../useDB';
+import { sessionBoolean } from '../../../utils';
 
 const InstructorSummary: React.FC = () => {
   const { find } = useDB();
   const match = useRouteMatch();
 
   const [instructorList, setInstructorList] = useState<any>([]);
+  const [showInstructorDetails, toggleShowDetails] = useState(
+    sessionBoolean('showInstructorDetails')
+  );
 
   useEffect(() => {
     (async () => {
@@ -15,14 +19,20 @@ const InstructorSummary: React.FC = () => {
     })();
   }, [find]);
 
+  useEffect(() => {
+    sessionBoolean({ showInstructorDetails });
+  }, [showInstructorDetails]);
+
+  const handleSummaryClick = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    toggleShowDetails((prevState: boolean) => !prevState);
+  };
+
   return (
-    <div className='InstructorList panel'>
-      <div className='panel-header'>
-        <h2 className='panel-title'>Instructors</h2>
-        <Link to={`${match.url}/instructor/NEW`}>
-          <button>Add Instructor</button>
-        </Link>
-      </div>
+    <details open={showInstructorDetails} className='InstructorList panel'>
+      <summary onClick={handleSummaryClick}>
+        {Object.keys(instructorList).length} Instructors
+      </summary>
       <div className='panel-body'>
         <ul className='settings-list instructors'>
           {instructorList.map((instructor: IInstructor) => (
@@ -37,8 +47,11 @@ const InstructorSummary: React.FC = () => {
             </Link>
           ))}
         </ul>
+        <Link to={`${match.url}/instructor/NEW`}>
+          <button>Add Instructor</button>
+        </Link>
       </div>
-    </div>
+    </details>
   );
 };
 

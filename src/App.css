@@ -1,4 +1,5 @@
 :root {
+  --body-text-color: hsl(var(--complement), var(--saturation), var(--light));
   --body-background-color: hsl(var(--primary), var(--saturation), var(--dark));
   --warning-background-color: hsl(
     var(--tri-1),
@@ -31,7 +32,7 @@ body {
   background-color: var(--body-background-color);
 }
 .App {
-  color: hsl(var(--complement), var(--saturation), var(--light));
+  color: var(--body-text-color);
   color: white;
   background-color: var(--body-background-color);
   /* height: 100vh; */
@@ -107,28 +108,33 @@ button.warning:hover {
     calc(var(--lightness) + var(--darken) + var(--adjust))
   );
 }
+details > summary {
+  border-bottom: var(--panel-border);
+  padding: 0.5em;
+}
+details > summary::-webkit-details-marker {
+  float: right;
+  display: none;
+}
+summary:after {
+  color: var(--body-text-color);
+  content: '+';
+  float: right;
+  font-weight: bold;
+  text-align: center;
+  width: 1em;
+}
+
+details[open] summary::after {
+  content: '-';
+}
 .panel {
   border: var(--panel-border);
   border-radius: 0.25em;
   margin-bottom: 1em;
 }
-.panel-header {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  border-bottom: var(--panel-border);
-  padding: 0.25em;
-}
 .panel-header button {
   margin: 0;
-}
-h2.panel-title {
-  flex-grow: 1;
-  display: inline-block;
-  margin: 0;
-}
-.panel-header .icon {
-  font-size: 1.5em;
 }
 .panel-body {
   margin: 1em;

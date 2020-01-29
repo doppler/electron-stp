@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import useDB from '../../../useDB';
+import { sessionBoolean } from '../../../utils';
 
 const LocationsSummary: React.FC = () => {
   const { find } = useDB();
   const match = useRouteMatch();
 
   const [locations, setLocations] = useState<any>([]);
+  const [showLocationDetails, toggleShowDetails] = useState(
+    sessionBoolean('showLocationDetails')
+  );
 
   useEffect(() => {
     (async () => {
@@ -15,14 +19,20 @@ const LocationsSummary: React.FC = () => {
     })();
   }, [find]);
 
+  useEffect(() => {
+    sessionBoolean({ showLocationDetails });
+  }, [showLocationDetails]);
+
+  const handleSummaryClick = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    toggleShowDetails((prevState: boolean) => !prevState);
+  };
+
   return (
-    <div className='Locations panel'>
-      <div className='panel-header'>
-        <h2 className='panel-title'>Locations</h2>
-        <Link to={`${match.url}/location/NEW`}>
-          <button>Add Location</button>
-        </Link>
-      </div>
+    <details open={showLocationDetails} className='Locations panel'>
+      <summary onClick={handleSummaryClick}>
+        {Object.keys(locations).length} Locations
+      </summary>
       <div className='panel-body'>
         <ul className='settings-list'>
           {locations.map((location: ILocation) => (
@@ -37,8 +47,11 @@ const LocationsSummary: React.FC = () => {
             </Link>
           ))}
         </ul>
+        <Link to={`${match.url}/location/NEW`}>
+          <button>Add Location</button>
+        </Link>
       </div>
-    </div>
+    </details>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useAuth from '../../Auth/useAuth';
 import { Link, useRouteMatch } from 'react-router-dom';
+import { sessionBoolean } from '../../../utils';
 
 interface IUser {
   _id: string;
@@ -12,6 +13,9 @@ const UserSummary: React.FC = () => {
   const match = useRouteMatch();
 
   const [users, setUsers] = useState<any>([]);
+  const [showUserDetails, toggleShowDetails] = useState(
+    sessionBoolean('showUserDetails')
+  );
 
   useEffect(() => {
     (async () => {
@@ -23,11 +27,20 @@ const UserSummary: React.FC = () => {
     })();
   }, [usersDB]);
 
+  useEffect(() => {
+    sessionBoolean({ showUserDetails });
+  }, [showUserDetails]);
+
+  const handleSummaryClick = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    toggleShowDetails((prevState: boolean) => !prevState);
+  };
+
   return (
-    <div className='Users panel'>
-      <div className='panel-header'>
-        <h2 className='panel-title'>Users</h2>
-      </div>
+    <details open={showUserDetails} className='Users panel'>
+      <summary onClick={handleSummaryClick}>
+        {Object.keys(users).length} Users
+      </summary>
       <div className='panel-body'>
         <ul className='settings-list'>
           {users.map((user: IUser) => (
@@ -45,7 +58,7 @@ const UserSummary: React.FC = () => {
           ))}
         </ul>
       </div>
-    </div>
+    </details>
   );
 };
 
