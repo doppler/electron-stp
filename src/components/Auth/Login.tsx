@@ -4,11 +4,11 @@ import useAuth from '../Auth/useAuth';
 import { useHistory } from 'react-router-dom';
 import useFormValidation from '../../utils/useFormValidation';
 import validateLogin from './validateLogin';
+import ErrorDetails from '../ErrorDetails';
 
 const INITIAL_STATE: TLoginFormValues = {
   email: process.env.REACT_APP_TEST_EMAIL || '',
-  password: process.env.REACT_APP_TEST_PASSWORD || '',
-  passwordConfirm: process.env.REACT_APP_TEST_PASSWORD || ''
+  password: process.env.REACT_APP_TEST_PASSWORD || ''
 };
 
 const Login = () => {
@@ -46,36 +46,32 @@ const Login = () => {
   }
 
   return (
-    <div className="CreateAdminLogin">
-      <form onSubmit={handleSubmit} className="clean login">
+    <div className='CreateAdminLogin'>
+      <form onSubmit={handleSubmit} className='clean login'>
         <p>Instructor Login</p>
         <input
-          name="email"
+          name='email'
           value={values.email}
           onChange={handleChange}
           onBlur={handleBlur}
-          type="email"
+          type='email'
           required
-          placeholder="Email Address"
+          placeholder='Email Address'
           className={errors.email ? 'invalid' : ''}
         />
-        {errors.email && <span className="error-text">{errors.email}</span>}
         <input
-          name="password"
+          name='password'
           value={values.password}
           onChange={handleChange}
           onBlur={handleBlur}
-          type="password"
+          type='password'
           required
-          placeholder="Password"
+          placeholder='Password'
           className={errors.password ? 'invalid' : ''}
         />
-        {errors.password && (
-          <span className="error-text">{errors.password}</span>
-        )}
-        <button type="submit">Login</button>
-        {loginError && <span className="error-text">{loginError}</span>}
+        <button type='submit'>Login</button>
       </form>
+      <ErrorDetails errors={errors} />
     </div>
   );
 };
