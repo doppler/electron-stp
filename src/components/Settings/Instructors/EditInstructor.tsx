@@ -5,6 +5,7 @@ import useFormValidation from '../../../utils/useFormValidation';
 import validate from './validateInstructor';
 import DeleteDocInput from '../../DeleteDocInput';
 import useAuth from '../../Auth/useAuth';
+import ErrorDetails from '../../ErrorDetails';
 
 const INITIAL_STATE: IInstructor = {
   type: 'instructor',
@@ -116,9 +117,6 @@ const EditInstructor: React.FC = () => {
               autoComplete={'off'}
               disabled={!isNew}
             />
-            {errors.uspaNumber && (
-              <span className='error'>{errors.uspaNumber}</span>
-            )}
           </div>
         </div>
         <div className='input-group'>
@@ -134,7 +132,6 @@ const EditInstructor: React.FC = () => {
               placeholder={'Full Name'}
               autoComplete={'off'}
             />
-            {errors.name && <span className='error'>{errors.name}</span>}
           </div>
         </div>
         <div className='input-group'>
@@ -151,7 +148,6 @@ const EditInstructor: React.FC = () => {
               placeholder={'email@example.com'}
               autoComplete={'off'}
             />
-            {errors.email && <span className='error'>{errors.email}</span>}
           </div>
         </div>
         <div className='input-group'>
@@ -167,7 +163,6 @@ const EditInstructor: React.FC = () => {
               placeholder={'123 456 7890'}
               autoComplete={'off'}
             />
-            {errors.phone && <span className='error'>{errors.phone}</span>}
           </div>
         </div>
         <div className='input-group'>
@@ -203,9 +198,6 @@ const EditInstructor: React.FC = () => {
                   onSubmit={handleSubmit}
                   autoComplete={'off'}
                 />
-                {errors.password && (
-                  <span className='error'>{errors.password}</span>
-                )}
               </div>
             </div>
             <div className='input-group'>
@@ -221,9 +213,6 @@ const EditInstructor: React.FC = () => {
                   onSubmit={handleSubmit}
                   autoComplete={'off'}
                 />
-                {errors.passwordConfirm && (
-                  <span className='error'>{errors.passwordConfirm}</span>
-                )}
               </div>
             </div>
           </>
@@ -240,6 +229,7 @@ const EditInstructor: React.FC = () => {
         </div>
       </form>
       {loginError && <span className='error-text'>{loginError}</span>}
+      <ErrorDetails errors={errors} />
     </div>
   );
 };

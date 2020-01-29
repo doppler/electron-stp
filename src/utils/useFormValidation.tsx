@@ -53,7 +53,10 @@ const useFormValidation = (
 
   const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
     event.preventDefault();
+    delete values.password;
+    delete values.passwordConfirm;
     const validation = validate(values);
+    console.log({ validation });
     if (validation.error) setErrors(validation.error.details);
     else setErrors([]);
     setSubmitting(true);

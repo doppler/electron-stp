@@ -1,48 +1,40 @@
-const validate: ValidateInstructorFunction = (
-  values: IInstructor,
-  isLogin: Boolean
-) => {
-  const errors: TInstructorErrors = {};
-  if (values.uspaNumber && !values.uspaNumber.match(/^[0-9]+$/)) {
-    errors.uspaNumber = 'USPA # must only contain numbers';
-  }
+import Joi from '@hapi/joi';
 
-  if (values.name && !values.name.match(/^[A-Z]/)) {
-    errors.name = 'Please capitalize name';
-  }
+const schema = Joi.object({
+  _id: Joi.string().empty(''),
+  _rev: Joi.string().empty(''),
+  _deleted: Joi.boolean(),
+  type: Joi.string().required(),
+  uspaNumber: Joi.number()
+    .min(1000)
+    .required(),
+  name: Joi.string()
+    .min(3)
+    .pattern(/^[A-Z]/)
+    .rule({ message: 'Please Capitalize Name' })
+    .required(),
+  email: Joi.string()
+    .pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)
+    .required(),
+  phone: Joi.string()
+    .pattern(/^[0-9]{3} [0-9]{3} [0-9]{4}$/)
+    .rule({ message: "Phone must match pattern 'NNN NNN NNNN'" })
+    .required(),
+  currentLocation: Joi.string().empty(''),
+  password: Joi.string()
+    .min(8)
+    .pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])/)
+    .rule({ message: 'Password must contain upper and lowercase and digits' }),
+  passwordConfirm: Joi.string()
+    .when('password', {
+      is: Joi.exist(),
+      then: Joi.equal('password').required(),
+      otherwise: Joi.string().empty('')
+    })
+    .equal(Joi.ref('password'))
+    .strip()
+});
 
-  if (
-    values.email &&
-    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-  ) {
-    errors.email = 'Invalid email address';
-  }
-
-  if (values.password) {
-    if (values.password.length < 8) {
-      errors.password = 'Password must be at least 8 characters';
-    } else if (
-      values.password &&
-      !(
-        values.password.match(/[A-Z]/) &&
-        values.password.match(/[a-z]/) &&
-        values.password.match(/[0-9]/)
-      )
-    ) {
-      errors.password =
-        'Password must contain at least one of each: Uppercase, lowercase, digit';
-    }
-
-    if (
-      values.password &&
-      isLogin &&
-      values.passwordConfirm !== values.password
-    ) {
-      errors.passwordConfirm = 'Password confirmation does not match password';
-    }
-  }
-
-  return errors;
+export default (instructor: IInstructor) => {
+  return schema.validate(instructor, { abortEarly: false });
 };
-
-export default validate;
