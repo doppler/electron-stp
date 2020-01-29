@@ -118,15 +118,14 @@ details > summary::-webkit-details-marker {
 }
 summary:after {
   color: var(--body-text-color);
-  content: '+';
+  content: '\25C2';
   float: right;
   font-weight: bold;
   text-align: center;
   width: 1em;
 }
-
 details[open] summary::after {
-  content: '-';
+  content: '\25BE';
 }
 .panel {
   border: var(--panel-border);
