@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import useDB from '../../../useDB';
 import { sessionBoolean } from '../../../utils';
+import { Button } from '../../FormComponents';
 
 const InstructorSummary: React.FC = () => {
   const { find } = useDB();
@@ -48,7 +49,7 @@ const InstructorSummary: React.FC = () => {
           ))}
         </ul>
         <Link to={`${match.url}/instructor/NEW`}>
-          <button>Add Instructor</button>
+          <Button>Add Instructor</Button>
         </Link>
       </div>
     </details>

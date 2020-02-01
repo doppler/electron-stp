@@ -6,6 +6,15 @@ import validate from './validateInstructor';
 import DeleteDocInput from '../../DeleteDocInput';
 import useAuth from '../../Auth/useAuth';
 import ErrorDetails from '../../ErrorDetails';
+import {
+  Form,
+  Field,
+  Label,
+  Button,
+  ButtonGroup,
+  Input,
+  Select
+} from '../../FormComponents';
 
 const INITIAL_STATE: IInstructor = {
   type: 'instructor',
@@ -52,11 +61,11 @@ const EditInstructor: React.FC = () => {
     const roles = ['instructor'];
     try {
       if (isLogin) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
         const loginRes = await logIn(values.email, values.password);
         history.push('/');
       } else if (isNew) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
         const signupRes = await signUp(
           values.email,
           values.password,
@@ -77,7 +86,6 @@ const EditInstructor: React.FC = () => {
       if (error.name === 'conflict')
         error.message = `User ${values.email} already exists`;
       setLoginError(error.message);
-    } finally {
     }
   }
 
@@ -102,123 +110,109 @@ const EditInstructor: React.FC = () => {
   return (
     <div>
       <h1>{isNew ? 'New Instructor' : `Edit ${values.uspaNumber}`}</h1>
-      <form onSubmit={handleSubmit} className='clean'>
-        <div className='input-group'>
-          <label htmlFor='uspaNumber'>USPA #</label>
-          <div className='tooltip'>
-            <input
-              type='number'
-              name='uspaNumber'
-              id='uspaNumber'
-              value={values.uspaNumber}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder={'12345'}
-              autoComplete={'off'}
-              disabled={!isNew}
-            />
-          </div>
-        </div>
-        <div className='input-group'>
-          <label htmlFor='name'>Name</label>
-          <div className='tooltip'>
-            <input
-              id='name'
-              name='name'
-              value={values.name}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              onSubmit={handleSubmit}
-              placeholder={'Full Name'}
-              autoComplete={'off'}
-            />
-          </div>
-        </div>
-        <div className='input-group'>
-          <label htmlFor='email'>Email</label>
-          <div className='tooltip'>
-            <input
-              id='email'
-              name='email'
-              type='email'
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              onSubmit={handleSubmit}
-              placeholder={'email@example.com'}
-              autoComplete={'off'}
-            />
-          </div>
-        </div>
-        <div className='input-group'>
-          <label htmlFor='phone'>Phone</label>
-          <div className='tooltip'>
-            <input
-              id='phone'
-              name='phone'
-              value={values.phone}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              onSubmit={handleSubmit}
-              placeholder={'123 456 7890'}
-              autoComplete={'off'}
-            />
-          </div>
-        </div>
-        <div className='input-group'>
-          <label htmlFor='currentLocation'>Location</label>
-          <div className='tooltip'>
-            <select
-              id='currentLocation'
-              name='currentLocation'
-              value={values.currentLocation}
-              onChange={handleChange}
-            >
-              <option value=''>Current Location: None</option>
-              {locations.map((location: ILocation) => (
-                <option key={location.code} value={location.code}>
-                  {location.dzname}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
+      <Form onSubmit={handleSubmit}>
+        <Field>
+          <Label htmlFor='uspaNumber'>USPA #</Label>
+          <Input
+            type='number'
+            name='uspaNumber'
+            id='uspaNumber'
+            value={values.uspaNumber}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder={'12345'}
+            autoComplete={'off'}
+            disabled={!isNew}
+          />
+        </Field>
+        <Field>
+          <Label htmlFor='name'>Name</Label>
+          <Input
+            id='name'
+            name='name'
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onSubmit={handleSubmit}
+            placeholder={'Full Name'}
+            autoComplete={'off'}
+          />
+        </Field>
+        <Field>
+          <Label htmlFor='email'>Email</Label>
+          <Input
+            id='email'
+            name='email'
+            type='email'
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onSubmit={handleSubmit}
+            placeholder={'email@example.com'}
+            autoComplete={'off'}
+          />
+        </Field>
+        <Field>
+          <Label htmlFor='phone'>Phone</Label>
+          <Input
+            id='phone'
+            name='phone'
+            value={values.phone}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onSubmit={handleSubmit}
+            placeholder={'123 456 7890'}
+            autoComplete={'off'}
+          />
+        </Field>
+        <Field>
+          <Label htmlFor='currentLocation'>Location</Label>
+          <Select
+            id='currentLocation'
+            name='currentLocation'
+            value={values.currentLocation}
+            onChange={handleChange}
+          >
+            <option value=''>Current Location: None</option>
+            {locations.map((location: ILocation) => (
+              <option key={location.code} value={location.code}>
+                {location.dzname}
+              </option>
+            ))}
+          </Select>
+        </Field>
         {isNew && (
           <>
-            <div className='input-group'>
-              <label htmlFor='password'>Password</label>
-              <div className='tooltip'>
-                <input
-                  id='password'
-                  name='password'
-                  type='password'
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  onSubmit={handleSubmit}
-                  autoComplete={'off'}
-                />
-              </div>
-            </div>
-            <div className='input-group'>
-              <label htmlFor='passwordConfirm'>Password</label>
-              <div className='tooltip'>
-                <input
-                  id='passwordConfirm'
-                  name='passwordConfirm'
-                  type='password'
-                  value={values.passwordConfirm}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  onSubmit={handleSubmit}
-                  autoComplete={'off'}
-                />
-              </div>
-            </div>
+            <Field>
+              <Label htmlFor='password'>Password</Label>
+              <Input
+                id='password'
+                name='password'
+                type='password'
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                onSubmit={handleSubmit}
+                autoComplete={'off'}
+              />
+            </Field>
+            <Field>
+              <Label htmlFor='passwordConfirm'>Password</Label>
+              <Input
+                id='passwordConfirm'
+                name='passwordConfirm'
+                type='password'
+                value={values.passwordConfirm}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                onSubmit={handleSubmit}
+                autoComplete={'off'}
+              />
+            </Field>
           </>
         )}
-        <div className='button-row'>
-          <button type='submit'>Save</button>
+        <ButtonGroup>
+          <Button type='submit'>Save</Button>
           {!isNew && !(user.name === values.email) ? (
             <DeleteDocInput
               setValues={setValues}
@@ -226,8 +220,8 @@ const EditInstructor: React.FC = () => {
               handleSubmit={handleSubmit}
             />
           ) : null}
-        </div>
-      </form>
+        </ButtonGroup>
+      </Form>
       {loginError && <span className='error-text'>{loginError}</span>}
       <ErrorDetails errors={errors} />
       {/* <code>{JSON.stringify(values, null, 2)}</code> */}

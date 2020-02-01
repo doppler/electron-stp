@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import useDB from '../../../useDB';
 import { sessionBoolean } from '../../../utils';
+import { Button } from '../../FormComponents';
 
 const AircraftSummary: React.FC = () => {
   const { find } = useDB();
@@ -49,7 +50,7 @@ const AircraftSummary: React.FC = () => {
           ))}
         </ul>
         <Link to={`${match.url}/aircraft/NEW`}>
-          <button>Add Aircraft</button>
+          <Button>Add Aircraft</Button>
         </Link>
       </div>
     </details>

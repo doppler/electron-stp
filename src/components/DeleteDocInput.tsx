@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, SyntheticEvent } from 'react';
 import './DeleteDocInput.css';
+import { Button } from './FormComponents';
 
 const DeleteDocInput = (props: any) => {
   const { setValues, idValue, handleSubmit } = props;
@@ -44,9 +45,9 @@ const DeleteDocInput = (props: any) => {
   };
   return (
     <div className='DeleteDocInput'>
-      <button className='warning' onClick={toggleDialog}>
+      <Button className='warning' onClick={toggleDialog}>
         Delete
-      </button>
+      </Button>
       <div id='foo' className={`dialog hidden`} ref={dialogRef}>
         <div className='dialog-header'>
           <div>To verify deletion, enter &quot;{idValue}&quot;.</div>

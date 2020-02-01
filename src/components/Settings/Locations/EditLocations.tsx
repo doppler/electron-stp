@@ -5,6 +5,14 @@ import validate from './validateLocation';
 import useDB from '../../../useDB';
 import DeleteDocInput from '../../DeleteDocInput';
 import ErrorDetails from '../../ErrorDetails';
+import {
+  Field,
+  Form,
+  Input,
+  Button,
+  ButtonGroup,
+  Label
+} from '../../FormComponents';
 
 const INITIAL_STATE: ILocation = {
   type: 'location',
@@ -57,9 +65,10 @@ const EditLocation = () => {
   return (
     <div className='EditLocation'>
       <h1>Edit {values.code}</h1>
-      <form onSubmit={handleSubmit} className='clean'>
-        <div className='tooltip'>
-          <input
+      <Form onSubmit={handleSubmit}>
+        <Field>
+          <Label htmlFor='code'>Code</Label>
+          <Input
             name='code'
             value={values.code}
             onChange={handleChange}
@@ -69,9 +78,10 @@ const EditLocation = () => {
             className={hasErrors('code') ? 'invalid' : ''}
             disabled={!isNew}
           />
-        </div>
-        <div className='tooltip'>
-          <input
+        </Field>
+        <Field>
+          <Label htmlFor='dzname'>DZ Name</Label>
+          <Input
             name='dzname'
             value={values.dzname}
             onChange={handleChange}
@@ -80,9 +90,9 @@ const EditLocation = () => {
             autoComplete='off'
             className={hasErrors('dzname') ? 'invalid' : ''}
           />
-        </div>
-        <div className='button-row'>
-          <button type='submit'>Save</button>
+        </Field>
+        <ButtonGroup>
+          <Button type='submit'>Save</Button>
           {!isNew ? (
             <DeleteDocInput
               setValues={setValues}
@@ -90,8 +100,8 @@ const EditLocation = () => {
               handleSubmit={handleSubmit}
             />
           ) : null}
-        </div>
-      </form>
+        </ButtonGroup>
+      </Form>
       <ErrorDetails errors={errors} />
     </div>
   );

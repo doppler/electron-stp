@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import useFormValidation from '../../utils/useFormValidation';
 import validateLogin from './validateLogin';
 import ErrorDetails from '../ErrorDetails';
+import { Form, Field, Label, Input, Button } from '../FormComponents';
 
 const INITIAL_STATE: TLoginFormValues = {
   email: process.env.REACT_APP_TEST_EMAIL || '',
@@ -47,30 +48,36 @@ const Login = () => {
 
   return (
     <div className='CreateAdminLogin'>
-      <form onSubmit={handleSubmit} className='clean login'>
-        <p>Instructor Login</p>
-        <input
-          name='email'
-          value={values.email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          type='email'
-          required
-          placeholder='Email Address'
-          className={errors.email ? 'invalid' : ''}
-        />
-        <input
-          name='password'
-          value={values.password}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          type='password'
-          required
-          placeholder='Password'
-          className={errors.password ? 'invalid' : ''}
-        />
-        <button type='submit'>Login</button>
-      </form>
+      <p>Instructor Login</p>
+      <Form onSubmit={handleSubmit}>
+        <Field>
+          <Label htmlFor='email'>Email</Label>
+          <Input
+            name='email'
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            type='email'
+            required
+            placeholder='Email Address'
+            className={errors.email ? 'invalid' : ''}
+          />
+        </Field>
+        <Field>
+          <Label htmlFor='password'>Password</Label>
+          <Input
+            name='password'
+            value={values.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            type='password'
+            required
+            placeholder='Password'
+            className={errors.password ? 'invalid' : ''}
+          />
+        </Field>
+        <Button type='submit'>Login</Button>
+      </Form>
       {loginError && <span className='error-text'>{loginError}</span>}
       <ErrorDetails errors={errors} />
       {/* <code>{JSON.stringify(values, null, 2)}</code> */}
