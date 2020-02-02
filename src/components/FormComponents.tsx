@@ -75,3 +75,27 @@ export const Button = styled.button`
 export const ButtonGroup = styled.div`
   display: flex;
 `;
+
+export const Details = styled.details`
+  border: var(--panel-border);
+  border-radius: 0.25em;
+  margin-bottom: 1em;
+  & > summary {
+    border-bottom: var(--panel-border);
+    padding: 0.5em;
+    &::-webkit-details-marker {
+      float: right;
+      display: none;
+    }
+    &:after {
+      content: '\u25C2';
+      float: right;
+      font-weight: bold;
+      text-align: center;
+      width: 1em;
+    }
+  }
+  &[open] summary:after {
+    content: '\u25BE';
+  }
+`;

@@ -19,6 +19,56 @@
       var(--saturation),
       calc(var(--lightness) + var(--lighten))
     );
+
+  --body-text-color: hsl(var(--complement), var(--saturation), var(--light));
+  --body-background-color: hsl(var(--primary), var(--saturation), var(--dark));
+  --success-text: hsl(var(--tri-2), var(--saturation), var(--lightness));
+  --success-dark: hsl(var(--tri-2), var(--saturation), var(--dark));
+  --success-bright: hsl(
+    var(--tri-2),
+    var(--saturation),
+    calc(var(--lightness) + var(--adjust))
+  );
+  --warning-text: hsl(
+    calc(var(--tri-1) + var(--degree) + var(--degree)),
+    var(--saturation),
+    var(--lightness)
+  );
+  --warning-dark: hsl(
+    calc(var(--tri-1) + var(--degree) + var(--degree)),
+    var(--saturation),
+    var(--dark)
+  );
+  --warning-bright: hsl(
+    calc(var(--tri-1) + var(--degree) + var(--degree)),
+    var(--saturation),
+    calc(var(--lightness) + var(--adjust))
+  );
+  --warning-background-color: hsl(
+    var(--tri-1),
+    var(--saturation),
+    calc(var(--lightness) + var(--darken))
+  );
+  --warning-border-color: hsl(
+    var(--tri-1),
+    var(--saturation),
+    calc(var(--lightness) + var(--lighten))
+  );
+  --error-border-color: hsl(
+    var(--tri-1),
+    var(--saturation),
+    calc(var(--lightness))
+  );
+  --button-background-color: hsl(
+    var(--tri-2),
+    var(--saturation),
+    calc(var(--lightness) + var(--darken))
+  );
+  --button-border-color: hsl(
+    var(--tri-2),
+    var(--saturation),
+    calc(var(--lightness) + var(--lighten))
+  );
 }
 body {
   margin: 0;
@@ -28,9 +78,29 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+html,
+body {
+  background-color: var(--body-background-color);
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
   white-space: pre;
+}
+
+a {
+  color: hsl(
+    var(--complement),
+    calc(var(--light) - var(--adjust)),
+    calc(var(--light) + var(--darken))
+  );
+  text-decoration: none;
+}
+a:hover,
+a.active {
+  color: hsl(
+    var(--complement),
+    calc(var(--light)),
+    calc(var(--lightness) + var(--light))
+  );
 }

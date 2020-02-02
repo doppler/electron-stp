@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import useDB from '../../../useDB';
 import { sessionBoolean } from '../../../utils';
-import { Button } from '../../FormComponents';
+import { Button, Details } from '../../FormComponents';
 
 const InstructorSummary: React.FC = () => {
   const { find } = useDB();
@@ -30,7 +30,7 @@ const InstructorSummary: React.FC = () => {
   };
 
   return (
-    <details open={showInstructorDetails} className='InstructorList panel'>
+    <Details open={showInstructorDetails}>
       <summary onClick={handleSummaryClick}>
         {Object.keys(instructorList).length} Instructors
       </summary>
@@ -52,7 +52,7 @@ const InstructorSummary: React.FC = () => {
           <Button>Add Instructor</Button>
         </Link>
       </div>
-    </details>
+    </Details>
   );
 };
 

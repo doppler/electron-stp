@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import useDB from '../../../useDB';
 import { sessionBoolean } from '../../../utils';
-import { Button } from '../../FormComponents';
+import { Button, Details } from '../../FormComponents';
 
 const LocationsSummary: React.FC = () => {
   const { find } = useDB();
@@ -30,7 +30,7 @@ const LocationsSummary: React.FC = () => {
   };
 
   return (
-    <details open={showLocationDetails} className='Locations panel'>
+    <Details open={showLocationDetails}>
       <summary onClick={handleSummaryClick}>
         {Object.keys(locations).length} Locations
       </summary>
@@ -52,7 +52,7 @@ const LocationsSummary: React.FC = () => {
           <Button>Add Location</Button>
         </Link>
       </div>
-    </details>
+    </Details>
   );
 };
 

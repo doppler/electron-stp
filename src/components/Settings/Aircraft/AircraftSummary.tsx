@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import useDB from '../../../useDB';
 import { sessionBoolean } from '../../../utils';
-import { Button } from '../../FormComponents';
+import { Button, Details } from '../../FormComponents';
 
 const AircraftSummary: React.FC = () => {
   const { find } = useDB();
@@ -30,7 +30,7 @@ const AircraftSummary: React.FC = () => {
   };
 
   return (
-    <details open={showAircraftDetails} className='AircraftList panel'>
+    <Details open={showAircraftDetails}>
       <summary onClick={handleSummaryClick}>
         {Object.keys(aircraftList).length} Aircraft
       </summary>
@@ -53,7 +53,7 @@ const AircraftSummary: React.FC = () => {
           <Button>Add Aircraft</Button>
         </Link>
       </div>
-    </details>
+    </Details>
   );
 };
 

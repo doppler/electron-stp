@@ -79,7 +79,7 @@ p.error {
     calc(var(--lightness) + var(--lighten))
   );
 }
-a {
+/* a {
   color: hsl(
     var(--complement),
     calc(var(--light) - var(--adjust)),
@@ -94,7 +94,7 @@ a.active {
     calc(var(--light)),
     calc(var(--lightness) + var(--light))
   );
-}
+} */
 .button-row {
   display: flex;
 }

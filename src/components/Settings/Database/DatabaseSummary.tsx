@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import jwt from 'jsonwebtoken';
 import { sessionBoolean } from '../../../utils';
-import { Form, Field, Label, Input, Button } from '../../FormComponents';
+import {
+  Form,
+  Field,
+  Label,
+  Input,
+  Button,
+  Details
+} from '../../FormComponents';
 const token = window.localStorage.getItem('stp:dbSyncSettings');
 
 const initialState: any = token
@@ -82,7 +89,7 @@ const DatabaseSummary = () => {
   };
 
   return (
-    <details open={showDatabaseDetails} className='Database panel'>
+    <Details open={showDatabaseDetails}>
       <summary onClick={handleSummaryClick}>Database {status}</summary>
       <div className='panel-body'>
         <Form onSubmit={handleSubmit}>
@@ -133,7 +140,7 @@ const DatabaseSummary = () => {
         {error && <p className='error'>{error}</p>}
         <code>status: {error ? error : status}</code>
       </div>
-    </details>
+    </Details>
   );
 };
 
