@@ -24,7 +24,7 @@ const App = () => {
     /* Indexes are defined in src/utils/createIndexes.ts for now.
      */
     (async () => {
-      const createIndexesResults = await createIndexes(DB); // eslint-disable-line @typescript-eslint/no-unused-vars
+      const createIndexesResults = await createIndexes(DB); // eslint-disable-line @typescript-eslint/no-unused-vars, no-unused-vars
     })();
   }, [DB]);
 

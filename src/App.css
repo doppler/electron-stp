@@ -1,3 +1,4 @@
+/*
 :root {
   --body-text-color: hsl(var(--complement), var(--saturation), var(--light));
   --body-background-color: hsl(var(--primary), var(--saturation), var(--dark));
@@ -53,11 +54,11 @@ html,
 body {
   background-color: var(--body-background-color);
 }
-/* .App {
+.App {
   color: var(--body-text-color);
   color: white;
   background-color: var(--body-background-color);
-} */
+} 
 .Main {
   margin: 1em;
 }
@@ -94,11 +95,10 @@ a.active {
     calc(var(--light)),
     calc(var(--lightness) + var(--light))
   );
-} */
+} 
 .button-row {
   display: flex;
 }
-/*
 button {
   margin: 0.5em 1em 0.5em 0;
   background-color: var(--button-background-color);
@@ -126,7 +126,6 @@ button.warning:hover {
     calc(var(--lightness) + var(--darken) + var(--adjust))
   );
 }
-*/
 details > summary {
   border-bottom: var(--panel-border);
   padding: 0.5em;
@@ -157,7 +156,6 @@ details[open] summary::after {
 .panel-body {
   margin: 1em;
 }
-/*
 form.clean select,
 form.clean input {
   width: 100%;

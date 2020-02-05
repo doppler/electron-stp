@@ -1,6 +1,6 @@
 :root {
-  --primary: 230;
-  --saturation: 50%;
+  --primary: 240;
+  --saturation: 75%;
   --lightness: 50%;
   --complement: calc(var(--primary) - 180);
   --tri-1: calc(var(--primary) + 120);
@@ -20,8 +20,12 @@
       calc(var(--lightness) + var(--lighten))
     );
 
-  --body-text-color: hsl(var(--complement), var(--saturation), var(--light));
-  --body-background-color: hsl(var(--primary), var(--saturation), var(--dark));
+  --background-saturation: 5%;
+  --body-background-color: hsl(30, var(--background-saturation), 12%);
+  --panel-background-color: hsl(30, var(--background-saturation), 16%);
+  --header-background-color: hsl(30, var(--background-saturation), 20%);
+
+  --body-text-color: hsl(210, 50%, 95%);
   --success-text: hsl(var(--tri-2), var(--saturation), var(--lightness));
   --success-dark: hsl(var(--tri-2), var(--saturation), var(--dark));
   --success-bright: hsl(

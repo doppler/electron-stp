@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useAuth from '../../Auth/useAuth';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { sessionBoolean } from '../../../utils';
+import { Details } from '../../FormComponents';
 
 interface IUser {
   _id: string;
@@ -37,7 +38,7 @@ const UserSummary: React.FC = () => {
   };
 
   return (
-    <details open={showUserDetails} className='Users panel'>
+    <Details open={showUserDetails}>
       <summary onClick={handleSummaryClick}>
         {Object.keys(users).length} Users
       </summary>
@@ -58,7 +59,7 @@ const UserSummary: React.FC = () => {
           ))}
         </ul>
       </div>
-    </details>
+    </Details>
   );
 };
 

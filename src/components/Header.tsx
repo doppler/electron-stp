@@ -6,9 +6,13 @@ import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledHeader = styled.div`
+  position: fixed;
+  top: 0;
+  background-color: var(--header-background-color);
   height: 2em;
   width: 100%;
-  border-bottom: var(--panel-border);
+  /* border-bottom: var(--panel-border); */
+  box-shadow: 1px 1px 2px black;
   display: flex;
   align-items: center;
   & div {

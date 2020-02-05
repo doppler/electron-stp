@@ -16,34 +16,25 @@ export const Field = styled.div`
 export const Label = styled.label`
   position: relative;
   font-size: 0.75em;
+  padding-top: 0.75em;
   color: var(--app-text-color);
-  border-bottom: 1px solid
-    hsl(var(--adj-1), var(--saturation), calc(var(--lightness)));
-  &::after {
-    position: absolute;
-    right: 0.25em;
-    color: hsl(var(--adj-1), var(--saturation), calc(var(--lightness)));
-    content: ':';
-  }
 `;
 
 export const Input = styled.input`
-  background-color: transparent;
-  color: hsl(var(--adj-1), var(--saturation), var(--light));
+  font-size: 1.5em;
+  background-color: var(--body-background-color);
+  color: hsl(30, 5%, 95%);
   border: 0;
-  border-bottom: 1px solid
-    hsl(var(--adj-1), var(--saturation), calc(var(--lightness)));
   &::placeholder {
-    color: hsl(var(--complement), var(--saturation), var(--lightness));
+    color: hsl(30, 5%, 55%);
   }
 `;
 
 export const Select = styled.select`
-  background-color: transparent;
-  color: hsl(var(--adj-1), var(--saturation), var(--light));
+  font-size: 1.5em;
+  background-color: var(--body-background-color);
+  color: hsl(30, 5%, 95%);
   border: 0;
-  border-bottom: 1px solid
-    hsl(var(--adj-1), var(--saturation), calc(var(--lightness)));
   & > option {
     background-color: var(--body-background-color);
   }
@@ -77,11 +68,12 @@ export const ButtonGroup = styled.div`
 `;
 
 export const Details = styled.details`
-  border: var(--panel-border);
-  border-radius: 0.25em;
+  box-shadow: 1px 1px 5px black;
+  background-color: var(--panel-background-color);
+  border: 1px solid var(--header-background-color);
   margin-bottom: 1em;
   & > summary {
-    border-bottom: var(--panel-border);
+    background-color: var(--header-background-color);
     padding: 0.5em;
     &::-webkit-details-marker {
       float: right;
@@ -97,5 +89,20 @@ export const Details = styled.details`
   }
   &[open] summary:after {
     content: '\u25BE';
+  }
+  & .panel-body {
+    margin: 0.5em;
+  }
+`;
+
+export const Panel = styled.div`
+  padding: 0.5em;
+  box-shadow: 1px 1px 5px black;
+  background-color: var(--panel-background-color);
+  border: 1px solid var(--header-background-color);
+  margin-bottom: 1em;
+  & h1 {
+    background-color: var(--header-background-color);
+    margin-top: 0;
   }
 `;

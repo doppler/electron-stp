@@ -13,7 +13,8 @@ import {
   Button,
   ButtonGroup,
   Input,
-  Select
+  Select,
+  Panel
 } from '../../FormComponents';
 
 const INITIAL_STATE: IInstructor = {
@@ -108,7 +109,7 @@ const EditInstructor: React.FC = () => {
   }, [params.uspaNumber, get, find, setValues, match, isNew]);
 
   return (
-    <div>
+    <Panel>
       <h1>{isNew ? 'New Instructor' : `Edit ${values.uspaNumber}`}</h1>
       <Form onSubmit={handleSubmit}>
         <Field>
@@ -225,7 +226,7 @@ const EditInstructor: React.FC = () => {
       {loginError && <span className='error-text'>{loginError}</span>}
       <ErrorDetails errors={errors} />
       {/* <code>{JSON.stringify(values, null, 2)}</code> */}
-    </div>
+    </Panel>
   );
 };
 

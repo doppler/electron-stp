@@ -4,12 +4,17 @@ import Header from './Header';
 import SettingsRouter from './Settings';
 import StudentRouter from './Students';
 import PrivateRoute from './PrivateRoute';
+import styled from 'styled-components';
+
+const Main = styled.div`
+  margin: 2.5em 1em;
+`;
 
 const AppRouter = () => {
   return (
     <>
       <Header />
-      <div className='Main'>
+      <Main>
         <Switch>
           <Route exact path='/'>
             <StudentRouter />
@@ -18,7 +23,7 @@ const AppRouter = () => {
             <SettingsRouter />
           </PrivateRoute>
         </Switch>
-      </div>
+      </Main>
     </>
   );
 };
