@@ -58,6 +58,7 @@
     var(--saturation),
     calc(var(--lightness) + var(--lighten))
   );
+  --error-text: hsl(var(--tri-1), var(--saturation), var(--lightness));
   --error-border-color: hsl(
     var(--tri-1),
     var(--saturation),

@@ -106,3 +106,19 @@ export const Panel = styled.div`
     margin-top: 0;
   }
 `;
+
+interface TextProps {
+  readonly success?: boolean;
+  readonly warning?: boolean;
+  readonly error?: boolean;
+}
+export const Text = styled.p<TextProps>`
+  color: ${props =>
+    props.success
+      ? 'var(--success-text)'
+      : props.warning
+      ? 'var(--warning-text)'
+      : props.error
+      ? 'var(--error-text)'
+      : 'var(--body-text-color)'};
+`;
