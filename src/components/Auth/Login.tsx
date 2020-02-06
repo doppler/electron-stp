@@ -24,7 +24,7 @@ const Login = () => {
 
   const emailFieldRef = useRef<HTMLInputElement>(null);
 
-  const [loginError, setLoginError] = useState(null);
+  const [loginError, setLoginError] = useState<object[]>([]);
 
   useEffect(() => {
     emailFieldRef.current && emailFieldRef.current.focus();
@@ -54,7 +54,15 @@ const Login = () => {
       history.push('/');
     } catch (error) {
       console.error(error);
-      setLoginError(error.message);
+      // make loginError match what ErrorDetails expects,
+      // e.g. shape of Joi.errors
+      setLoginError([
+        {
+          context: 'credentials',
+          type: 'authentication',
+          message: error.message
+        }
+      ]);
     }
   }
 
@@ -91,9 +99,8 @@ const Login = () => {
         </Field>
         <Button type='submit'>Login</Button>
       </Form>
-      {loginError && <span className='error-text'>{loginError}</span>}
+      {loginError && <ErrorDetails errors={loginError} />}
       <ErrorDetails errors={errors} />
-      {/* <code>{JSON.stringify(values, null, 2)}</code> */}
     </LoginPanel>
   );
 };
