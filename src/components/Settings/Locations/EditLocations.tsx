@@ -14,6 +14,7 @@ import {
   Label,
   Panel
 } from '../../FormComponents';
+import { invalidIfHasErrorFor } from '../../../utils';
 
 const INITIAL_STATE: ILocation = {
   type: 'location',
@@ -78,7 +79,7 @@ const EditLocation = () => {
             onBlur={handleBlur}
             placeholder='CODE'
             autoComplete='off'
-            className={hasErrors('code') ? 'invalid' : ''}
+            className={invalidIfHasErrorFor(errors, 'code')}
             disabled={!isNew}
           />
         </Field>
@@ -91,7 +92,7 @@ const EditLocation = () => {
             onBlur={handleBlur}
             placeholder='DZ Name'
             autoComplete='off'
-            className={hasErrors('dzname') ? 'invalid' : ''}
+            className={invalidIfHasErrorFor(errors, 'dzname')}
           />
         </Field>
         <ButtonGroup>
