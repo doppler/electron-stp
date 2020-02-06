@@ -6,6 +6,7 @@ import validateLogin from './validateLogin';
 import ErrorDetails from '../ErrorDetails';
 import { Form, Field, Label, Input, Button, Panel } from '../FormComponents';
 import styled from 'styled-components';
+import { invalidIfHasErrorFor } from '../../utils';
 
 const INITIAL_STATE: TLoginFormValues = {
   email: process.env.REACT_APP_TEST_EMAIL || '',
@@ -32,7 +33,7 @@ const Login = () => {
 
   interface CreateLoginFormValidationReturns extends TFormValidationReturns {
     values: TLoginFormValues;
-    errors: TLoginFormErrors;
+    errors: TValidationErrors;
   }
 
   const {
@@ -80,7 +81,7 @@ const Login = () => {
             type='email'
             required
             placeholder='Email Address'
-            className={errors.email ? 'invalid' : ''}
+            className={invalidIfHasErrorFor(errors, 'email') ? 'invalid' : ''}
             ref={emailFieldRef}
           />
         </Field>
@@ -94,7 +95,9 @@ const Login = () => {
             type='password'
             required
             placeholder='Password'
-            className={errors.password ? 'invalid' : ''}
+            className={
+              invalidIfHasErrorFor(errors, 'password') ? 'invalid' : ''
+            }
           />
         </Field>
         <Button type='submit'>Login</Button>

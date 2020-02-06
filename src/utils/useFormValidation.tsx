@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 const useFormValidation = (
   initialState: any,
@@ -43,7 +43,7 @@ const useFormValidation = (
       if (valueHasChanged && element.name && validation.error?.details) {
         setErrors(
           validation.error.details.filter(
-            (detail: TValidationError) => detail.context.key === element.name
+            (detail: IValidationError) => detail.context.key === element.name
           )
         );
       }

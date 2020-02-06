@@ -9,7 +9,7 @@ const ErrorDetails = (props: any) => {
   return (
     <div>
       <ErrorList>
-        {errors.map((error: TValidationError) => (
+        {errors.map((error: IValidationError) => (
           <li key={`${error.context.key}:${error.type}`}>{error.message}</li>
         ))}
       </ErrorList>

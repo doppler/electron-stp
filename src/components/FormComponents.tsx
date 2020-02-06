@@ -28,6 +28,10 @@ export const Input = styled.input`
   &::placeholder {
     color: hsl(30, 5%, 55%);
   }
+  &.invalid {
+    background-color: var(--error-background-color);
+    border: 1px solid var(--error-border-color);
+  }
 `;
 
 export const Select = styled.select`
