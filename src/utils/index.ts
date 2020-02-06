@@ -23,3 +23,10 @@ export function sessionBoolean(arg: any) {
   );
   return currentValue[arg];
 }
+
+export function invalidIfHasErrorFor(
+  errors: TValidationErrors,
+  fieldName: string
+): string {
+  return errors.map(e => e.context.key).includes(fieldName) ? 'invalid' : '';
+}

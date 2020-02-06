@@ -1,6 +1,6 @@
 :root {
-  --primary: 230;
-  --saturation: 50%;
+  --primary: 240;
+  --saturation: 75%;
   --lightness: 50%;
   --complement: calc(var(--primary) - 180);
   --tri-1: calc(var(--primary) + 120);
@@ -19,6 +19,62 @@
       var(--saturation),
       calc(var(--lightness) + var(--lighten))
     );
+
+  --background-saturation: 5%;
+  --body-background-color: hsl(30, var(--background-saturation), 12%);
+  --panel-background-color: hsl(30, var(--background-saturation), 16%);
+  --header-background-color: hsl(30, var(--background-saturation), 20%);
+
+  --body-text-color: hsl(210, 50%, 95%);
+  --success-text: hsl(var(--tri-2), var(--saturation), var(--lightness));
+  --success-dark: hsl(var(--tri-2), var(--saturation), var(--dark));
+  --success-bright: hsl(
+    var(--tri-2),
+    var(--saturation),
+    calc(var(--lightness) + var(--adjust))
+  );
+  --warning-text: hsl(
+    calc(var(--tri-1) + var(--degree) + var(--degree)),
+    var(--saturation),
+    var(--lightness)
+  );
+  --warning-dark: hsl(
+    calc(var(--tri-1) + var(--degree) + var(--degree)),
+    var(--saturation),
+    var(--dark)
+  );
+  --warning-bright: hsl(
+    calc(var(--tri-1) + var(--degree) + var(--degree)),
+    var(--saturation),
+    calc(var(--lightness) + var(--adjust))
+  );
+  --warning-background-color: hsl(
+    var(--tri-1),
+    var(--saturation),
+    calc(var(--lightness) + var(--darken))
+  );
+  --warning-border-color: hsl(
+    var(--tri-1),
+    var(--saturation),
+    calc(var(--lightness) + var(--lighten))
+  );
+  --error-text: hsl(var(--tri-1), var(--saturation), var(--lightness));
+  --error-border-color: hsl(
+    var(--tri-1),
+    var(--saturation),
+    calc(var(--lightness))
+  );
+  --error-background-color: hsl(var(--tri-1), var(--saturation), var(--dark));
+  --button-background-color: hsl(
+    var(--tri-2),
+    var(--saturation),
+    calc(var(--lightness) + var(--darken))
+  );
+  --button-border-color: hsl(
+    var(--tri-2),
+    var(--saturation),
+    calc(var(--lightness) + var(--lighten))
+  );
 }
 body {
   margin: 0;
@@ -28,9 +84,29 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+html,
+body {
+  background-color: var(--body-background-color);
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
   white-space: pre;
+}
+
+a {
+  color: hsl(
+    var(--complement),
+    calc(var(--light) - var(--adjust)),
+    calc(var(--light) + var(--darken))
+  );
+  text-decoration: none;
+}
+a:hover,
+a.active {
+  color: hsl(
+    var(--complement),
+    calc(var(--light)),
+    calc(var(--lightness) + var(--light))
+  );
 }

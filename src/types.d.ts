@@ -12,7 +12,7 @@ interface IAuthUser {
   roles: string[];
 }
 
-type TValidationError = {
+interface IValidationError {
   message: string;
   path: string[];
   type: string;
@@ -22,7 +22,8 @@ type TValidationError = {
     child?: string;
     value?: string;
   };
-};
+}
+type TValidationErrors = IValidationError[];
 
 type DBSyncSettings = {
   doSync: boolean;

@@ -1,4 +1,3 @@
-import './Settings.css';
 import React from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Settings from './Settings';

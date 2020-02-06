@@ -1,25 +1,39 @@
-import './Login.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useAuth from '../Auth/useAuth';
 import { useHistory } from 'react-router-dom';
 import useFormValidation from '../../utils/useFormValidation';
 import validateLogin from './validateLogin';
 import ErrorDetails from '../ErrorDetails';
+import { Form, Field, Label, Input, Button, Panel } from '../FormComponents';
+import styled from 'styled-components';
+import { invalidIfHasErrorFor } from '../../utils';
 
 const INITIAL_STATE: TLoginFormValues = {
   email: process.env.REACT_APP_TEST_EMAIL || '',
   password: process.env.REACT_APP_TEST_PASSWORD || ''
 };
 
+const LoginPanel = styled(Panel)`
+  width: 30em;
+  margin-left: calc(50vw - 15em);
+  margin-top: 1em;
+`;
+
 const Login = () => {
   const history = useHistory();
   const { logIn } = useAuth();
 
-  const [loginError, setLoginError] = useState(null);
+  const emailFieldRef = useRef<HTMLInputElement>(null);
+
+  const [loginError, setLoginError] = useState<object[]>([]);
+
+  useEffect(() => {
+    emailFieldRef.current && emailFieldRef.current.focus();
+  }, []);
 
   interface CreateLoginFormValidationReturns extends TFormValidationReturns {
     values: TLoginFormValues;
-    errors: TLoginFormErrors;
+    errors: TValidationErrors;
   }
 
   const {
@@ -41,40 +55,56 @@ const Login = () => {
       history.push('/');
     } catch (error) {
       console.error(error);
-      setLoginError(error.message);
+      // make loginError match what ErrorDetails expects,
+      // e.g. shape of Joi.errors
+      setLoginError([
+        {
+          context: 'credentials',
+          type: 'authentication',
+          message: error.message
+        }
+      ]);
     }
   }
 
   return (
-    <div className='CreateAdminLogin'>
-      <form onSubmit={handleSubmit} className='clean login'>
-        <p>Instructor Login</p>
-        <input
-          name='email'
-          value={values.email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          type='email'
-          required
-          placeholder='Email Address'
-          className={errors.email ? 'invalid' : ''}
-        />
-        <input
-          name='password'
-          value={values.password}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          type='password'
-          required
-          placeholder='Password'
-          className={errors.password ? 'invalid' : ''}
-        />
-        <button type='submit'>Login</button>
-      </form>
-      {loginError && <span className='error-text'>{loginError}</span>}
+    <LoginPanel>
+      <h1>Login</h1>
+      <Form onSubmit={handleSubmit}>
+        <Field>
+          <Label htmlFor='email'>Email</Label>
+          <Input
+            name='email'
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            type='email'
+            required
+            placeholder='Email Address'
+            className={invalidIfHasErrorFor(errors, 'email') ? 'invalid' : ''}
+            ref={emailFieldRef}
+          />
+        </Field>
+        <Field>
+          <Label htmlFor='password'>Password</Label>
+          <Input
+            name='password'
+            value={values.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            type='password'
+            required
+            placeholder='Password'
+            className={
+              invalidIfHasErrorFor(errors, 'password') ? 'invalid' : ''
+            }
+          />
+        </Field>
+        <Button type='submit'>Login</Button>
+      </Form>
+      {loginError && <ErrorDetails errors={loginError} />}
       <ErrorDetails errors={errors} />
-      {/* <code>{JSON.stringify(values, null, 2)}</code> */}
-    </div>
+    </LoginPanel>
   );
 };
 

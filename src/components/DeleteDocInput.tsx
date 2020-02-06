@@ -1,5 +1,51 @@
-import React, { useState, useEffect, useRef, SyntheticEvent } from 'react';
-import './DeleteDocInput.css';
+import React, { useState, useEffect, useRef } from 'react';
+import { Button, Input } from './FormComponents';
+import styled from 'styled-components';
+
+const StyledDeleteDocInput = styled.div`
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  & .dialog {
+    position: absolute;
+    top: 0;
+    display: block;
+    z-index: 1;
+    width: 20em;
+    color: var(--warning-bright);
+    background-color: var(--warning-dark);
+    border: 1px solid var(--warning-bright);
+  }
+  & .dialog-header {
+    position: relative;
+    display: flex;
+    padding: 0.25em;
+    border-bottom: 1px solid var(--warning-bright);
+    & .close-button {
+      position: absolute;
+      right: 0.25em;
+      width: 1em;
+      height: 1em;
+      display: flex;
+      justify-content: center;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  & .hidden {
+    display: none;
+  }
+  & input {
+    text-align: center;
+    width: 100%;
+  }
+  & .verified {
+    color: var(--success-bright);
+    background-color: var(--success-dark);
+    border: 1px solid var(--success-bright);
+  }
+`;
 
 const DeleteDocInput = (props: any) => {
   const { setValues, idValue, handleSubmit } = props;
@@ -25,7 +71,7 @@ const DeleteDocInput = (props: any) => {
     }));
   }, [verificationString, idValue, setValues]);
 
-  const toggleDialog = (event: SyntheticEvent) => {
+  const toggleDialog = (event: React.SyntheticEvent) => {
     event.preventDefault();
     dialogRef.current.classList.toggle('hidden');
     verificationRef.current.focus();
@@ -43,19 +89,19 @@ const DeleteDocInput = (props: any) => {
     }
   };
   return (
-    <div className='DeleteDocInput'>
-      <button className='warning' onClick={toggleDialog}>
+    <StyledDeleteDocInput>
+      <Button className='warning' onClick={toggleDialog}>
         Delete
-      </button>
+      </Button>
       <div id='foo' className={`dialog hidden`} ref={dialogRef}>
         <div className='dialog-header'>
           <div>To verify deletion, enter &quot;{idValue}&quot;.</div>
           <div className='close-button' onClick={toggleDialog}>
-            X
+            {String.fromCharCode(10754)}
           </div>
         </div>
         <div className='dialog-body'>
-          <input
+          <Input
             name='verificationString'
             value={verificationString}
             onChange={handleChange}
@@ -66,7 +112,7 @@ const DeleteDocInput = (props: any) => {
           />
         </div>
       </div>
-    </div>
+    </StyledDeleteDocInput>
   );
 };
 

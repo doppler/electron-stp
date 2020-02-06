@@ -5,6 +5,16 @@ import validate from './validateLocation';
 import useDB from '../../../useDB';
 import DeleteDocInput from '../../DeleteDocInput';
 import ErrorDetails from '../../ErrorDetails';
+import {
+  Field,
+  Form,
+  Input,
+  Button,
+  ButtonGroup,
+  Label,
+  Panel
+} from '../../FormComponents';
+import { invalidIfHasErrorFor } from '../../../utils';
 
 const INITIAL_STATE: ILocation = {
   type: 'location',
@@ -55,34 +65,38 @@ const EditLocation = () => {
     errors.map(error => error.context.key).includes(fieldName);
 
   return (
-    <div className='EditLocation'>
-      <h1>Edit {values.code}</h1>
-      <form onSubmit={handleSubmit} className='clean'>
-        <div className='tooltip'>
-          <input
+    <Panel>
+      <h1>
+        Edit {isNew ? 'New' : ''} Location {values.code}
+      </h1>
+      <Form onSubmit={handleSubmit}>
+        <Field>
+          <Label htmlFor='code'>Code</Label>
+          <Input
             name='code'
             value={values.code}
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder='CODE'
             autoComplete='off'
-            className={hasErrors('code') ? 'invalid' : ''}
+            className={invalidIfHasErrorFor(errors, 'code')}
             disabled={!isNew}
           />
-        </div>
-        <div className='tooltip'>
-          <input
+        </Field>
+        <Field>
+          <Label htmlFor='dzname'>DZ Name</Label>
+          <Input
             name='dzname'
             value={values.dzname}
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder='DZ Name'
             autoComplete='off'
-            className={hasErrors('dzname') ? 'invalid' : ''}
+            className={invalidIfHasErrorFor(errors, 'dzname')}
           />
-        </div>
-        <div className='button-row'>
-          <button type='submit'>Save</button>
+        </Field>
+        <ButtonGroup>
+          <Button type='submit'>Save</Button>
           {!isNew ? (
             <DeleteDocInput
               setValues={setValues}
@@ -90,10 +104,10 @@ const EditLocation = () => {
               handleSubmit={handleSubmit}
             />
           ) : null}
-        </div>
-      </form>
+        </ButtonGroup>
+      </Form>
       <ErrorDetails errors={errors} />
-    </div>
+    </Panel>
   );
 };
 

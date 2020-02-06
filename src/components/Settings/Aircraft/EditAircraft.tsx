@@ -5,6 +5,17 @@ import useFormValidation from '../../../utils/useFormValidation';
 import validate from './validateAircraft';
 import DeleteDocInput from '../../DeleteDocInput';
 import ErrorDetails from '../../ErrorDetails';
+import {
+  Form,
+  ButtonGroup,
+  Label,
+  Input,
+  Field,
+  Button,
+  Select,
+  Panel
+} from '../../FormComponents';
+import { invalidIfHasErrorFor } from '../../../utils';
 
 const INITIAL_STATE: IAircraft = {
   type: 'aircraft',
@@ -58,39 +69,41 @@ const EditAircraft: React.FC = () => {
     })();
   }, [params.tailNumber, get, find, setValues]);
 
-  const hasErrors = (fieldName: string): boolean =>
-    errors.map(error => error.context.key).includes(fieldName);
-
   return (
-    <div className='EditAircraft'>
-      <h1>Edit {values.tailNumber}</h1>
-      <form onSubmit={handleSubmit} className='clean'>
-        <div className='tooltip'>
-          <input
+    <Panel>
+      <h1>
+        Edit {isNew ? 'New' : ''} Aircraft {values.tailNumber}
+      </h1>
+      <Form onSubmit={handleSubmit}>
+        <Field>
+          <Label htmlFor='tailNumber'>Tail #</Label>
+          <Input
             name='tailNumber'
             value={values.tailNumber}
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder={'NTAILN0'}
             autoComplete={'off'}
-            className={hasErrors('tailNumber') ? 'invalid' : ''}
+            className={invalidIfHasErrorFor(errors, 'tailNumber')}
             disabled={!isNew}
           />
-        </div>
-        <div className='tooltip'>
-          <input
+        </Field>
+        <Field>
+          <Label htmlFor='model'>Model</Label>
+          <Input
             name='model'
             value={values.model}
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder={'Model'}
             autoComplete={'off'}
-            className={hasErrors('model') ? 'invalid' : ''}
+            className={invalidIfHasErrorFor(errors, 'model')}
             disabled={!isNew}
           />
-        </div>
-        <div className='tooltip'>
-          <select
+        </Field>
+        <Field>
+          <Label htmlFor='currentLocation'>Location</Label>
+          <Select
             name='currentLocation'
             value={values.currentLocation}
             onChange={handleChange}
@@ -101,10 +114,10 @@ const EditAircraft: React.FC = () => {
                 {location.dzname}
               </option>
             ))}
-          </select>
-        </div>
-        <div className='button-row'>
-          <button type='submit'>Save</button>
+          </Select>
+        </Field>
+        <ButtonGroup>
+          <Button type='submit'>Save</Button>
           {!isNew ? (
             <DeleteDocInput
               setValues={setValues}
@@ -112,10 +125,10 @@ const EditAircraft: React.FC = () => {
               handleSubmit={handleSubmit}
             />
           ) : null}
-        </div>
-      </form>
+        </ButtonGroup>
+      </Form>
       <ErrorDetails errors={errors} />
-    </div>
+    </Panel>
   );
 };
 

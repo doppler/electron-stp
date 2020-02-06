@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import jwt from 'jsonwebtoken';
 import { sessionBoolean } from '../../../utils';
-
+import {
+  Form,
+  Field,
+  Label,
+  Input,
+  Button,
+  Details
+} from '../../FormComponents';
 const token = window.localStorage.getItem('stp:dbSyncSettings');
 
 const initialState: any = token
@@ -82,13 +89,13 @@ const DatabaseSummary = () => {
   };
 
   return (
-    <details open={showDatabaseDetails} className='Database panel'>
+    <Details open={showDatabaseDetails}>
       <summary onClick={handleSummaryClick}>Database {status}</summary>
       <div className='panel-body'>
-        <form onSubmit={handleSubmit} className='clean'>
-          <div className='input-group'>
-            <label>Remote DB</label>
-            <input
+        <Form onSubmit={handleSubmit}>
+          <Field>
+            <Label>Remote DB</Label>
+            <Input
               id='url'
               name='url'
               type='text'
@@ -96,30 +103,30 @@ const DatabaseSummary = () => {
               value={dbConnection.url}
               style={{ fontFamily: 'monospace' }}
             />
-          </div>
-          <div className='input-group'>
-            <label>Username</label>
-            <input
+          </Field>
+          <Field>
+            <Label>Username</Label>
+            <Input
               id='username'
               name='username'
               type='password'
               onChange={handleChange}
               value={dbConnection.username}
             />
-          </div>
-          <div className='input-group'>
-            <label>Password</label>
-            <input
+          </Field>
+          <Field>
+            <Label>Password</Label>
+            <Input
               id='password'
               name='password'
               type='password'
               onChange={handleChange}
               value={dbConnection.password}
             />
-          </div>
-          <div className='input-group checkbox'>
-            <label htmlFor='doSync'>Sync?</label>
-            <input
+          </Field>
+          <Field className='checkbox'>
+            <Label htmlFor='doSync'>Sync?</Label>
+            <Input
               id='doSync'
               name='doSync'
               type='checkbox'
@@ -127,13 +134,13 @@ const DatabaseSummary = () => {
               checked={dbConnection.doSync}
               style={{ float: 'left' }}
             />
-          </div>
-          <button>Save</button>
-        </form>
+          </Field>
+          <Button>Save</Button>
+        </Form>
         {error && <p className='error'>{error}</p>}
         <code>status: {error ? error : status}</code>
       </div>
-    </details>
+    </Details>
   );
 };
 

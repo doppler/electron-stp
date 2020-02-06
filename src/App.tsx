@@ -8,6 +8,12 @@ import { EditInstructor } from './components/Settings/Instructors';
 import useAuth from './components/Auth/useAuth';
 import PrivateRoute from './components/PrivateRoute';
 import useDB from './useDB';
+import styled from 'styled-components';
+
+const AppContainer = styled.div`
+  color: var(--body-text-color);
+  background-color: var(--body-background-color);
+`;
 
 const App = () => {
   const { DB } = useDB();
@@ -18,7 +24,7 @@ const App = () => {
     /* Indexes are defined in src/utils/createIndexes.ts for now.
      */
     (async () => {
-      const createIndexesResults = await createIndexes(DB); // eslint-disable-line @typescript-eslint/no-unused-vars
+      const createIndexesResults = await createIndexes(DB); // eslint-disable-line @typescript-eslint/no-unused-vars, no-unused-vars
     })();
   }, [DB]);
 
@@ -38,7 +44,7 @@ const App = () => {
   if (!didFetchUserDocCount) return null;
 
   return (
-    <div className='App'>
+    <AppContainer>
       <Router>
         <Switch>
           <Route path='/login'>
@@ -52,7 +58,7 @@ const App = () => {
           </PrivateRoute>
         </Switch>
       </Router>
-    </div>
+    </AppContainer>
   );
 };
 

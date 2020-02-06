@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import useDB from '../../../useDB';
 import { sessionBoolean } from '../../../utils';
+import { Button, Details, SummaryList } from '../../FormComponents';
 
 const LocationsSummary: React.FC = () => {
   const { find } = useDB();
@@ -29,12 +30,12 @@ const LocationsSummary: React.FC = () => {
   };
 
   return (
-    <details open={showLocationDetails} className='Locations panel'>
+    <Details open={showLocationDetails}>
       <summary onClick={handleSummaryClick}>
         {Object.keys(locations).length} Locations
       </summary>
       <div className='panel-body'>
-        <ul className='settings-list'>
+        <SummaryList>
           {locations.map((location: ILocation) => (
             <Link
               key={location.code}
@@ -46,12 +47,12 @@ const LocationsSummary: React.FC = () => {
               </li>
             </Link>
           ))}
-        </ul>
+        </SummaryList>
         <Link to={`${match.url}/location/NEW`}>
-          <button>Add Location</button>
+          <Button>Add Location</Button>
         </Link>
       </div>
-    </details>
+    </Details>
   );
 };
 
