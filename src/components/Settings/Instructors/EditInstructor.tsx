@@ -16,6 +16,7 @@ import {
   Select,
   Panel
 } from '../../FormComponents';
+import { invalidIfHasErrorFor } from '../../../utils';
 
 const INITIAL_STATE: IInstructor = {
   type: 'instructor',
@@ -124,6 +125,7 @@ const EditInstructor: React.FC = () => {
             placeholder={'12345'}
             autoComplete={'off'}
             disabled={!isNew}
+            className={invalidIfHasErrorFor(errors, 'uspaNumber')}
           />
         </Field>
         <Field>
@@ -137,6 +139,7 @@ const EditInstructor: React.FC = () => {
             onSubmit={handleSubmit}
             placeholder={'Full Name'}
             autoComplete={'off'}
+            className={invalidIfHasErrorFor(errors, 'name')}
           />
         </Field>
         <Field>
@@ -151,6 +154,7 @@ const EditInstructor: React.FC = () => {
             onSubmit={handleSubmit}
             placeholder={'email@example.com'}
             autoComplete={'off'}
+            className={invalidIfHasErrorFor(errors, 'email')}
           />
         </Field>
         <Field>
@@ -164,6 +168,7 @@ const EditInstructor: React.FC = () => {
             onSubmit={handleSubmit}
             placeholder={'123 456 7890'}
             autoComplete={'off'}
+            className={invalidIfHasErrorFor(errors, 'phone')}
           />
         </Field>
         <Field>
@@ -195,6 +200,7 @@ const EditInstructor: React.FC = () => {
                 onBlur={handleBlur}
                 onSubmit={handleSubmit}
                 autoComplete={'off'}
+                className={invalidIfHasErrorFor(errors, 'password')}
               />
             </Field>
             <Field>
@@ -208,6 +214,7 @@ const EditInstructor: React.FC = () => {
                 onBlur={handleBlur}
                 onSubmit={handleSubmit}
                 autoComplete={'off'}
+                className={invalidIfHasErrorFor(errors, 'passwordConfirm')}
               />
             </Field>
           </>
