@@ -12,7 +12,8 @@ import {
   Input,
   Field,
   Button,
-  Select
+  Select,
+  Panel
 } from '../../FormComponents';
 
 const INITIAL_STATE: IAircraft = {
@@ -71,8 +72,10 @@ const EditAircraft: React.FC = () => {
     errors.map(error => error.context.key).includes(fieldName);
 
   return (
-    <div className='EditAircraft'>
-      <h1>Edit {values.tailNumber}</h1>
+    <Panel>
+      <h1>
+        Edit {isNew ? 'New' : ''} Aircraft {values.tailNumber}
+      </h1>
       <Form onSubmit={handleSubmit}>
         <Field>
           <Label htmlFor='tailNumber'>Tail #</Label>
@@ -127,7 +130,7 @@ const EditAircraft: React.FC = () => {
         </ButtonGroup>
       </Form>
       <ErrorDetails errors={errors} />
-    </div>
+    </Panel>
   );
 };
 

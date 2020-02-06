@@ -236,7 +236,6 @@ form.clean .input-group.checkbox input {
 form.clean .input-group.input-group.checkbox label {
   float: left;
 }
-*/
 ul.errors::before {
   content: 'Errors:';
   display: inline-block;
@@ -252,3 +251,5 @@ ul.errors {
 ul.errors li {
   margin: 0.5em;
 }
+
+*/
