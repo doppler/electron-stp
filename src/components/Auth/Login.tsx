@@ -1,4 +1,3 @@
-import './Login.css';
 import React, { useState, useEffect, useRef } from 'react';
 import useAuth from '../Auth/useAuth';
 import { useHistory } from 'react-router-dom';

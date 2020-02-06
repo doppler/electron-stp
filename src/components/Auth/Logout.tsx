@@ -1,12 +1,25 @@
-import './Logout.css';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import useAuth from './useAuth';
 import { useHistory } from 'react-router-dom';
-import { Button, ButtonGroup } from '../FormComponents';
+import { Button, ButtonGroup, Panel, Text } from '../FormComponents';
+import styled from 'styled-components';
+
+const LOGOUT_DELAY = 30;
+
+const LogoutPanel = styled(Panel)`
+  width: 30em;
+  margin-left: calc(50vw - 15em);
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const Logout = () => {
   const { logOut } = useAuth();
   const history = useHistory();
-  const [timeRemaining, setTimeRemaining] = useState(60);
+  const [timeRemaining, setTimeRemaining] = useState(LOGOUT_DELAY);
+  const logOutButtonRef = useRef<HTMLButtonElement>(null);
 
   const logOutNow = useCallback(() => {
     logOut();
@@ -22,20 +35,26 @@ const Logout = () => {
     return () => clearTimeout(timeout);
   }, [timeRemaining, logOutNow]);
 
+  useEffect(() => {
+    logOutButtonRef.current && logOutButtonRef.current.focus();
+  }, [logOutButtonRef.current]);
+
   const handleBackButtonClick = () => {
     history.goBack();
   };
 
   return (
-    <div className='Logout'>
-      <p className='warning'>Logging out in {timeRemaining} seconds</p>
+    <LogoutPanel>
+      <Text warning>Logging out in {timeRemaining} seconds</Text>
       <ButtonGroup>
         <Button className='warning' onClick={handleBackButtonClick}>
           Cancel
         </Button>
-        <Button onClick={() => logOutNow()}>Log out now</Button>
+        <Button onClick={() => logOutNow()} ref={logOutButtonRef}>
+          Log out now
+        </Button>
       </ButtonGroup>
-    </div>
+    </LogoutPanel>
   );
 };
 
