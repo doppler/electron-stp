@@ -137,3 +137,25 @@ export const SummaryList = styled.ul`
     }
   }
 `;
+
+export const ErrorList = styled.ul`
+  list-style-type: none;
+  border: 1px solid var(--error-border-color);
+  padding: 0;
+  box-shadow: 1px 1px 5px black;
+  & li {
+    padding: 1em;
+    border-bottom: 1px solid var(--header-background-color);
+  }
+  & li:last-child {
+    border: 0;
+  }
+  &::before {
+    content: 'Errors:';
+    display: inline-block;
+    width: calc(100% - 1em);
+    padding: 0.5em;
+    border-bottom: 1px solid var(--error-border-color);
+    background-color: var(--error-background-color);
+  }
+`;

@@ -64,6 +64,7 @@
     var(--saturation),
     calc(var(--lightness))
   );
+  --error-background-color: hsl(var(--tri-1), var(--saturation), var(--dark));
   --button-background-color: hsl(
     var(--tri-2),
     var(--saturation),

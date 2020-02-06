@@ -1,4 +1,5 @@
 import React from 'react';
+import { ErrorList } from './FormComponents';
 
 const ErrorDetails = (props: any) => {
   const { errors } = props;
@@ -7,12 +8,12 @@ const ErrorDetails = (props: any) => {
 
   return (
     <div>
-      <ul className='errors'>
+      <ErrorList>
         {errors.map((error: TValidationError) => (
           <li key={`${error.context.key}:${error.type}`}>{error.message}</li>
         ))}
-      </ul>
-      <code>{JSON.stringify(errors, null, 2)}</code>
+      </ErrorList>
+      {/* <code>{JSON.stringify(errors, null, 2)}</code> */}
     </div>
   );
 };
