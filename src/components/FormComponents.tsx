@@ -122,3 +122,18 @@ export const Text = styled.p<TextProps>`
       ? 'var(--error-text)'
       : 'var(--body-text-color)'};
 `;
+
+export const SummaryList = styled.ul`
+  padding-left: 0;
+  display: grid;
+  & li {
+    list-style-type: none;
+    display: grid;
+    padding: 0.25em 0;
+    grid-template-columns: repeat(4, 1fr);
+    &:hover {
+      background-color: var(--header-background-color);
+      cursor: pointer;
+    }
+  }
+`;

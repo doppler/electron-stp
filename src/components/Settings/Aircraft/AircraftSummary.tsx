@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import useDB from '../../../useDB';
 import { sessionBoolean } from '../../../utils';
-import { Button, Details } from '../../FormComponents';
+import { Button, Details, SummaryList } from '../../FormComponents';
 
 const AircraftSummary: React.FC = () => {
   const { find } = useDB();
@@ -35,7 +35,7 @@ const AircraftSummary: React.FC = () => {
         {Object.keys(aircraftList).length} Aircraft
       </summary>
       <div className='panel-body'>
-        <ul className='settings-list aircraft'>
+        <SummaryList>
           {aircraftList.map((aircraft: IAircraft) => (
             <Link
               key={aircraft.tailNumber}
@@ -48,7 +48,7 @@ const AircraftSummary: React.FC = () => {
               </li>
             </Link>
           ))}
-        </ul>
+        </SummaryList>
         <Link to={`${match.url}/aircraft/NEW`}>
           <Button>Add Aircraft</Button>
         </Link>

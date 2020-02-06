@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import useDB from '../../../useDB';
 import { sessionBoolean } from '../../../utils';
-import { Button, Details } from '../../FormComponents';
+import { Button, Details, SummaryList } from '../../FormComponents';
 
 const InstructorSummary: React.FC = () => {
   const { find } = useDB();
@@ -35,7 +35,7 @@ const InstructorSummary: React.FC = () => {
         {Object.keys(instructorList).length} Instructors
       </summary>
       <div className='panel-body'>
-        <ul className='settings-list instructors'>
+        <SummaryList>
           {instructorList.map((instructor: IInstructor) => (
             <Link
               key={instructor.uspaNumber?.toString()}
@@ -47,7 +47,7 @@ const InstructorSummary: React.FC = () => {
               </li>
             </Link>
           ))}
-        </ul>
+        </SummaryList>
         <Link to={`${match.url}/instructor/NEW`}>
           <Button>Add Instructor</Button>
         </Link>
