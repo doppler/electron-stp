@@ -28,7 +28,7 @@ const Login = () => {
 
   useEffect(() => {
     emailFieldRef.current && emailFieldRef.current.focus();
-  }, [emailFieldRef.current]);
+  }, []);
 
   interface CreateLoginFormValidationReturns extends TFormValidationReturns {
     values: TLoginFormValues;

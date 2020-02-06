@@ -37,7 +37,7 @@ const Logout = () => {
 
   useEffect(() => {
     logOutButtonRef.current && logOutButtonRef.current.focus();
-  }, [logOutButtonRef.current]);
+  }, []);
 
   const handleBackButtonClick = () => {
     history.goBack();
