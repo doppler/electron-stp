@@ -15,6 +15,7 @@ import {
   Select,
   Panel
 } from '../../FormComponents';
+import { invalidIfHasErrorFor } from '../../../utils';
 
 const INITIAL_STATE: IAircraft = {
   type: 'aircraft',
@@ -68,9 +69,6 @@ const EditAircraft: React.FC = () => {
     })();
   }, [params.tailNumber, get, find, setValues]);
 
-  const hasErrors = (fieldName: string): boolean =>
-    errors.map(error => error.context.key).includes(fieldName);
-
   return (
     <Panel>
       <h1>
@@ -86,7 +84,7 @@ const EditAircraft: React.FC = () => {
             onBlur={handleBlur}
             placeholder={'NTAILN0'}
             autoComplete={'off'}
-            className={hasErrors('tailNumber') ? 'invalid' : ''}
+            className={invalidIfHasErrorFor(errors, 'tailNumber')}
             disabled={!isNew}
           />
         </Field>
@@ -99,7 +97,7 @@ const EditAircraft: React.FC = () => {
             onBlur={handleBlur}
             placeholder={'Model'}
             autoComplete={'off'}
-            className={hasErrors('model') ? 'invalid' : ''}
+            className={invalidIfHasErrorFor(errors, 'model')}
             disabled={!isNew}
           />
         </Field>
