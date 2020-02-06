@@ -11,7 +11,8 @@ import {
   Input,
   Button,
   ButtonGroup,
-  Label
+  Label,
+  Panel
 } from '../../FormComponents';
 
 const INITIAL_STATE: ILocation = {
@@ -63,8 +64,10 @@ const EditLocation = () => {
     errors.map(error => error.context.key).includes(fieldName);
 
   return (
-    <div className='EditLocation'>
-      <h1>Edit {values.code}</h1>
+    <Panel>
+      <h1>
+        Edit {isNew ? 'New' : ''} Location {values.code}
+      </h1>
       <Form onSubmit={handleSubmit}>
         <Field>
           <Label htmlFor='code'>Code</Label>
@@ -103,7 +106,7 @@ const EditLocation = () => {
         </ButtonGroup>
       </Form>
       <ErrorDetails errors={errors} />
-    </div>
+    </Panel>
   );
 };
 
