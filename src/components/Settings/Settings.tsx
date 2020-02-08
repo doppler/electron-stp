@@ -2,7 +2,7 @@ import React from 'react';
 import { LocationsSummary } from './Locations';
 import { AircraftSummary } from './Aircraft';
 import { InstructorSummary } from './Instructors';
-// import { UserSummary } from './Users';
+import { UserSummary } from './Users';
 import { DatabaseSummary } from './Database';
 
 const Settings = () => {
@@ -13,7 +13,7 @@ const Settings = () => {
       <AircraftSummary />
       <LocationsSummary />
       <DatabaseSummary />
-      {/* <UserSummary /> */}
+      <UserSummary />
     </div>
   );
 };
