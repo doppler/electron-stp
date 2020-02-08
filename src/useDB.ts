@@ -23,12 +23,12 @@ if (dbSyncSettings.doSync) {
     live: true,
     retry: true
   })
-    .on('change', info => console.info)
-    .on('paused', err => console.error)
+    .on('change', info => console.info(info))
+    .on('paused', error => console.error(error))
     .on('active', () => console.info('DB replication active.'))
-    .on('denied', err => console.error)
-    .on('complete', info => console.info)
-    .on('error', err => console.error);
+    .on('denied', error => console.error(error))
+    .on('complete', info => console.info(info))
+    .on('error', error => console.error(error));
 }
 
 const useDB = () => {
