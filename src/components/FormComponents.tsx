@@ -134,10 +134,15 @@ export const SummaryList = styled.ul`
     list-style-type: none;
     display: grid;
     padding: 0.25em 0;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     &:hover {
       background-color: var(--header-background-color);
       cursor: pointer;
+    }
+    & div {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 `;
