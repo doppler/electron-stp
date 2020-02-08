@@ -1,16 +1,22 @@
+import jwt from 'jsonwebtoken';
 import PouchDB from 'pouchdb';
 import { useState, useEffect } from 'react';
 PouchDB.plugin(require('pouchdb-auth'));
 
 const usersDB = new PouchDB('_users', { auto_compaction: true });
 
-if (process.env.REACT_APP_REMOTE_COUCHDB) {
+const token = localStorage.getItem('stp:dbSyncSettings');
+
+let dbSyncSettings: any = {};
+if (token) dbSyncSettings = jwt.verify(token, process.env.NODE_ENV);
+
+if (dbSyncSettings.doSync) {
   const remoteUsersDB = new PouchDB(
-    `${process.env.REACT_APP_REMOTE_COUCHDB}/_users`,
+    dbSyncSettings.url.replace(/\/[\w]+$/, '/_users'),
     {
       auth: {
-        username: process.env.REACT_APP_REMOTE_COUCHDB_USERNAME,
-        password: process.env.REACT_APP_REMOTE_COUCHDB_PASSWORD
+        username: dbSyncSettings.username,
+        password: dbSyncSettings.password
       }
     }
   );
@@ -99,7 +105,8 @@ const useAuth = () => {
   const logOut = async () => {
     try {
       // @ts-ignore
-      const result = await usersDB.logOut(); // eslint-disable-line @typescript-eslint/no-unused-vars
+      const result = await usersDB.logOut();
+      console.info(result);
       window.sessionStorage.removeItem('stp:user');
     } catch (error) {
       console.error(error);
