@@ -22,12 +22,12 @@ if (process.env.REACT_APP_REMOTE_COUCHDB) {
         return !doc._id.match(/^_design\/_auth/);
       }
     })
-    .on('change', info => console.info)
-    .on('paused', err => console.error)
+    .on('change', info => console.info(info))
+    .on('paused', error => console.error(error))
     .on('active', () => console.info('DB replication active.'))
-    .on('denied', err => console.error)
-    .on('complete', info => console.info)
-    .on('error', err => console.error);
+    .on('denied', error => console.error(error))
+    .on('complete', info => console.info(info))
+    .on('error', error => console.error(error));
 }
 // @ts-ignore
 usersDB.useAsAuthenticationDB();
@@ -79,7 +79,8 @@ const useAuth = () => {
         );
       console.log(result);
       return result;
-    } finally {
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -90,7 +91,8 @@ const useAuth = () => {
       delete result.ok;
       window.sessionStorage.setItem('stp:user', JSON.stringify(result));
       return result;
-    } finally {
+    } catch (error) {
+      console.error(error);
     }
   };
 
