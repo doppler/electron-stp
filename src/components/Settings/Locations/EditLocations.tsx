@@ -61,9 +61,6 @@ const EditLocation = () => {
     })();
   }, [params.code, get, setValues]);
 
-  const hasErrors = (fieldName: string): boolean =>
-    errors.map(error => error.context.key).includes(fieldName);
-
   return (
     <Panel>
       <h1>
