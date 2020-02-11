@@ -29,11 +29,10 @@ if (dbSyncSettings.doSync) {
       }
     })
     .on('change', info => console.info(info))
-    .on('paused', error => console.error(error))
     .on('active', () => console.info('DB replication active.'))
-    .on('denied', error => console.error(error))
     .on('complete', info => console.info(info))
-    .on('error', error => console.error(error));
+    .on('error', error => console.error(error))
+    .on('denied', error => console.error(error));
 }
 // @ts-ignore
 usersDB.useAsAuthenticationDB();
