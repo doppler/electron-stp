@@ -16,12 +16,12 @@ const AppRouter = () => {
       <Header />
       <Main>
         <Switch>
-          <Route exact path='/'>
-            <StudentRouter />
-          </Route>
           <PrivateRoute path='/settings'>
             <SettingsRouter />
           </PrivateRoute>
+          <Route path='/'>
+            <StudentRouter />
+          </Route>
         </Switch>
       </Main>
     </>
