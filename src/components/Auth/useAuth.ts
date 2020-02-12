@@ -97,7 +97,7 @@ const useAuth = () => {
       window.sessionStorage.setItem('stp:user', JSON.stringify(result));
       return result;
     } catch (error) {
-      console.error(error);
+      return error;
     }
   };
 

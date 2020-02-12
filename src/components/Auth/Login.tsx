@@ -50,21 +50,18 @@ const Login = () => {
 
   async function authenticateUser() {
     const { email, password }: TLoginFormValues = values;
-    try {
-      await logIn(email, password);
-      history.push('/');
-    } catch (error) {
-      console.error(error);
-      // make loginError match what ErrorDetails expects,
-      // e.g. shape of Joi.errors
+    const login = await logIn(email, password);
+    if (login.error) {
       setLoginError([
         {
           context: 'credentials',
           type: 'authentication',
-          message: error.message
+          message: login.message
         }
       ]);
+      return null;
     }
+    history.push('/');
   }
 
   return (
