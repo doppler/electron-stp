@@ -62,11 +62,14 @@ const Header = () => {
           </span> */}
         </div>
         <div className='right'>
-          <span>{user.name}</span>
-          {/* <span>{JSON.stringify(user.roles)}</span> */}
-          <Link to='/logout' className='link'>
-            <MdLock />
-          </Link>
+          {user && (
+            <>
+              <span>{user.name}</span>
+              <Link to='/logout' className='link'>
+                <MdLock />
+              </Link>
+            </>
+          )}
           {isAdminUser() && (
             <NavLink to='/settings' className='link'>
               <MdSettings />

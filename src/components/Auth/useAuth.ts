@@ -97,7 +97,7 @@ const useAuth = () => {
       window.sessionStorage.setItem('stp:user', JSON.stringify(result));
       return result;
     } catch (error) {
-      console.error(error);
+      return error;
     }
   };
 
@@ -116,7 +116,9 @@ const useAuth = () => {
     const user: IAuthUser = JSON.parse(
       window.sessionStorage.getItem('stp:user') || 'null'
     );
-    const isAdminUser = user && user.roles.includes('admin');
+    // If there are no users yet, let first user admin
+    const isAdminUser =
+      userDocCount <= 0 || (user && user.roles.includes('admin'));
     return isAdminUser;
   };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, RouteProps, Redirect } from 'react-router-dom';
+import { Route, Redirect, RouteProps } from 'react-router-dom'; // eslint-disable-line no-unused-vars
 import useAuth from './Auth/useAuth';
 
 interface PrivateRouteProps extends RouteProps {
@@ -13,7 +13,6 @@ const PrivateRoute = (props: PrivateRouteProps) => {
     <Route
       {...rest}
       render={({ location }) =>
-        // user && user.roles.include('admin') ? (
         isAdminUser() || isInstructor() ? (
           children
         ) : (
