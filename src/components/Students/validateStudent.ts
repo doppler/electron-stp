@@ -17,7 +17,9 @@ const schema = Joi.object({
     .pattern(/^[0-9]{3} [0-9]{3} [0-9]{4}$/)
     .rule({ message: "Phone must match pattern 'NNN NNN NNNN'" })
     .required(),
-  currentLocation: Joi.string().empty('')
+  currentLocation: Joi.string().empty(''),
+  hometown: Joi.string().empty(''),
+  locations: Joi.array().empty()
 });
 
 export default (student: IStudent) => {

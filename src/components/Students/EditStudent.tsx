@@ -108,6 +108,18 @@ const EditStudent: React.FC = () => {
             className={invalidIfHasErrorFor(errors, 'phone')}
           />
         </Field>
+        <Field>
+          <Label htmlFor='hometown'>Hometown</Label>
+          <Input
+            name='hometown'
+            value={values.hometown}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder='Hometown, ST'
+            autoComplete={'off'}
+            className={invalidIfHasErrorFor(errors, 'hometown')}
+          />
+        </Field>
         <ButtonGroup>
           <Button type='submit'>Save</Button>
         </ButtonGroup>
