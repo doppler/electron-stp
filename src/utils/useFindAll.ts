@@ -1,8 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import useDB from '../useDB';
 
-const useFindAll = (selector: any) => {
+type useFindAllArgs = {
+  selector: {
+    type: 'instructor' | 'student' | 'aircraft' | 'location' | 'jump';
+  };
+};
+
+const useFindAll = (args: useFindAllArgs) => {
   const { find } = useDB();
+  const selector = useRef(args);
   const [results, setResults] = useState<any>([]);
 
   useEffect(() => {

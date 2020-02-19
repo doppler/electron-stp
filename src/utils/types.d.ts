@@ -15,9 +15,3 @@ type TIndexDefinition = {
   };
 };
 type TCreateIndexResults = object[];
-
-type useFindAllArg = {
-  selector: {
-    type: 'instructor' | 'student' | 'aircraft' | 'location' | 'jump';
-  };
-};

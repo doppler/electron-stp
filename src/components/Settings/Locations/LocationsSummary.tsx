@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { sessionBoolean } from '../../../utils';
 import { Button, Details, SummaryList } from '../../FormComponents';
@@ -11,10 +11,7 @@ const LocationsSummary: React.FC = () => {
     sessionBoolean('showLocationDetails')
   );
 
-  const selector: React.Ref<useFindAllArg> = useRef({
-    selector: { type: 'location' }
-  });
-  const locations = useFindAll(selector);
+  const locations = useFindAll({ selector: { type: 'location' } });
 
   useEffect(() => {
     sessionBoolean({ showLocationDetails });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { sessionBoolean } from '../../../utils';
 import { Button, Details, SummaryList } from '../../FormComponents';
@@ -11,10 +11,7 @@ const InstructorSummary: React.FC = () => {
     sessionBoolean('showInstructorDetails')
   );
 
-  const selector: React.Ref<useFindAllArg> = useRef({
-    selector: { type: 'instructor' }
-  });
-  const instructorList = useFindAll(selector);
+  const instructorList = useFindAll({ selector: { type: 'instructor' } });
 
   useEffect(() => {
     sessionBoolean({ showInstructorDetails });
