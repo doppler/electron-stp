@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
-import useDB from '../../../useDB';
 import { sessionBoolean } from '../../../utils';
 import { Button, Details, SummaryList } from '../../FormComponents';
+import useFindAll from '../../../utils/useFindAll';
 
 const AircraftSummary: React.FC = () => {
-  const { find } = useDB();
   const match = useRouteMatch();
 
-  const [aircraftList, setAircraftList] = useState<any>([]);
   const [showAircraftDetails, toggleShowDetails] = useState(
     sessionBoolean('showAircraftDetails')
   );
 
-  useEffect(() => {
-    (async () => {
-      const aircraftList = await find({ selector: { type: 'aircraft' } });
-      setAircraftList(aircraftList);
-    })();
-  }, [find]);
+  const aircraftList = useFindAll({ selector: { type: 'aircraft' } });
 
   useEffect(() => {
     sessionBoolean({ showAircraftDetails });

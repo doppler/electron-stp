@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import useDB from '../../../useDB';
 import { sessionBoolean } from '../../../utils';
 import { Button, Details, SummaryList } from '../../FormComponents';
+import useFindAll from '../../../utils/useFindAll';
 
 const InstructorSummary: React.FC = () => {
-  const { find } = useDB();
   const match = useRouteMatch();
 
-  const [instructorList, setInstructorList] = useState<any>([]);
   const [showInstructorDetails, toggleShowDetails] = useState(
     sessionBoolean('showInstructorDetails')
   );
 
-  useEffect(() => {
-    (async () => {
-      const instructorList = await find({ selector: { type: 'instructor' } });
-      setInstructorList(instructorList);
-    })();
-  }, [find]);
+  const instructorList = useFindAll({ selector: { type: 'instructor' } });
 
   useEffect(() => {
     sessionBoolean({ showInstructorDetails });

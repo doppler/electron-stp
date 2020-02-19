@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
-import useDB from '../../../useDB';
 import { sessionBoolean } from '../../../utils';
 import { Button, Details, SummaryList } from '../../FormComponents';
+import useFindAll from '../../../utils/useFindAll';
 
 const LocationsSummary: React.FC = () => {
-  const { find } = useDB();
   const match = useRouteMatch();
 
-  const [locations, setLocations] = useState<any>([]);
   const [showLocationDetails, toggleShowDetails] = useState(
     sessionBoolean('showLocationDetails')
   );
 
-  useEffect(() => {
-    (async () => {
-      const locations = await find({ selector: { type: 'location' } });
-      setLocations(locations);
-    })();
-  }, [find]);
+  const locations = useFindAll({ selector: { type: 'location' } });
 
   useEffect(() => {
     sessionBoolean({ showLocationDetails });

@@ -1,18 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import useDB from '../../useDB';
+import React from 'react';
 import { Button } from '../FormComponents';
 import { Link } from 'react-router-dom';
+import useFindAll from '../../utils/useFindAll';
 
 const ListStudents: React.FC = () => {
-  const { find } = useDB();
-  const [students, setStudents] = useState<any>([]);
-
-  useEffect(() => {
-    (async () => {
-      const studentList = await find({ selector: { type: 'student' } });
-      setStudents(studentList);
-    })();
-  }, [find]);
+  const students = useFindAll({ selector: { type: 'student' } });
 
   return (
     <div className='ListStudents'>
