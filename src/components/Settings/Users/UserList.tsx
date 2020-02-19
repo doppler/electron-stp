@@ -19,13 +19,15 @@ const UserSummary: React.FC = () => {
   );
 
   useEffect(() => {
+    const abortController = new AbortController();
     (async () => {
       const result = await usersDB.allDocs({ include_docs: true });
       const users = result.rows
         .filter(row => row.id.match(/^org\.couchdb\.user/))
         .map(row => row.doc);
-      setUsers(users);
+      if (!abortController.signal.aborted) setUsers(users);
     })();
+    return () => abortController.abort();
   }, [usersDB]);
 
   useEffect(() => {

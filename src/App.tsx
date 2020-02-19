@@ -33,6 +33,7 @@ const App = () => {
   /* If there are no _users docs besides the _design doc, we'll use the 
   /* EditInstructor interface to create a new Instructor and _user at
   /* the same time. Otherwise, we'll just use the Login screen.
+  /* TODO: set this in LocalStorage so we can skip it after first run
    */
   const [didFetchUserDocCount, setFetchedUserDocCount] = useState(false);
   const [isFirstRun, setFirstRun] = useState(true);
