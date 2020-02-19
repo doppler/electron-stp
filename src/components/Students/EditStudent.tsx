@@ -63,7 +63,7 @@ const EditStudent: React.FC = () => {
       console.log({ doc });
       setValues(doc);
     })();
-  }, [params.id, get, setValues]);
+  }, [params, get, setValues]);
 
   return (
     <Panel>
