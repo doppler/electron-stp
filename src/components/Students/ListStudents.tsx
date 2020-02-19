@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Button } from '../FormComponents';
 import { Link } from 'react-router-dom';
 import useFindAll from '../../utils/useFindAll';
 
 const ListStudents: React.FC = () => {
-  const students = useFindAll({ selector: { type: 'student' } });
+  const selector = useRef<useFindAllArg>({ selector: { type: 'student' } });
+  const students = useFindAll(selector);
 
   return (
     <div className='ListStudents'>
@@ -20,5 +21,4 @@ const ListStudents: React.FC = () => {
     </div>
   );
 };
-
 export default ListStudents;
