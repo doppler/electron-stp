@@ -17,6 +17,7 @@ import {
   Panel
 } from '../../FormComponents';
 import { invalidIfHasErrorFor } from '../../../utils';
+import { isFirstRun, setFirstRun } from '../../../utils/firstRun';
 
 const INITIAL_STATE: IInstructor = {
   type: 'instructor',
@@ -33,7 +34,7 @@ const EditInstructor: React.FC = () => {
   const match = useRouteMatch();
   const history = useHistory();
   const { get, put, find } = useDB();
-  const { addAdminRole, signUp, logIn, user } = useAuth();
+  const { signUp, logIn, user } = useAuth();
   const [isLogin, setLogin] = useState(false);
   const [loginError, setLoginError] = useState(null);
 
@@ -42,8 +43,8 @@ const EditInstructor: React.FC = () => {
   const [locations, setLocations] = useState<any>([]);
 
   useEffect(() => {
-    setLogin(!addAdminRole && !user);
-  }, [addAdminRole, user]);
+    setLogin(!isFirstRun && !user);
+  }, [user]);
 
   const {
     values,
@@ -74,7 +75,7 @@ const EditInstructor: React.FC = () => {
           roles,
           !user ? true : false
         );
-        window.localStorage.setItem('stp:isFirstRun', 'false');
+        setFirstRun();
         values._id = `${INITIAL_STATE.type}:${values.uspaNumber}`;
         delete values.password;
         delete values.passwordConfirm;

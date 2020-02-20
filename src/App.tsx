@@ -8,6 +8,7 @@ import { EditInstructor } from './components/Settings/Instructors';
 import PrivateRoute from './components/PrivateRoute';
 import useDB from './useDB';
 import styled from 'styled-components';
+import { isFirstRun } from './utils/firstRun';
 
 const AppContainer = styled.div`
   color: var(--body-text-color);
@@ -26,10 +27,6 @@ const App = () => {
       const createIndexesResults = await createIndexes(DB); // eslint-disable-line @typescript-eslint/no-unused-vars, no-unused-vars
     })();
   }, [DB]);
-
-  const isFirstRun = JSON.parse(
-    window.localStorage.getItem('stp:isFirstRun') || 'true'
-  );
 
   return (
     <AppContainer>

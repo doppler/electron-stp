@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import PouchDB from 'pouchdb';
+import { isFirstRun, setFirstRun } from '../../utils/firstRun';
 PouchDB.plugin(require('pouchdb-auth'));
 
 const usersDB = new PouchDB('_users', { auto_compaction: true });
@@ -29,8 +30,7 @@ if (dbSyncSettings.doSync) {
     })
     .on('change', info => {
       console.info(info);
-      if (info.change.docs.length > 1)
-        window.localStorage.setItem('stp:isFirstRun', 'false');
+      if (info.change.docs.length > 0) setFirstRun();
     })
     .on('active', () => console.info('DB replication active.'))
     .on('complete', info => console.info(info))
@@ -41,9 +41,6 @@ if (dbSyncSettings.doSync) {
 usersDB.useAsAuthenticationDB();
 
 const useAuth = () => {
-  const addAdminRole = JSON.parse(
-    window.localStorage.getItem('stp:isFirstRun') || 'true'
-  );
   const user = JSON.parse(window.sessionStorage.getItem('stp:user') || 'null');
 
   const signUp = async (
@@ -52,7 +49,7 @@ const useAuth = () => {
     roles: string[],
     signIn: boolean
   ) => {
-    if (addAdminRole) {
+    if (isFirstRun) {
       roles.push('admin');
     }
     try {
@@ -98,7 +95,7 @@ const useAuth = () => {
       window.sessionStorage.getItem('stp:user') || 'null'
     );
     // If there are no users yet, let first user admin
-    const isAdminUser = addAdminRole || (user && user.roles.includes('admin'));
+    const isAdminUser = isFirstRun || (user && user.roles.includes('admin'));
     return isAdminUser;
   };
 
@@ -110,7 +107,6 @@ const useAuth = () => {
     return isInstructor;
   };
   return {
-    addAdminRole,
     signUp,
     logIn,
     logOut,
