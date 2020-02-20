@@ -33,7 +33,7 @@ const EditInstructor: React.FC = () => {
   const match = useRouteMatch();
   const history = useHistory();
   const { get, put, find } = useDB();
-  const { userDocCount, signUp, logIn, user } = useAuth();
+  const { addAdminRole, signUp, logIn, user } = useAuth();
   const [isLogin, setLogin] = useState(false);
   const [loginError, setLoginError] = useState(null);
 
@@ -42,8 +42,8 @@ const EditInstructor: React.FC = () => {
   const [locations, setLocations] = useState<any>([]);
 
   useEffect(() => {
-    setLogin(userDocCount > 0 && !user);
-  }, [userDocCount, user]);
+    setLogin(!addAdminRole && !user);
+  }, [addAdminRole, user]);
 
   const {
     values,
@@ -74,6 +74,7 @@ const EditInstructor: React.FC = () => {
           roles,
           !user ? true : false
         );
+        window.localStorage.setItem('stp:isFirstRun', 'false');
         values._id = `${INITIAL_STATE.type}:${values.uspaNumber}`;
         delete values.password;
         delete values.passwordConfirm;
@@ -232,7 +233,6 @@ const EditInstructor: React.FC = () => {
       </Form>
       {loginError && <span className='error-text'>{loginError}</span>}
       <ErrorDetails errors={errors} />
-      {/* <code>{JSON.stringify(values, null, 2)}</code> */}
     </Panel>
   );
 };

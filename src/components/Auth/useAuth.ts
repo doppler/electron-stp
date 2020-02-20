@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import PouchDB from 'pouchdb';
-import { useState, useEffect } from 'react';
 PouchDB.plugin(require('pouchdb-auth'));
 
 const usersDB = new PouchDB('_users', { auto_compaction: true });
@@ -28,7 +27,11 @@ if (dbSyncSettings.doSync) {
         return !doc._id.match(/^_design\/_auth/);
       }
     })
-    .on('change', info => console.info(info))
+    .on('change', info => {
+      console.info(info);
+      if (info.change.docs.length > 1)
+        window.localStorage.setItem('stp:isFirstRun', 'false');
+    })
     .on('active', () => console.info('DB replication active.'))
     .on('complete', info => console.info(info))
     .on('error', error => console.error(error))
@@ -38,32 +41,10 @@ if (dbSyncSettings.doSync) {
 usersDB.useAsAuthenticationDB();
 
 const useAuth = () => {
-  const [addAdminRole, setAddAdminRole] = useState(false);
-  const [userDocCount, setUserDocCount] = useState(-999); // magic number
+  const addAdminRole = JSON.parse(
+    window.localStorage.getItem('stp:isFirstRun') || 'true'
+  );
   const user = JSON.parse(window.sessionStorage.getItem('stp:user') || 'null');
-
-  useEffect(() => {
-    const contoller = new AbortController();
-    let isCancelled = false;
-    // If there are no users in the _users database, the login screen should
-    // display a confirmPassword field, and we'll set that user as an admin.
-    (async () => {
-      let doc_count = 0;
-      try {
-        const result = await usersDB.info();
-        doc_count = result.doc_count - 1;
-        if (isCancelled) return;
-        if (doc_count <= 0) setAddAdminRole(true);
-        setUserDocCount(doc_count);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-    return () => {
-      isCancelled = true;
-      contoller.abort();
-    };
-  }, []);
 
   const signUp = async (
     email: string,
@@ -117,8 +98,7 @@ const useAuth = () => {
       window.sessionStorage.getItem('stp:user') || 'null'
     );
     // If there are no users yet, let first user admin
-    const isAdminUser =
-      userDocCount <= 0 || (user && user.roles.includes('admin'));
+    const isAdminUser = addAdminRole || (user && user.roles.includes('admin'));
     return isAdminUser;
   };
 
@@ -130,7 +110,7 @@ const useAuth = () => {
     return isInstructor;
   };
   return {
-    userDocCount,
+    addAdminRole,
     signUp,
     logIn,
     logOut,

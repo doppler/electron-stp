@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { createIndexes } from './utils';
 import AppRouter from './components/AppRouter';
 import Login from './components/Auth/Login';
 import Logout from './components/Auth/Logout';
 import { EditInstructor } from './components/Settings/Instructors';
-import useAuth from './components/Auth/useAuth';
 import PrivateRoute from './components/PrivateRoute';
 import useDB from './useDB';
 import styled from 'styled-components';
@@ -28,21 +27,9 @@ const App = () => {
     })();
   }, [DB]);
 
-  /*
-  /* FirstRun:
-  /* If there are no _users docs besides the _design doc, we'll use the 
-  /* EditInstructor interface to create a new Instructor and _user at
-  /* the same time. Otherwise, we'll just use the Login screen.
-  /* TODO: set this in LocalStorage so we can skip it after first run
-   */
-  const [didFetchUserDocCount, setFetchedUserDocCount] = useState(false);
-  const [isFirstRun, setFirstRun] = useState(true);
-  const { userDocCount } = useAuth();
-  useEffect(() => {
-    setFirstRun(userDocCount <= 0);
-    setFetchedUserDocCount(userDocCount !== -999); // magic number
-  }, [userDocCount]);
-  if (!didFetchUserDocCount) return null;
+  const isFirstRun = JSON.parse(
+    window.localStorage.getItem('stp:isFirstRun') || 'true'
+  );
 
   return (
     <AppContainer>
