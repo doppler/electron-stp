@@ -11,7 +11,9 @@ const ListStudents: React.FC = () => {
       <h1>Listing Students</h1>
       <ul>
         {students.map(student => (
-          <li key={student._id}>{student.name}</li>
+          <Link key={student._id} to={`/student/${student._id}/jumps`}>
+            <li key={student._id}>{student.name}</li>
+          </Link>
         ))}
       </ul>
       <Button>

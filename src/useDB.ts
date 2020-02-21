@@ -43,7 +43,6 @@ const useDB = () => {
             .get(`org.couchdb.user:${doc.email}`)
             .then(user => usersDB.remove(user));
         }
-        // @ts-ignore
         result = await DB.put(doc);
       } catch (error) {
         console.log(error);
@@ -56,7 +55,6 @@ const useDB = () => {
   const get = useCallback(async _id => {
     let result;
     try {
-      // @ts-ignore
       result = await DB.get(_id);
     } catch (error) {
       console.log(error);
@@ -67,7 +65,6 @@ const useDB = () => {
   const find = useCallback(async query => {
     let result;
     try {
-      // @ts-ignore
       result = await DB.find(query);
     } catch (error) {
       console.error(error);

@@ -59,7 +59,7 @@ const EditStudent: React.FC = () => {
     setNew(false);
 
     (async () => {
-      const doc = await get(`student:${params.id}`);
+      const doc = await get(`${params.id}`);
       console.log({ doc });
       setValues(doc);
     })();
