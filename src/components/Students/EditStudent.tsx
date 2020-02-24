@@ -54,7 +54,6 @@ const EditStudent: React.FC = () => {
   }
 
   useEffect(() => {
-    console.info({ params });
     if (params.id === 'NEW') return;
     setNew(false);
 

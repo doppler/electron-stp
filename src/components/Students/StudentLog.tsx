@@ -12,7 +12,7 @@ const StudentLog: React.FC = () => {
       const doc = await get(params.id);
       setStudent(doc);
     })();
-  }, [params]);
+  }, [get, params]);
 
   return <code>{student._id}</code>;
 };
