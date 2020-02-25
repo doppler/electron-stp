@@ -18,7 +18,7 @@ interface IJump extends ICouchDocument {
   type: 'jump';
   jumpNumber: number;
   diveFlow: number;
-  date: Date;
+  date: string;
   location: string;
   instructor: string;
   aircraft: string;
@@ -28,7 +28,7 @@ interface IJump extends ICouchDocument {
   freefall: string;
   canopy: string;
   landing: string;
-  recommendedNextDF: number | null;
+  recommendedNextDF: number | undefined;
 }
 type TJumpList = Array<IJump>;
 interface TJumpValidationReturns extends TFormValidationReturns {

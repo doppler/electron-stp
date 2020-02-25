@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import useDB from '../../useDB';
 import validate from './validateJump';
 import useFormValidation from '../../utils/useFormValidation';
@@ -15,18 +15,19 @@ import {
 } from '../FormComponents';
 import ErrorDetails from '../ErrorDetails';
 import format from 'date-fns/format';
+import { parseISO } from 'date-fns';
 
 const INITIAL_STATE: IJump = {
   type: 'jump',
   jumpNumber: 3,
   diveFlow: 1,
-  date: new Date(),
+  date: new Date().toISOString(),
   location: '',
   instructor: '',
   aircraft: '',
   exitAltitude: 14000,
   deploymentAltitude: 5500,
-  recommendedNextDF: null,
+  recommendedNextDF: undefined,
   exit: '',
   freefall: '',
   canopy: '',
@@ -37,6 +38,8 @@ const EditJump: React.FC = () => {
   console.log('EditJump');
   const { get, put } = useDB();
   const params = useParams<{ jumpId: string; studentId: string }>();
+  const history = useHistory();
+  const location = useLocation();
 
   const {
     values,
@@ -53,19 +56,23 @@ const EditJump: React.FC = () => {
 
   async function submit() {
     if (!values._id) {
-      values._id = `student:${params.studentId}:jump:${values.jumpNumber}`;
+      values._id = `${params.studentId}:jump:${values.jumpNumber}`;
     }
     await put(values);
     console.info('Saved Jump');
     console.info({ values });
+    history.push(`/student/${params.studentId}/jump/${values.jumpNumber}`);
   }
+
+  // http://localhost:3000/student/student:foo@bar.com/jump/3
+
   useEffect(() => {
     console.log('rendering');
     if (params.jumpId !== 'NEW') {
       console.log(`fetching ${params.jumpId}`);
 
       (async () => {
-        const doc = await get(params.jumpId);
+        const doc = await get(`${params.studentId}:jump:${values.jumpNumber}`);
         setValues(doc);
       })();
     }
@@ -103,7 +110,7 @@ const EditJump: React.FC = () => {
           <Label htmlFor='date'>Date</Label>
           <Input
             name='date'
-            value={format(values.date, 'iii LLL do yyyy')}
+            value={format(parseISO(values.date), 'iii LLL do yyyy')}
             onChange={handleChange}
             onBlur={handleBlur}
             className={invalidIfHasErrorFor(errors, 'date')}
@@ -166,6 +173,7 @@ const EditJump: React.FC = () => {
         </ButtonGroup>
         <ErrorDetails errors={errors} />
       </Form>
+      <code>{JSON.stringify(location, null, 2)}</code>
     </Panel>
   );
 };

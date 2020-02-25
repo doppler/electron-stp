@@ -8,16 +8,16 @@ const schema = Joi.object({
   jumpNumber: Joi.number().required(),
   diveFlow: Joi.number().required(),
   date: Joi.date().required(),
-  location: Joi.string().required(),
-  instructor: Joi.string().required(),
-  aircraft: Joi.string().required(),
-  exitAltitude: Joi.number().required(),
-  deploymentAltitude: Joi.number().required(),
-  recommendedNextDF: Joi.number(),
-  exit: Joi.string().required(),
-  freefall: Joi.string().required(),
-  canopy: Joi.string().required(),
-  landing: Joi.string().required()
+  location: Joi.string().empty(''),
+  instructor: Joi.string().empty(''),
+  aircraft: Joi.string().empty(''),
+  exitAltitude: Joi.number().empty(''),
+  deploymentAltitude: Joi.number(),
+  exit: Joi.string().empty(''),
+  freefall: Joi.string().empty(''),
+  canopy: Joi.string().empty(''),
+  landing: Joi.string().empty(''),
+  recommendedNextDF: Joi.number().optional()
 });
 
 export default (jump: IJump) => {
