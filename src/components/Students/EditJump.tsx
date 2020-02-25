@@ -81,7 +81,7 @@ const EditJump: React.FC = () => {
   return (
     <Panel>
       <h1>
-        Edit {values._id ? 'New' : ''} Jump {values.jumpNumber}
+        Edit {!values._id ? 'New' : ''} Jump {values.jumpNumber}
       </h1>
       <Form onSubmit={handleSubmit}>
         <Field>
@@ -174,6 +174,7 @@ const EditJump: React.FC = () => {
         <ErrorDetails errors={errors} />
       </Form>
       <code>{JSON.stringify(location, null, 2)}</code>
+      <code>{JSON.stringify(values, null, 2)}</code>
     </Panel>
   );
 };
