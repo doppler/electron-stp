@@ -37,7 +37,7 @@ const INITIAL_STATE: IJump = {
 const EditJump: React.FC = () => {
   console.log('EditJump');
   const { get, put } = useDB();
-  const params = useParams<{ jumpId: string; studentId: string }>();
+  const params = useParams<{ studentId: string; jumpNumber: string }>();
   const history = useHistory();
   const location = useLocation();
 
@@ -64,19 +64,19 @@ const EditJump: React.FC = () => {
     history.push(`/student/${params.studentId}/jump/${values.jumpNumber}`);
   }
 
-  // http://localhost:3000/student/student:foo@bar.com/jump/3
+  // http://localhost:3000/student/student:foo@bar.com/jump/5
 
   useEffect(() => {
     console.log('rendering');
-    if (params.jumpId !== 'NEW') {
-      console.log(`fetching ${params.jumpId}`);
+    if (params.jumpNumber !== 'NEW') {
+      console.log(`fetching ${params.jumpNumber}`);
 
       (async () => {
-        const doc = await get(`${params.studentId}:jump:${values.jumpNumber}`);
+        const doc = await get(`${params.studentId}:jump:${params.jumpNumber}`);
         setValues(doc);
       })();
     }
-  }, [get, params, setValues]);
+  }, [get, params, setValues, values.jumpNumber]);
 
   return (
     <Panel>

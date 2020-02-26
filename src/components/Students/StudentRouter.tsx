@@ -11,7 +11,7 @@ const StudentRouter: React.FC = () => {
       <Route exact path={`/`}>
         <ListStudents />
       </Route>
-      <Route path={`/student/:studentId/jump/:jumpId`}>
+      <Route path={`/student/:studentId/jump/:jumpNumber`}>
         <EditJump />
       </Route>
       <Route path={`/student/:id/jumps`}>
