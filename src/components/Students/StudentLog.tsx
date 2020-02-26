@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import useDB from '../../useDB';
-import format from 'date-fns/format';
+import { format, parse } from 'date-fns';
 import { Button } from '../FormComponents';
 
 const StudentLog: React.FC = () => {
@@ -18,7 +18,6 @@ const StudentLog: React.FC = () => {
         endkey: `${params.id}:jump:999`,
         include_docs: true
       });
-      console.log({ result });
       const [student, ...jumps] = result.rows;
       setStudent(student.doc);
       setJumps(jumps.map(jump => jump.doc));
@@ -42,9 +41,14 @@ const StudentLog: React.FC = () => {
                 history.push(`/student/${student._id}/jump/${jump.jumpNumber}`)
               }
             >
-              <td>{format(Date.parse(jump.date), 'EEE MMM do')}</td>
               <td>{jump.jumpNumber}</td>
               <td>{jump.diveFlow}</td>
+              <td>
+                {format(
+                  parse(jump.date, 'yyyy-MM-dd', new Date()),
+                  'EEE MMM do'
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
