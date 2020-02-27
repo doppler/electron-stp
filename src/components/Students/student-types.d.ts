@@ -12,7 +12,6 @@ type TEditStudentParams = {
 };
 interface TStudentValidationReturns extends TFormValidationReturns {
   values: IStudent;
-  errors: TValidationError[];
 }
 interface IJump extends ICouchDocument {
   type: 'jump';
@@ -33,6 +32,4 @@ interface IJump extends ICouchDocument {
 type TJumpList = Array<IJump>;
 interface TJumpValidationReturns extends TFormValidationReturns {
   values: IJump;
-  errors: TValidationError[];
 }
-// TODO: maybe move 'errors' to TFormValidationReturns?

@@ -23,7 +23,6 @@ interface IValidationError {
     value?: string;
   };
 }
-type TValidationErrors = IValidationError[];
 
 type DBSyncSettings = {
   doSync: boolean;

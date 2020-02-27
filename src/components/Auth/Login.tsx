@@ -33,7 +33,6 @@ const Login = () => {
 
   interface CreateLoginFormValidationReturns extends TFormValidationReturns {
     values: TLoginFormValues;
-    errors: TValidationErrors;
   }
 
   const {

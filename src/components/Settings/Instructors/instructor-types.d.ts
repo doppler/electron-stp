@@ -13,5 +13,4 @@ type TEditInstructorParams = {
 };
 interface TInstructorValidationReturns extends TFormValidationReturns {
   values: IInstructor;
-  errors: TValidationError[];
 }

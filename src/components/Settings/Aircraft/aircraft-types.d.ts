@@ -9,5 +9,4 @@ type TEditAircraftParams = {
 };
 interface TAircraftValidationReturns extends TFormValidationReturns {
   values: IAircraft;
-  errors: TValidationError[];
 }

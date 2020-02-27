@@ -1,6 +1,6 @@
 interface TFormValidationReturns {
   values: any;
-  errors: any;
+  errors: IValidationError[];
   handleChange?: (event: React.ChangeEvent) => void;
   handleBlur?: (event: React.FocusEvent) => void;
   handleSubmit?: (event: React.SyntheticEvent) => void;

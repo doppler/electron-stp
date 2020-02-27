@@ -8,5 +8,4 @@ type TEditLocationParams = {
 };
 interface TLocationValidationReturns extends TFormValidationReturns {
   values: ILocation;
-  errors: TValidationError[];
 }

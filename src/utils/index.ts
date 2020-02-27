@@ -25,7 +25,7 @@ export function sessionBoolean(arg: any) {
 }
 
 export function invalidIfHasErrorFor(
-  errors: TValidationErrors,
+  errors: IValidationError[],
   fieldName: string
 ): string {
   return errors.map(e => e.context.key).includes(fieldName) ? 'invalid' : '';
