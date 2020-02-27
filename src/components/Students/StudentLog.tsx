@@ -7,22 +7,22 @@ import { Button } from '../FormComponents';
 const StudentLog: React.FC = () => {
   const params = useParams<{ id: string }>();
   const history = useHistory();
-  const { DB } = useDB();
+  const { allDocs } = useDB();
   const [student, setStudent]: [IStudent, any] = useState<any>({});
   const [jumps, setJumps]: [TJumpList, any] = useState<any>([]);
 
   useEffect(() => {
     (async () => {
-      const result = await DB.allDocs({
+      const docs = await allDocs({
         startkey: params.id,
         endkey: `${params.id}:jump:999`,
         include_docs: true
       });
-      const [student, ...jumps] = result.rows;
-      setStudent(student.doc);
-      setJumps(jumps.map(jump => jump.doc));
+      const [student, ...jumps] = docs;
+      setStudent(student);
+      setJumps(jumps);
     })();
-  }, [DB, params]);
+  }, [allDocs, params]);
 
   return (
     <div>

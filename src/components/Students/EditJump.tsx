@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, useHistory, useLocation } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import useDB from '../../useDB';
 import validate from './validateJump';
 import useFormValidation from '../../utils/useFormValidation';
@@ -34,10 +34,9 @@ const INITIAL_STATE: IJump = {
 };
 
 const EditJump: React.FC = () => {
-  const { get, put, DB } = useDB();
+  const { get, put, allDocs } = useDB();
   const params = useParams<{ studentId: string; jumpNumber: string }>();
   const history = useHistory();
-  const location = useLocation();
 
   const {
     values,
@@ -66,14 +65,14 @@ const EditJump: React.FC = () => {
     if (params.jumpNumber === 'NEW') {
       // get student jumps
       (async () => {
-        const result = await DB.allDocs({
+        const docs = await allDocs({
           startkey: params.studentId,
           endkey: `${params.studentId}:jump:999`,
           include_docs: true,
           descending: false
         });
         // and pluck the last one
-        const lastJump: any = [...result.rows.map(row => row.doc)].pop();
+        const lastJump: any = [...docs].pop();
         // and increment this jump's #s using those values
         setValues((prevState: IJump) => ({
           ...prevState,
@@ -87,7 +86,7 @@ const EditJump: React.FC = () => {
         setValues(doc);
       })();
     }
-  }, [DB, get, params, setValues]);
+  }, [allDocs, get, params, setValues]);
 
   return (
     <Panel>
@@ -185,7 +184,6 @@ const EditJump: React.FC = () => {
         </ButtonGroup>
         <ErrorDetails errors={errors} />
       </Form>
-      <code>{JSON.stringify(location, null, 2)}</code>
       <code>{JSON.stringify(values, null, 2)}</code>
     </Panel>
   );

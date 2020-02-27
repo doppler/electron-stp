@@ -31,7 +31,6 @@ if (dbSyncSettings.doSync) {
 }
 
 const useDB = () => {
-  // const DB = useContext(DBContext);
   const { usersDB } = useAuth();
 
   const put = useCallback(
@@ -45,7 +44,7 @@ const useDB = () => {
         }
         result = await DB.put(doc);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
       return result;
     },
@@ -57,7 +56,7 @@ const useDB = () => {
     try {
       result = await DB.get(_id);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     return result;
   }, []);
@@ -73,7 +72,18 @@ const useDB = () => {
     else return [];
   }, []);
 
-  return { DB, put, get, find };
+  const allDocs = useCallback(async opts => {
+    let result;
+    try {
+      result = await DB.allDocs(opts);
+    } catch (error) {
+      console.error(error);
+    }
+    if (result && result.rows) return result.rows.map(row => row.doc);
+    else return [];
+  }, []);
+
+  return { DB, put, get, find, allDocs };
 };
 
 export default useDB;
