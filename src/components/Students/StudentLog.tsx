@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import useDB from '../../useDB';
 import { format, parse } from 'date-fns';
-import { Button } from '../FormComponents';
+import { Button, Panel } from '../FormComponents';
 
 const StudentLog: React.FC = () => {
   const params = useParams<{ id: string }>();
@@ -25,7 +25,7 @@ const StudentLog: React.FC = () => {
   }, [allDocs, params]);
 
   return (
-    <div>
+    <Panel>
       <Link to={`/student/${student._id}`}>
         <h1>{student.name}</h1>
       </Link>
@@ -53,7 +53,7 @@ const StudentLog: React.FC = () => {
           ))}
         </tbody>
       </table>
-    </div>
+    </Panel>
   );
 };
 
