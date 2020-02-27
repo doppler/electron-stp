@@ -26,7 +26,7 @@ const INITIAL_STATE: IStudent = {
 };
 
 const EditStudent: React.FC = () => {
-  const params: TEditStudentParams = useParams();
+  const params = useParams<{ id?: string }>();
   // const match = useRouteMatch();
   const history = useHistory();
   const { get, put } = useDB();

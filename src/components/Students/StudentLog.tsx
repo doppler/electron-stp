@@ -9,7 +9,7 @@ const StudentLog: React.FC = () => {
   const history = useHistory();
   const { allDocs } = useDB();
   const [student, setStudent]: [IStudent, any] = useState<any>({});
-  const [jumps, setJumps]: [TJumpList, any] = useState<any>([]);
+  const [jumps, setJumps]: [IJump[], any] = useState<any>([]);
 
   useEffect(() => {
     (async () => {

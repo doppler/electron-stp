@@ -30,7 +30,7 @@ const INITIAL_STATE: IInstructor = {
 };
 
 const EditInstructor: React.FC = () => {
-  const params: TEditInstructorParams = useParams();
+  const params = useParams<{ uspaNumber?: string }>();
   const match = useRouteMatch();
   const history = useHistory();
   const { get, put, find } = useDB();

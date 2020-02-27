@@ -23,7 +23,7 @@ const INITIAL_STATE: ILocation = {
 };
 
 const EditLocation = () => {
-  const params: TEditLocationParams = useParams();
+  const params = useParams<{ code?: string }>();
   const history = useHistory();
   const { get, put } = useDB();
 

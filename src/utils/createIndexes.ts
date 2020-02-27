@@ -28,15 +28,13 @@ const APP_INDEXES: TIndexDefinition[] = [
     }
   }
 ];
-const createIndexes = async (
-  DB: PouchDB.Database
-): Promise<TCreateIndexResults> => {
+const createIndexes = async (DB: PouchDB.Database): Promise<object[]> => {
   /**
    * Creeates new indexes to be used by PouchDB.find if they
    * don't aleady exist. Runs at doc startup via AppRouter
    * useEffect()
    */
-  let createIndexResults: TCreateIndexResults = [];
+  let createIndexResults: object[] = [];
   try {
     const existingIndexesResult = await DB.getIndexes();
 

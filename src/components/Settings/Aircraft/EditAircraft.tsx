@@ -25,7 +25,7 @@ const INITIAL_STATE: IAircraft = {
 };
 
 const EditAircraft: React.FC = () => {
-  const params: TEditAircraftParams = useParams();
+  const params = useParams<{ tailNumber?: string }>();
   const history = useHistory();
   const { get, put, find } = useDB();
 
