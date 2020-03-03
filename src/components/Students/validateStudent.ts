@@ -19,7 +19,8 @@ const schema = Joi.object({
     .required(),
   currentLocation: Joi.string().empty(''),
   hometown: Joi.string().empty(''),
-  locations: Joi.array().empty()
+  locations: Joi.array().empty(),
+  previousJumpNumber: Joi.number().required()
 });
 
 export default (student: IStudent) => {

@@ -22,7 +22,8 @@ const INITIAL_STATE: IStudent = {
   phone: '',
   hometown: '',
   currentLocation: '',
-  locations: []
+  locations: [],
+  previousJumpNumber: 2
 };
 
 const EditStudent: React.FC = () => {
@@ -117,6 +118,17 @@ const EditStudent: React.FC = () => {
             placeholder='Hometown, ST'
             autoComplete={'off'}
             className={invalidIfHasErrorFor(errors, 'hometown')}
+          />
+        </Field>
+        <Field>
+          <Label htmlFor='previousJumpNumber'>Prev Jump#</Label>
+          <Input
+            name='previousJumpNumber'
+            type='number'
+            value={values.previousJumpNumber}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={invalidIfHasErrorFor(errors, 'previousJumpNumber')}
           />
         </Field>
         <ButtonGroup>

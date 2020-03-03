@@ -65,7 +65,7 @@ const EditJump: React.FC = () => {
 
   useEffect(() => {
     if (params.jumpNumber === 'NEW') {
-      // get student jumps
+      // get [student, jump0, jump1...]
       (async () => {
         const docs = await allDocs({
           startkey: params.studentId,
@@ -75,12 +75,20 @@ const EditJump: React.FC = () => {
         });
         // and pluck the last one
         const lastJump: any = [...docs].pop();
-        // and increment this jump's #s using those values
-        setValues((prevState: IJump) => ({
-          ...prevState,
-          jumpNumber: Number(lastJump.jumpNumber) + 1,
-          diveFlow: Number(lastJump.diveFlow) + 1
-        }));
+        if (lastJump.type === 'jump') {
+          // increment this jump's #s using those values
+          setValues((prevState: IJump) => ({
+            ...prevState,
+            jumpNumber: Number(lastJump.jumpNumber) + 1,
+            diveFlow: Number(lastJump.diveFlow) + 1
+          }));
+        } else {
+          // only doc was type 'student', set next jump # based on that
+          setValues((prevState: IStudent) => ({
+            ...prevState,
+            jumpNumber: Number(lastJump.previousJumpNumber) + 1
+          }));
+        }
       })();
     } else {
       (async () => {

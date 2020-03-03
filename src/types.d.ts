@@ -95,6 +95,7 @@ interface IStudent extends ICouchDocument {
   hometown?: string;
   currentLocation?: string;
   locations: [];
+  previousJumpNumber: number;
 }
 
 interface TStudentValidationReturns extends TFormValidationReturns {
