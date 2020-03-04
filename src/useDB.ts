@@ -72,14 +72,14 @@ const useDB = () => {
     else return [];
   }, []);
 
-  const allDocs = useCallback(async opts => {
+  const allDocs = useCallback(async (opts: {}) => {
     let result;
     try {
       result = await DB.allDocs(opts);
     } catch (error) {
       console.error(error);
     }
-    if (result && result.rows) return result.rows.map(row => row.doc);
+    if (result && result.rows) return result.rows.map(row => row.doc) as any;
     else return [];
   }, []);
 
