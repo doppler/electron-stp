@@ -29,6 +29,8 @@ const useFormValidation = (
         [event.target.name]:
           event.target.type === 'checkbox'
             ? event.target.checked
+            : event.target.type === 'number'
+            ? Number(event.target.value)
             : event.target.value
       };
     });
