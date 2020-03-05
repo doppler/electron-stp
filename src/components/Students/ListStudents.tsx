@@ -4,7 +4,12 @@ import { Link } from 'react-router-dom';
 import useFindAll from '../../utils/useFindAll';
 
 const ListStudents: React.FC = () => {
-  const students: IStudent[] = useFindAll({ selector: { type: 'student' } });
+  // const students: IStudent[] = useFindAll({
+  //   selector: { type: 'student' }
+  // });
+  const students: IStudent[] = useFindAll({
+    selector: { type: 'student', locations: { $elemMatch: 'ATL' } }
+  });
 
   return (
     <div className='ListStudents'>

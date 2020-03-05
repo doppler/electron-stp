@@ -8,23 +8,9 @@ const APP_INDEXES: TIndexDefinition[] = [
   },
   {
     index: {
-      fields: ['name'],
+      fields: ['locations', 'latestJump.date'],
       ddoc: 'by',
-      name: 'name'
-    }
-  },
-  {
-    index: {
-      fields: ['email'],
-      ddoc: 'by',
-      name: 'email'
-    }
-  },
-  {
-    index: {
-      fields: ['type', 'email'],
-      ddoc: 'by',
-      name: 'type_and_email'
+      name: 'location_latest_jump'
     }
   }
 ];
