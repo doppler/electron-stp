@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useDB from '../../useDB';
 import validate from './validateJump';
@@ -36,10 +36,11 @@ const INITIAL_STATE: IJump = {
 // TODO: change date back to a datetime so it'll sort naturally in the DB
 
 const EditJump: React.FC = () => {
-  const { get, put, allDocs } = useDB();
+  const { put, allDocs } = useDB();
   const params = useParams<{ studentId: string; jumpNumber: string }>();
   const history = useHistory();
-
+  const [student, setStudent] = useState<IStudent | null>(null);
+  const [jumps, setJumps] = useState<IJump[] | []>([]);
   const {
     values,
     errors,
@@ -58,45 +59,52 @@ const EditJump: React.FC = () => {
       values._id = `${params.studentId}:jump:${values.jumpNumber}`;
     }
     await put(values);
-    console.info('Saved Jump');
-    console.info({ values });
+    // store parts of this jump's values on student.latestJump
+    const { jumpNumber, diveFlow, date, location, instructor } =
+      params.jumpNumber === 'NEW' ? values : jumps[jumps.length - 1];
+    const studentWithLatestJump = {
+      ...student,
+      latestJump: { jumpNumber, diveFlow, date, location, instructor }
+    };
+    await put(studentWithLatestJump);
+
     history.replace(`/student/${params.studentId}/jump/${values.jumpNumber}`);
   }
 
   useEffect(() => {
-    if (params.jumpNumber === 'NEW') {
-      // get [student, jump0, jump1...]
-      (async () => {
-        const docs = await allDocs({
-          startkey: params.studentId,
-          endkey: `${params.studentId}:jump:999`,
-          include_docs: true,
-          descending: false
-        });
-        // and pluck the last one
-        const lastJump: any = [...docs].pop();
-        if (lastJump.type === 'jump') {
-          // increment this jump's #s using those values
-          setValues((prevState: IJump) => ({
-            ...prevState,
-            jumpNumber: Number(lastJump.jumpNumber) + 1,
-            diveFlow: Number(lastJump.diveFlow) + 1
-          }));
-        } else {
-          // only doc was type 'student', set next jump # based on that
-          setValues((prevState: IStudent) => ({
-            ...prevState,
-            jumpNumber: Number(lastJump.previousJumpNumber) + 1
-          }));
-        }
-      })();
-    } else {
-      (async () => {
-        const doc = await get(`${params.studentId}:jump:${params.jumpNumber}`);
-        setValues(doc);
-      })();
-    }
-  }, [allDocs, get, params, setValues]);
+    (async () => {
+      const docs = await allDocs({
+        startkey: params.studentId,
+        endkey: `${params.studentId}:jump:999`,
+        include_docs: true,
+        descending: false
+      });
+      const [student, ...jumps] = docs;
+      setStudent(student);
+      setJumps(jumps);
+      if (params.jumpNumber === 'NEW' && jumps.length) {
+        // increment jumpNumber and diveFlow from previous jump
+        const jump = jumps[jumps.length - 1];
+        setValues((prevState: IJump) => ({
+          ...prevState,
+          jumpNumber: jump.jumpNumber + 1,
+          diveFlow: jump.diveFlow + 1
+        }));
+      } else if (params.jumpNumber !== 'NEW' && jumps.length) {
+        // loading an existing jump from jump list
+        const jump = jumps.find(
+          (jump: IJump) => jump.jumpNumber === Number(params.jumpNumber)
+        );
+        setValues(jump);
+      } else {
+        // set jumpNumber based on student.previousJumpNumber
+        setValues((prevState: IJump) => ({
+          ...prevState,
+          jumpNumber: student.previousJumpNumber + 1
+        }));
+      }
+    })();
+  }, [allDocs, params.studentId, params.jumpNumber, setValues]);
 
   return (
     <Panel>
@@ -194,7 +202,6 @@ const EditJump: React.FC = () => {
         </ButtonGroup>
         <ErrorDetails errors={errors} />
       </Form>
-      <code>{JSON.stringify(values, null, 2)}</code>
     </Panel>
   );
 };

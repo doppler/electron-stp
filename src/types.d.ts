@@ -96,6 +96,13 @@ interface IStudent extends ICouchDocument {
   currentLocation?: string;
   locations: [];
   previousJumpNumber: number;
+  latestJump?: {
+    date: string;
+    jumpNumber: number;
+    diveFlow: number;
+    location: string;
+    instructor: string;
+  };
 }
 
 interface TStudentValidationReturns extends TFormValidationReturns {
