@@ -59,15 +59,18 @@ const EditJump: React.FC = () => {
       values._id = `${params.studentId}:jump:${values.jumpNumber}`;
     }
     await put(values);
-    // store parts of this jump's values on student.latestJump
-    const { jumpNumber, diveFlow, date, location, instructor } =
-      params.jumpNumber === 'NEW' ? values : jumps[jumps.length - 1];
-    const studentWithLatestJump = {
-      ...student,
-      latestJump: { jumpNumber, diveFlow, date, location, instructor }
-    };
-    await put(studentWithLatestJump);
-
+    // store parts of this jump's values on student.latestJump if it's the latest jump
+    if (
+      params.jumpNumber === 'NEW' ||
+      Number(params.jumpNumber) === jumps[jumps.length - 1].jumpNumber
+    ) {
+      const { jumpNumber, diveFlow, date, location, instructor } = values;
+      const studentWithLatestJump = {
+        ...student,
+        latestJump: { jumpNumber, diveFlow, date, location, instructor }
+      };
+      await put(studentWithLatestJump);
+    }
     history.replace(`/student/${params.studentId}/jump/${values.jumpNumber}`);
   }
 
