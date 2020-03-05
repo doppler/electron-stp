@@ -3,6 +3,8 @@ import createViews from './createViews';
 
 export { createIndexes, createViews };
 
+export const DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+
 export function sessionBoolean(arg: string): boolean;
 export function sessionBoolean(arg: {}): void;
 export function sessionBoolean(arg: any) {

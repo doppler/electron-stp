@@ -3,6 +3,7 @@ import { useParams, Link, useHistory } from 'react-router-dom';
 import useDB from '../../useDB';
 import { format, parse } from 'date-fns';
 import { Button, Panel } from '../FormComponents';
+import { DATETIME_FORMAT } from '../../utils';
 
 const StudentLog: React.FC = () => {
   const params = useParams<{ id: string }>();
@@ -45,7 +46,7 @@ const StudentLog: React.FC = () => {
               <td>{jump.diveFlow}</td>
               <td>
                 {format(
-                  parse(jump.date, 'yyyy-MM-dd', new Date()),
+                  parse(jump.date, DATETIME_FORMAT, new Date()),
                   'EEE MMM do'
                 )}
               </td>

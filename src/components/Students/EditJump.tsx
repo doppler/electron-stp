@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import useDB from '../../useDB';
 import validate from './validateJump';
 import useFormValidation from '../../utils/useFormValidation';
-import { invalidIfHasErrorFor } from '../../utils';
+import { DATETIME_FORMAT, invalidIfHasErrorFor } from '../../utils';
 import {
   Panel,
   Form,
@@ -20,7 +20,7 @@ const INITIAL_STATE: IJump = {
   type: 'jump',
   jumpNumber: 3,
   diveFlow: 1,
-  date: format(new Date(), 'yyyy-MM-dd'),
+  date: format(new Date(), DATETIME_FORMAT),
   location: '',
   instructor: '',
   aircraft: '',
@@ -138,7 +138,7 @@ const EditJump: React.FC = () => {
           <Label htmlFor='date'>Date</Label>
           <Input
             name='date'
-            type='date'
+            type='datetime-local'
             value={values.date}
             onChange={handleChange}
             onBlur={handleBlur}
