@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { createIndexes } from './utils';
+import { createIndexes, createViews } from './utils';
 import AppRouter from './components/AppRouter';
 import Login from './components/Auth/Login';
 import Logout from './components/Auth/Logout';
@@ -25,6 +25,7 @@ const App = () => {
      */
     (async () => {
       const createIndexesResults = await createIndexes(DB); // eslint-disable-line @typescript-eslint/no-unused-vars, no-unused-vars
+      const createViewsResults = await createViews(DB); // eslint-disable-line
     })();
   }, [DB]);
 

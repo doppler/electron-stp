@@ -33,8 +33,6 @@ const INITIAL_STATE: IJump = {
   landing: ''
 };
 
-// TODO: change date back to a datetime so it'll sort naturally in the DB
-
 const EditJump: React.FC = () => {
   const { put, allDocs } = useDB();
   const params = useParams<{ studentId: string; jumpNumber: string }>();

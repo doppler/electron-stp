@@ -4,9 +4,7 @@ import useDB from '../useDB';
 type useFindAllArgs = {
   selector: {
     type: 'instructor' | 'student' | 'aircraft' | 'location' | 'jump';
-    locations?: {};
   };
-  use_index?: string[];
 };
 
 const useFindAll = (args: useFindAllArgs) => {
